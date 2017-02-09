@@ -29,12 +29,12 @@
         $logProvider.debugEnabled(true);
     };
 
-    var run = function () {
-
-    };
+    var run = function () {};
 
     config.$inject = ['$logProvider'];
     run.$inject = [];
+
+    angular.module('ngMaterial', ["ng","ngAnimate","ngAria"]);
 
     angular.module
     ('rrms',
@@ -43,7 +43,9 @@
             'ngSanitize',                                       //ngSanitize module (for ui-select)
             'ui.select',                                        //ui-select component for select options
             'angularUtils.directives.dirPagination',            //pagination
-            'LocalStorageModule'                                //local storage module, used for instance for storing auth token
+            'LocalStorageModule',                               //local storage module, used for instance for storing auth token
+            'ngMaterial'
+
         ]
     )
         .constant('__env', env)         // Register environment in AngularJS as constant

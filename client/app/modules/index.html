@@ -10,15 +10,15 @@
     <!----CSS---->
 
     <!--**bootstrap**-->
-    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="glossary" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css.map">
-    <link rel="glossary" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css.map">
+    <link rel="glossary" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css.map">-->
+
     <!--**common**-->
     <link rel="stylesheet" href="_common/css/margins.css">
     <link rel="stylesheet" href="_common/css/colors.css">
     <link rel="stylesheet" href="_common/css/styles1.css">
-    <link rel="stylesheet" href="_common/css/custombootstrap.css">
 
     <!--**componentes**-->
     <link rel="stylesheet" href="_components/screenLoader/screen.loader.css">
@@ -35,7 +35,6 @@
             data-ng-include="idxCtrl.logged ? '_common/html/templates/logged/template1.html' :
                  '_common/html/templates/notLogged/template1.html'"
     >
-
     </div>
 
     <!--for blocking screen-->
@@ -50,19 +49,16 @@
 <!--****libs****-->
 <!--**jQuery**-->
 <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
-
-<!--**bootstrap**-->
-<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!--
-<script src="../../bower_components/angular-aria/angular-aria.js"></script>
-<script src="../../bower_components/angular-animate/angular-animate.js"></script>
-<script src="../../bower_components/angular-material/angular-material.js"></script>
--->
-
-
 <!--**AngularJS**-->
 <script src="../../bower_components/angular/angular.js"></script>
 <!--todo<script src="../../bower_components/angular/angular.min.js"></script>-->
+
+<!--ngMaterial-->
+<script type="application/javascript" src="../../bower_components/angular-aria/angular-aria.min.js"></script>
+<script type="application/javascript" src="../../bower_components/angular-animate/angular-animate.min.js"></script>
+<script type="application/javascript" src="../../bower_components/angular-material/angular-material.min.js"></script>
+<link rel="stylesheet" href="../../bower_components/angular-material/angular-material.min.css">
+
 <!--ngRoute-->
 <script src="../../bower_components/angular-route/angular-route.min.js"></script>
 <!--dirPaginate-->
@@ -76,7 +72,6 @@
 
 <!--custom js-->
 <script src="../../_customjs/bootstrapper.js"></script>
-<script src="../../_customjs/custom1.js"></script>
 
 <!--****app****-->
 <script src="../rrms.module.js"></script>
