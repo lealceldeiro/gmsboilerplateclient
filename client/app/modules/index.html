@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="rrms" data-ng-controller="indexCtrl as idxCtrl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title data-ng-bind="idxCtrl.siteTitle() ? 'Rent Room Management System | ' + idxCtrl.siteTitle()
+     : 'Rent Room Management System'"></title>
+
+    <!----CSS---->
+
+    <!--**bootstrap**-->
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="glossary" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css.map">
+    <link rel="glossary" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css.map">
+    <!--**common**-->
+    <link rel="stylesheet" href="_common/css/margins.css">
+    <link rel="stylesheet" href="_common/css/colors.css">
+    <link rel="stylesheet" href="_common/css/styles1.css">
+    <link rel="stylesheet" href="_common/css/custombootstrap.css">
+
+    <!--**componentes**-->
+    <link rel="stylesheet" href="_components/screenLoader/screen.loader.css">
+
+    <!--**libs**-->
+    <!--uiSelect-->
+    <link rel="stylesheet" href="../../bower_components/angular-ui-select/dist/select.min.css">
+
+</head>
+<body data-ng-model-options="{allowInvalid: true}">
+
+<div class="container-fluid">
+    <div
+            data-ng-include="idxCtrl.logged ? '_common/html/templates/logged/template1.html' :
+                 '_common/html/templates/notLogged/template1.html'"
+    >
+
+    </div>
+
+    <!--for blocking screen-->
+    <div data-ng-controller="blockCtrl as blockCtrl">
+        <div data-ng-show="blockCtrl.blocked" class="rrms-screen-loader" data-screen-type="0">
+        </div>
+    </div>
+</div>
+
+<!----JAVASCRIPT---->
+
+<!--****libs****-->
+<!--**jQuery**-->
+<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+
+<!--**bootstrap**-->
+<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!--
+<script src="../../bower_components/angular-aria/angular-aria.js"></script>
+<script src="../../bower_components/angular-animate/angular-animate.js"></script>
+<script src="../../bower_components/angular-material/angular-material.js"></script>
+-->
+
+
+<!--**AngularJS**-->
+<script src="../../bower_components/angular/angular.js"></script>
+<!--todo<script src="../../bower_components/angular/angular.min.js"></script>-->
+<!--ngRoute-->
+<script src="../../bower_components/angular-route/angular-route.min.js"></script>
+<!--dirPaginate-->
+<script src="../../bower_components/angularUtils-pagination/dirPagination.js"></script>
+<!--uiSelect-->
+<script src="../../bower_components/angular-ui-select/dist/select.min.js"></script>
+<!--ngSanitize-->
+<script src="../../bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<!--LocalStorage-->
+<script src="../../bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+
+<!--custom js-->
+<script src="../../_customjs/bootstrapper.js"></script>
+<script src="../../_customjs/custom1.js"></script>
+
+<!--****app****-->
+<script src="../rrms.module.js"></script>
+<script src="../rrms.constants.js"></script>
+<script src="../rrms.config.js"></script>
+<script src="../rrms.routing.js"></script>
+<script src="../rrms.interceptors.js"></script>
+
+
+<!--**modules**-->
+<script src="../modules/index.ctrl.js"></script>
+<script src="index.srv.js"></script>
+
+<!--main-->
+<script src="../modules/main/main.ctrl.js"></script>
+<script src="main/main.srv.js"></script>
+
+<!--account-->
+<script src="account/login/login.ctrl.js"></script>
+<script src="account/login/login.srv.js"></script>
+
+<script src="account/_security/session.ctrl.js"></script>
+<script src="account/_security/session.srv.js"></script>
+
+<script src="account/role/list/role.list.ctrl.js"></script>
+<script src="account/role/edit/role.edit.ctrl.js"></script>
+<script src="account/role/view/role.view.ctrl.js"></script>
+<script src="account/role/role.srv.js"></script>
+
+<script src="account/user/list/user.list.ctrl.js"></script>
+<script src="account/user/edit/user.edit.ctrl.js"></script>
+<script src="account/user/view/user.view.ctrl.js"></script>
+<script src="account/user/user.srv.js"></script>
+
+<script src="account/permission/list/permission.list.ctrl.js"></script>
+<script src="account/permission/permission.srv.js"></script>
+
+<!--owned entity-->
+<script src="owned.entity/owned.entity.srv.js"></script>
+<script src="owned.entity/list/owned.entity.list.ctrl.js"></script>
+
+
+<!--**_components**-->
+<script src="_components/screenLoader/screen.loader.drtv.js"></script>
+<script src="_components/screenBlocker/blockS.srv.js"></script>
+<script src="_components/screenBlocker/blockS.ctrl.js"></script>
+
+<!--**_common**-->
+<!--navigation-->
+<script src="_common/js/navigation/navigation.srv.js"></script>
+<script src="_common/js/navigation/pagination.srv.js"></script>
+<script src="_common/js/navigation/pagination.ctrl.js"></script>
+<!--notification-->
+<script src="_common/js/notification/notification.srv.js"></script>
+<script src="_common/js/notification/notification.ctrl.js"></script>
+<script src="_common/js/notification/alert.drtv.js"></script>
+<!--validation-->
+<script src="_common/js/validation/field.validation.drtv.js"></script>
+<!--system-->
+<script src="_common/js/system/system.srv.js"></script>
+<!--filter-->
+<script src="_common/js/filter/humanReadable.filter.js"></script>
+<script src="_common/js/filter/trimmer.filter.js"></script>
+<script src="_common/js/filter/caser.filter.js"></script>
+<!--dynamic content-->
+<script src="_common/js/dynamic_content/dynamic.drtv.js"></script>
+<!--util-->
+<script src="_common/js/util/string.srv.js"></script>
+<script src="_common/js/util/value.srv.js"></script>
+<script src="_common/js/util/base.srv.js"></script>
+<!--collection-->
+<script src="_common/js/collection/search.srv.js"></script>
+<script src="_common/js/collection/data.srv.js"></script>
+
+</body>
+</html>

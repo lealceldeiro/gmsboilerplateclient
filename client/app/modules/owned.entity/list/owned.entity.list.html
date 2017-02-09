@@ -1,0 +1,53 @@
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 navbar navbar-styled1">
+
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+        <a href="" class=" pull-left btn btn-xs btn-primary" data-ng-click="vm.new()">
+            <span class="glyphicon glyphicon-plus"></span> <span class="hidden-xs hidden-sm">Nueva</span>
+        </a>
+    </div>
+
+    <div class="mrg-left-m-19 mrg-left-m-38 col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <div ng-include='"client/app/modules/../../../_common/html/includes/list/resultPerPage.html"'></div>
+    </div>
+
+
+</div>
+
+<table class="table table-responsive table-striped table-hover table-bordered" id="oEntitiesListTable">
+    <thead>
+    <th style="width: 10%"></th>
+    <th style="width: 60%">Nombre</th>
+    <th style="width: 30%">Usuario</th>
+    </thead>
+    <tbody>
+    <tr data-dir-paginate="it in vm.entities.all | itemsPerPage:pc.getItemsPerPage()"
+        data-total-items="pc.getTotalItems()"
+        data-pagination-id="oEntitiesList">
+        <td>
+            <span class="glyphicon glyphicon-edit hand-pointer text-info" data-ng-click="vm.edit(it.id)"></span>&nbsp;
+            <span class="glyphicon glyphicon-remove hand-pointer text-danger" data-ng-click="vm.remove(it.id)"></span>
+        </td>
+        <td>
+            <a href="" data-ng-click="vm.view(it.id)"><span data-ng-bind="it.name"></span></a>
+        </td>
+        <td>
+            <span data-ng-bind="it.username"></span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<nav class="text-center" data-ng-show="!vm.entities.loading && vm.entities.all.length">
+    <dir-pagination-controls
+            pagination-id="oEntitiesList"
+            on-page-change="vm.changePage(newPageNumber)"
+            max-size="pc.getMaxLinks()"
+    >
+    </dir-pagination-controls>
+</nav>
+
+<div data-ng-hide="!vm.entities.loading">
+    <div class="rrms-screen-loader" data-screen-type="2">
+    </div>
+</div>

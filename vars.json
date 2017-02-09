@@ -1,0 +1,41 @@
+{
+  "base_url_req": "<base_url>",
+
+  "api_relative_url_req": "<relative_url>",
+
+  "header_auth_token_req": "<header_auth_token>",
+
+  "header_un_auth_token_req": "<header_unAuth>",
+
+  "header_auth_bearer_req": "<header_auth_bearer>",
+
+  "auth_new_token_requester_req": "<auth_new_token_requester>",
+
+  "auth_login_user_req": "<auth_login_user>",
+
+  "auth_login_password_req": "<auth_login_password>",
+
+
+  "item_refresh_token_req_resp": "<item_refresh_token>",
+
+
+  "success_resp": "<success>",
+
+  "error_message_resp": "<error_message>",
+
+  "success_message_resp": "<success_message>",
+
+  "total_count_resp": "<total_count>",
+
+  "items_resp": "<items>",
+
+  "item_resp": "<item>",
+
+  "item_token_resp": "<item_token>",
+
+  "auth_user_resp": "<auth_user_response>",
+
+  "auth_permissions_resp": "<auth_permissions>",
+
+  "unauthorized_code_resp": "<unauthorized_response_code_flag>"
+}

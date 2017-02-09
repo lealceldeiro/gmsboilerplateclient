@@ -1,0 +1,69 @@
+<div class="center-block blocked-2-styled">
+    <form data-ng-show="vm.role" role="form" name="editRoleForm">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label for="roleName">Nombre</label>
+                    <input type="text" class="form-control" id="roleName" name="roleName"
+                           placeholder="Escriba el nombre del rol"
+                           data-ng-model="vm.role.label">
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 mrg-t-18">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" class="hand-pointer" data-ng-checked="vm.role.enabled"
+                               data-ng-model="vm.role.enabled"> Activo
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label for="roleDescription">Descripci&oacute;n</label>
+                    <textarea class="form-control" name="roleDescription" id="roleDescription" cols="30" rows="10"
+                              placeholder="Escriba una breve descripción para este rol"
+                              data-ng-model="vm.role.description"
+                    ></textarea>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label class="control-label">Permisos</label>
+                    <ui-select multiple ng-model="vm.permissions.selected" name="roles"
+                               ng-keypress="vm.setIsSearching(true)"
+                               on-select="vm.setIsSearching(false)">
+                        <ui-select-match placeholder=" Seleccione los permisos">
+                            <span data-ng-bind="$item.label | caser"></span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in vm.permissions.all"
+                                           refresh="vm.searchPermissions($select.search)"
+                                           refresh-delay="500">
+                            <span data-ng-bind="item.label | caser"></span>
+                            <!--<br/>
+                            <small>
+                                <span data-ng-bind="item.description | trimmer:20:'...'"></span>
+                            </small>-->
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+        </div>
+        <div class="form-action">
+            <hr>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <a class="btn btn-primary btn-sm" href="" data-ng-click="vm.save(editRoleForm)">Guardar</a>
+                    <a class="btn btn-default btn-sm" href="" data-ng-click="vm.cancel()">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div data-ng-show="vm.roleData.loading">
+        <div class="rrms-screen-loader" data-screen-type="2">
+        </div>
+    </div>
+</div>

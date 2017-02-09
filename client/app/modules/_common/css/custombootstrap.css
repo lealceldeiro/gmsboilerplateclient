@@ -1,0 +1,32 @@
+hr {
+    border-top: 1px solid #e0dada;
+}
+
+label {
+    color: rgb(64, 63, 63);
+}
+
+.navbar-form {
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.form-control {
+    margin-bottom: 5px;
+}
+
+.btn-success {
+    border-color: #5ddc5d;
+    background-image: linear-gradient(to bottom,#7ef57e 0,#4dab4d 100%);
+}
+
+@media (max-width: 1000px) {
+    .mrg-left-m-19 {
+        margin-left: -19px;
+    }
+}
+@media (max-width: 728px) {
+    .mrg-left-m-38 {
+        margin-left: -38px;
+    }
+}
