@@ -18,18 +18,18 @@
                 ROLE_NEW: '/roles/new',
                 ROLE_VIEW: '/roles/:id/view', ROLE_VIEW_PL: ':id',
 
-                USERS: '/usuarios',
-                USER_EDIT: '/usuarios/:id/edit', USER_EDIT_PL: ':id',
-                USER_NEW: '/usuarios/new',
-                USER_VIEW: '/usuarios/:id/view', USER_VIEW_PL: ':id',
+                USERS: '/users',
+                USER_EDIT: '/users/:id/edit', USER_EDIT_PL: ':id',
+                USER_NEW: '/users/new',
+                USER_VIEW: '/users/:id/view', USER_VIEW_PL: ':id',
 
-                HOUSES: '/casas',
+                OWNED_ENTITY: '/owned_entities',
 
-                LOCATIONS: '/ubicaciones',
+                LOCATIONS: '/locations',
 
-                RESERVATIONS: '/reservaciones',
+                RESERVATIONS: '/reservations',
 
-                PERMISSIONS: '/permisos'
+                PERMISSIONS: '/permissions'
             }
         )
 })();

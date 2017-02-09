@@ -31,7 +31,7 @@
 
         //fn
         function fnInit() {
-            indexSrv.siteTile = 'Casas';
+            indexSrv.siteTile = 'Owned Entity';
             paginationSrv.resetPagination();
             vm.wizard.search();
         }
