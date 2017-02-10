@@ -20,7 +20,7 @@ Optionals fields are marked with the <span style="font-style: italic;">[optional
         <tr>
             <td style="border: 1px solid;"><code>base_url_req</code></td>
             <td style="border: 1px solid;">Server base url for requesting services</td>
-            <td style="border: 1px solid;"><code>http://127.0.0.1/rrmsrest</code></td>
+            <td style="border: 1px solid;"><code>http://127.0.0.1/gmsboilerplate</code></td>
         </tr>
         <tr>
             <td style="border: 1px solid;"><code>api_relative_url_req</code></td>

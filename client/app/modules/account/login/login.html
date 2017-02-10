@@ -1,34 +1,14 @@
-<div class="hidden-xs col-sm-1 col-md-3 col-lg-3"><!--spacer--></div>
-<div class="col-xs-12 col-sm-10 col-md-6 col-lg-6">
-    <div class="panel panel-primary">
-        <div class="panel-heading text-center text-uppercase">
-            Autenticaci&oacute;n
-        </div>
-        <div class="panel-body">
-            <form role="form" novalidate name="loginForm">
-                <div class="form-group">
-                    <label for="usernameEmail">Usuario o direcci&oacute;n email</label>
-                    <input type="text" class="form-control" id="usernameEmail" required
-                           placeholder="Escriba el usuario o dirección email" name="usernameEmail"
-                           ng-model="vm.emailOrUsername"
-                           data-field-validation
-                           data-required-message="Escriba el usuario o dirección email"
-                    >
-                </div>
-                <div class="form-group">
-                    <label for="password">Contrase&ntilde;a</label>
-                    <input type="password" class="form-control" id="password" placeholder="Contrase&ntilde;a" required
-                           name="password"
-                           data-ng-model="vm.password"
-                           data-field-validation
-                           data-required-message="Escriba la contraseña"
-                    >
-                </div>
-                <div class="text-center">
-                    <button class="btn btn-primary" data-ng-click="vm.login(loginForm)">Login</button>
-                </div>
-            </form>
-        </div>
+
+<link rel="stylesheet" href="_common/css/login.css">
+
+<form novalidate name="loginForm">
+    <h1>Autenticaci&oacute;n</h1>
+    <input placeholder="Usuario o dirección email" type="text" required
+           data-ng-model="vm.emailOrUsername">
+    <input placeholder="Password" type="password" required
+           data-ng-model="vm.password">
+    <div class="action">
+        <button data-ng-click="vm.login(loginForm)">Login</button>
     </div>
-</div>
-<div class="hidden-xs col-sm-1 col-md-3 col-lg-3"><!--spacer--></div>
+
+</form>

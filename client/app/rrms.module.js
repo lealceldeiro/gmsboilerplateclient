@@ -44,7 +44,8 @@
             'ui.select',                                        //ui-select component for select options
             'angularUtils.directives.dirPagination',            //pagination
             'LocalStorageModule',                               //local storage module, used for instance for storing auth token
-            'ngMaterial'
+            'ngMaterial',
+            'ngMessages'
 
         ]
     )

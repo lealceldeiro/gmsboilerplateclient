@@ -54,7 +54,7 @@
                 //endregion
 
                 //region configVars
-                base_url_req:                   (a !== '<base_url>')                        ? a || 'http://127.0.0.1/rrmsrest'   : 'http://127.0.0.1/rrmsrest',
+                base_url_req:                   (a !== '<base_url>')                        ? a || 'http://127.0.0.1/gmsboilerplate'   : 'http://127.0.0.1/gmsboilerplate',
                 api_relative_url_req:           (b !== '<relative_url>')                    ? b || '/api/'              : '/api/',
                 header_auth_token_req:          (i !== '<header_auth_token>')               ? i || 'Authorization'      : 'Authorization',
                 header_un_auth_token_req:       (j !== '<header_unAuth>')                   ? j || 'X-Auth-Token'       : 'X-Auth-Token',
