@@ -82,7 +82,7 @@
                 }
             )
 
-            //houses
+            //owned entity
             .when(ROUTE.OWNED_ENTITY,{
                     templateUrl: 'owned.entity/list/owned.entity.list.html',
                     controller: 'ownedEntityListCtrl',

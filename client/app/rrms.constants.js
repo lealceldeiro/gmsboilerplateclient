@@ -23,7 +23,7 @@
                 USER_NEW: '/users/new',
                 USER_VIEW: '/users/:id/view', USER_VIEW_PL: ':id',
 
-                OWNED_ENTITY: '/owned_entities',
+                OWNED_ENTITY: '/owned-entities',
 
                 LOCATIONS: '/locations',
 
