@@ -1,0 +1,16 @@
+md-content {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+md-menu-bar button{
+    font-size: 17px;
+    color: white;
+}
+md-menu-bar button:focus{
+    color: buttontext;
+}
+
+md-menu-bar md-menu.md-open>button {
+    color: buttontext;
+}

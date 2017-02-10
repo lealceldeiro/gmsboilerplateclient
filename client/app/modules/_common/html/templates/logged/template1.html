@@ -1,94 +1,87 @@
 <!--logged-->
-<div data-ng-controller="sessionCtrl as sCtrl" >
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 container-fluid z-index-1 border-r-4 blue-back ">
-        <div class="col-xs-4 col-sm-6 col-md-6 col-lg-4">
-            <div class="white-text">
-                <img class="mrg-l-25 mrg-t-5" alt="Logo">
-                <span class="hidden-xs hidden-sm">&boxv;</span>
-                <span class="hidden-xs hidden-sm">
-                    <span data-ng-bind="sCtrl.oEntity.name || sCtrl.oEntity.username"></span>
-                    <!--
-                    <span class="hidden-xs hidden-sm">&boxv;</span>
-                    <small>GMS - Boilerplate</small>
-                    -->
-                </span>
+<div data-ng-controller="sessionCtrl as sCtrl" ng-cloak>
+
+    <md-content>
+        <br>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-icon md-svg-icon="_common/img/svg/logo-ico.svg" aria-label="GMS Boilerplate"></md-icon>
+                <!--<span data-ng-bind="sCtrl.oEntity.name || sCtrl.oEntity.username"></span>-->
+                <md-menu-bar>
+                    <span>&boxv;</span>
+                    <!--User-->
+                    <md-menu>
+                        <button class="md-raised md-primary" ng-click="$mdMenu.open()">
+                            Usuarios
+                        </button>
+                        <md-menu-content>
+                            <md-menu-item>
+                                <md-button ng-click="sCtrl.go('/users')">
+                                    Ver listado
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-divider></md-menu-divider>
+                            <md-menu-item>
+                                <md-button ng-click="sCtrl.go('/users/new')">
+                                    Nuevo
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                    <!--owned entities-->
+                    <md-menu>
+                        <button class="md-primary" ng-click="$mdMenu.open()">
+                            Entidades
+                        </button>
+                        <md-menu-content>
+                            <md-menu-item>
+                                <md-button ng-click="sCtrl.go('/owned-entities')">
+                                    Ver listado
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-divider></md-menu-divider>
+                            <md-menu-item>
+                                <md-button ng-click="sCtrl.go('/owned-entities/new')">
+                                    Nueva
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </md-menu-bar>
+
+                <span flex></span>
+
+                <!--session info-->
+                <div data-ng-controller="fabSpeedDial as fsd" class="lock-size" layout="row" layout-align="center center">
+                    <md-fab-speed-dial md-open="fsd.isOpen" md-direction="{{fsd.selectedDirection}}"
+                                       ng-class="fsd.selectedMode">
+                        <md-fab-trigger>
+                            <md-button aria-label="menu" class="md-fab md-mini">
+                                <md-tooltip ng-show="sCtrl.user.username || sCtrl.user.email" md-direction="down">
+                                    {{sCtrl.user.username || sCtrl.user.email}}
+                                </md-tooltip>
+                                <md-icon md-svg-src="_common/img/svg/profile.svg"></md-icon>
+                            </md-button>
+                        </md-fab-trigger>
+
+                        <md-fab-actions>
+
+                            <md-button aria-label="Cerrar Sessión" class="md-fab md-mini md-warn" ng-click="sCtrl.logout()">
+                                <md-tooltip md-direction="down">Cerrar sessi&oacute;n</md-tooltip>
+                                <md-icon md-no-ink md-svg-src="_common/img/svg/exit.svg" aria-label="Cerrar session"></md-icon>
+                            </md-button>
+
+                            <md-button aria-label="Seleccionar Entidad" class="md-fab md-mini md-hue-1" ng-click="sCtrl.go('/main')">
+                                <md-tooltip md-direction="down">Seleccionar Entidad</md-tooltip>
+                                <md-icon md-no-ink md-svg-src="_common/img/svg/owned-entity.svg" aria-label="Seleccionar Entidad"></md-icon>
+                            </md-button>
+
+                        </md-fab-actions>
+                    </md-fab-speed-dial>
+                </div>
             </div>
-        </div>
-        <div class="hidden-xs col-sm-6 col-md-6 col-lg-8 mrg-t-1">
-            <div class="position-abs" data-ng-controller="notificationCtrl as nc" dynamic="nc.getNotificationHtml()">
-            </div>
-            <div class="pull-right">
-                <ul class="ul-menu mrg-t-4 mrg-r-25 z-index-1" data-ng-show="sCtrl.user">
-                    <li class="dropdown">
-                        <a href="" class="dropdown-toggle"
-                           data-toggle="dropdown"
-                           role="button" aria-expanded="false">
-                            <span data-ng-bind="sCtrl.user.username || sCtrl.user.email"></span>
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu dropdown-right-menu" role="menu">
-                            <li><a href="" data-ng-click="sCtrl.logout()">Cerrar ses&oacute;n</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+        </md-toolbar>
 
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#/">Inicio</a>
-            </div>
+    </md-content>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <!--<li class="reservations">
-                        <a href=""  data-ng-click="sCtrl.go('/reservations')"><span class="glyphicon glyphicon-list-alt"></span> Reservaciones</a>
-                    </li>-->
-                    <!--<li class="owned_entities">
-                        <a href="" data-ng-click="sCtrl.go('/owned_entities')"><span class="glyphicon glyphicon-home"></span> Casas</a>
-                    </li>-->
-                    <!--<li class="locations">
-                        <a href="" data-ng-click="sCtrl.go('/locations')"><span class="glyphicon glyphicon-map-marker"></span> Ubicaciones</a>
-                    </li>-->
-                    <li class="permissions-by-roles dropdown" data-ng-show="::sCtrl.show.settings()">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            <span class="glyphicon glyphicon-tasks"></span> Ajustes <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="usuarios" data-ng-show="::sCtrl.show.readUser()">
-                                <a href="" data-ng-click="sCtrl.go('/users')"><span class="glyphicon glyphicon-user"></span> Usuarios</a>
-                            </li>
-                            <li class="roles" data-ng-show="::sCtrl.show.readRole()">
-                                <a href="" data-ng-click="sCtrl.go('/roles')"><span class="glyphicon glyphicon-bullhorn"></span> Roles</a>
-                            </li>
-                            <li class="permissions" data-ng-show="::sCtrl.show.readPermission()">
-                                <a href="" data-ng-click="sCtrl.go('/permissions')"><span class="glyphicon glyphicon-th-large"></span> Permisos&nbsp;(Todos)</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <form class="navbar-form navbar-right" role="search">
-                    <div class="form-group has-feedback">
-                        <input type="text" class="form-control" placeholder="Buscar una acción...">
-                        <span class="hand-pointer form-control-feedback glyphicon glyphicon-search" aria-hidden="true"></span>
-                    </div>
-                </form>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-
-    <div class="center-block blocked-1-styled" data-ng-controller="paginationCtrl as pc">
-
-        <ng-view></ng-view>
-
-    </div>
 </div>

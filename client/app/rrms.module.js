@@ -29,13 +29,6 @@
         $logProvider.debugEnabled(true);
     };
 
-    var run = function () {};
-
-    config.$inject = ['$logProvider'];
-    run.$inject = [];
-
-    angular.module('ngMaterial', ["ng","ngAnimate","ngAria"]);
-
     angular.module
     ('rrms',
         [
@@ -50,8 +43,7 @@
         ]
     )
         .constant('__env', env)         // Register environment in AngularJS as constant
-        .config(config)
-        .run(run);
+        .config(['$logProvider', config]);
 
 
 })();
