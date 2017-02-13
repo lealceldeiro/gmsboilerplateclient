@@ -34,8 +34,7 @@
         [
             'ngRoute',                                          //routing
             'ngSanitize',                                       //ngSanitize module (for ui-select)
-            'ui.select',                                        //ui-select component for select options
-            'angularUtils.directives.dirPagination',            //pagination
+            'cl.paging',                                        //pagination
             'LocalStorageModule',                               //local storage module, used for instance for storing auth token
             'ngMaterial',
             'ngMessages'

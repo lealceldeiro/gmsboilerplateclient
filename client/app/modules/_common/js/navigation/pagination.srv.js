@@ -14,7 +14,7 @@ var paginationSrv = function () {
             offset: 0
         },
 
-        itemsPerPage: 8,
+        itemsPerPage: 5,
         totalItems: 0,
         maxLinks: 7
     };

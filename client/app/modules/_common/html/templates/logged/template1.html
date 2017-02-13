@@ -2,13 +2,13 @@
 <div data-ng-controller="sessionCtrl as sCtrl" ng-cloak>
 
     <md-content>
-        <br>
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <md-icon md-svg-icon="_common/img/svg/logo-ico.svg" aria-label="GMS Boilerplate"></md-icon>
-                <!--<span data-ng-bind="sCtrl.oEntity.name || sCtrl.oEntity.username"></span>-->
+
                 <md-menu-bar>
                     <span>&boxv;</span>
+
                     <!--User-->
                     <md-menu>
                         <button class="md-raised md-primary" ng-click="$mdMenu.open()">
@@ -17,17 +17,18 @@
                         <md-menu-content>
                             <md-menu-item>
                                 <md-button ng-click="sCtrl.go('/users')">
-                                    Ver listado
+                                    Ver listado de usuarios
                                 </md-button>
                             </md-menu-item>
                             <md-menu-divider></md-menu-divider>
                             <md-menu-item>
                                 <md-button ng-click="sCtrl.go('/users/new')">
-                                    Nuevo
+                                    Nuevo usuario
                                 </md-button>
                             </md-menu-item>
                         </md-menu-content>
                     </md-menu>
+
                     <!--owned entities-->
                     <md-menu>
                         <button class="md-primary" ng-click="$mdMenu.open()">
@@ -36,28 +37,63 @@
                         <md-menu-content>
                             <md-menu-item>
                                 <md-button ng-click="sCtrl.go('/owned-entities')">
-                                    Ver listado
+                                    Ver listado de entidades
                                 </md-button>
                             </md-menu-item>
                             <md-menu-divider></md-menu-divider>
                             <md-menu-item>
                                 <md-button ng-click="sCtrl.go('/owned-entities/new')">
-                                    Nueva
+                                    Nueva entidad
                                 </md-button>
                             </md-menu-item>
                         </md-menu-content>
                     </md-menu>
+
+                    <!--Roles-->
+                    <md-menu>
+                        <button class="md-primary" ng-click="$mdMenu.open()">
+                            Roles
+                        </button>
+                        <md-menu-content>
+                            <md-menu-item>
+                                <md-button ng-click="sCtrl.go('/roles')">
+                                    Ver listado de roles
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-divider></md-menu-divider>
+                            <md-menu-item>
+                                <md-button ng-click="sCtrl.go('/roles/new')">
+                                    Nuevo rol
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+
+                    <!--Permissions-->
+                    <md-menu>
+                        <button class="md-primary" ng-click="$mdMenu.open()">
+                            Permisos
+                        </button>
+                        <md-menu-content>
+                            <md-menu-item>
+                                <md-button ng-click="sCtrl.go('/permissions')">
+                                    Ver listado de permisos
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+
                 </md-menu-bar>
 
                 <span flex></span>
 
                 <!--session info-->
-                <div data-ng-controller="fabSpeedDial as fsd" class="lock-size" layout="row" layout-align="center center">
-                    <md-fab-speed-dial md-open="fsd.isOpen" md-direction="{{fsd.selectedDirection}}"
-                                       ng-class="fsd.selectedMode">
+                <div data-ng-controller="fabSpeedDial as fsd" class="lock-size" layout="row" layout-align="center center"
+                     ng-show="sCtrl.user.username || sCtrl.user.email">
+                    <md-fab-speed-dial md-open="fsd.isOpen" md-direction="{{fsd.selectedDirection}}" ng-class="fsd.selectedMode">
                         <md-fab-trigger>
                             <md-button aria-label="menu" class="md-fab md-mini">
-                                <md-tooltip ng-show="sCtrl.user.username || sCtrl.user.email" md-direction="down">
+                                <md-tooltip md-direction="down">
                                     {{sCtrl.user.username || sCtrl.user.email}}
                                 </md-tooltip>
                                 <md-icon md-svg-src="_common/img/svg/profile.svg"></md-icon>
@@ -72,7 +108,7 @@
                             </md-button>
 
                             <md-button aria-label="Seleccionar Entidad" class="md-fab md-mini md-hue-1" ng-click="sCtrl.go('/main')">
-                                <md-tooltip md-direction="down">Seleccionar Entidad</md-tooltip>
+                                <md-tooltip md-direction="down">{{sCtrl.oEntity.name || sCtrl.oEntity.username}}</md-tooltip>
                                 <md-icon md-no-ink md-svg-src="_common/img/svg/owned-entity.svg" aria-label="Seleccionar Entidad"></md-icon>
                             </md-button>
 
@@ -81,7 +117,13 @@
                 </div>
             </div>
         </md-toolbar>
-
     </md-content>
+
+    <div data-ng-controller="paginationCtrl as pc" class="m-left-20px m-right-20px">
+        <md-content style="min-height: 260px;">
+            <br/>
+            <ng-view></ng-view>
+        </md-content>
+    </div>
 
 </div>

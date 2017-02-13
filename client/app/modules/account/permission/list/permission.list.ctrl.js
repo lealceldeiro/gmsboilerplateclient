@@ -46,10 +46,7 @@
                     blockSrv.setIsLoading(vm.wizard.entities);
                     if (e) {
                         paginationSrv.setTotalItems(systemSrv.getTotal(fnKey));
-                        var it = systemSrv.getItems(fnKey);
-                        if (it) {
-                            vm.wizard.entities.all = it;
-                        }
+                        vm.wizard.entities.all = systemSrv.getItems(fnKey);
                     }
                 }
             )

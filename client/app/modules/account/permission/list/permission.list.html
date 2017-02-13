@@ -1,10 +1,10 @@
 
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 navbar navbar-styled1">
+<!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 navbar navbar-styled1">
 
     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-        <!--<a href="" class=" pull-left btn btn-xs btn-primary" data-ng-click="vm.new()">
+        &lt;!&ndash;<a href="" class=" pull-left btn btn-xs btn-primary" data-ng-click="vm.new()">
             <span class="glyphicon glyphicon-plus"></span> <span class="hidden-xs hidden-sm">Nuevo</span>
-        </a>-->
+        </a>&ndash;&gt;
     </div>
 
     <div class="mrg-left-m-19 mrg-left-m-38 col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -12,45 +12,70 @@
     </div>
 
 
+</div>-->
+
+
+
+<div ng-cloak layout-gt-sm="row" layout="column" >
+
+    <div flex-gt-sm="50" flex>
+
+        <md-toolbar layout="row" class="md-hue-3">
+            <div class="md-toolbar-tools">
+                <span>Etiqueta</span>
+            </div>
+        </md-toolbar>
+
+        <md-content>
+            <md-list flex>
+                <md-list-item class="md-2-line" ng-repeat="item in vm.entities.all">
+                    <div class="md-list-item-text" layout="column">
+                        <h3 data-ng-bind="item.label | caser"></h3>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </md-content>
+    </div>
+
+    <md-divider></md-divider>
+
+    <div flex-gt-sm="50" flex>
+
+        <md-toolbar layout="row" class="md-hue-3">
+            <div class="md-toolbar-tools">
+                <span>Nombre</span>
+            </div>
+        </md-toolbar>
+
+        <md-content>
+            <md-list flex>
+                <md-list-item class="md-2-line" ng-repeat="item in vm.entities.all">
+                    <div class="md-list-item-text" layout="column">
+                        <h3 data-ng-bind="item.name | caser"></h3>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </md-content>
+    </div>
+
 </div>
 
-<table class="table table-responsive table-striped table-hover table-bordered" id="roleListTable">
-    <thead>
-    <!--<th style="width: 10%"></th>-->
-    <th style="width: 50%">Etiqueta</th>
-    <th style="width: 50%">Nombre</th>
-    </thead>
-    <tbody>
-    <tr data-dir-paginate="it in vm.entities.all | itemsPerPage:pc.getItemsPerPage()"
-        data-total-items="pc.getTotalItems()"
-        data-pagination-id="permissionsList">
-        <!--<td>
-            <span class="glyphicon glyphicon-edit hand-pointer text-info" data-ng-click="vm.edit(it.id)"></span>&nbsp;
-            <span class="glyphicon glyphicon-remove hand-pointer text-danger" data-ng-click="vm.remove(it.id)"></span>
-        </td>-->
-       <!-- <td>
-            <a href="" data-ng-click="vm.view(it.id)"><span data-ng-bind="it.label"></span></a>
-        </td>-->
-        <td>
-            <span data-ng-bind="it.label | caser"></span>
-        </td>
-        <td>
-            <span data-ng-bind="it.name | caser"></span>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<br>
+<md-divider ng-show="!vm.entities.loading && vm.entities.all.length"></md-divider>
+<br>
 
-<nav class="text-center" data-ng-show="!vm.entities.loading && vm.entities.all.length">
-    <dir-pagination-controls
-            pagination-id="permissionsList"
-            on-page-change="vm.changePage(newPageNumber)"
-            max-size="pc.getMaxLinks()"
-    >
-    </dir-pagination-controls>
-</nav>
+<div  data-ng-show="!vm.entities.loading && vm.entities.all.length">
+    <md-content>
+        <cl-paging flex cl-pages="pc.getTotalPages()"
+                   cl-steps="pc.getMaxLinks()"
+                   cl-page-changed="vm.changePage(pc.currentPage)"
+                   cl-align="center center"
+                   cl-current-page="pc.currentPage"></cl-paging>
 
-<div data-ng-hide="!vm.entities.loading">
-    <div class="rrms-screen-loader" data-screen-type="2">
-    </div>
+        <br>
+    </md-content>
+</div>
+
+<div data-ng-hide="!vm.entities.loading" layout="row" layout-align="center center">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
 </div>

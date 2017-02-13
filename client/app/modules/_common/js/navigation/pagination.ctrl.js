@@ -17,10 +17,13 @@
                 }
             },
 
+            currentPage: 1,
+
             init: fnInit,
             setItemsPerPage: fnSetItemsPerPage,
 
             getTotalItems: fnTotalItems,
+            getTotalPages: fnTotalPages,
             getItemsPerPage: fnItemsPerPage,
             getMaxLinks: fnMaxLinks
         };
@@ -43,6 +46,12 @@
 
         function fnTotalItems() {
             return paginationSrv.getTotalItems();
+        }
+
+        function fnTotalPages() {
+            return paginationSrv.getItemsPerPage() ?
+                Math.ceil(paginationSrv.getTotalItems() / paginationSrv.getItemsPerPage())
+                : 0;
         }
 
         function fnMaxLinks() {
