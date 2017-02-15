@@ -6,7 +6,7 @@
 
 (function () {
 
-    var paginationCtrl = function (paginationSrv) {
+    var paginationCtrl = function (paginationSrv, $scope) {
         var vm = this;
 
         vm.wizard = {
@@ -25,8 +25,14 @@
             getTotalItems: fnTotalItems,
             getTotalPages: fnTotalPages,
             getItemsPerPage: fnItemsPerPage,
-            getMaxLinks: fnMaxLinks
+            getMaxLinks: fnMaxLinks,
+
+            showPagination: fnShowPagination
         };
+
+        $scope.$on('RESET_PAGINATION', function () {
+           vm.wizard.currentPage = 1;
+        });
 
         vm.wizard.init();
 
@@ -62,9 +68,13 @@
             return paginationSrv.getItemsPerPage();
         }
 
+        function fnShowPagination() {
+            return fnTotalPages() > 1;
+        }
+
     };
 
-    paginationCtrl.$inject = ['paginationSrv'];
+    paginationCtrl.$inject = ['paginationSrv', '$scope'];
 
     angular.module('rrms')
         .controller('paginationCtrl', paginationCtrl);

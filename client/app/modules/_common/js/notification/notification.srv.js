@@ -81,6 +81,7 @@ var notificationSrv = function ($timeout) {
      * @param actionName (optional) Text which names the action to be executed by the function passes as parameter
      */
     function fnShow(message, title, type, action, actionName) {
+/*
 
         if (typeof message === 'undefined' || message === null) {
             throw new Error('A message must be provided for showing a notification');
@@ -157,6 +158,7 @@ var notificationSrv = function ($timeout) {
             },
             5000
         )
+*/
 
     }
 

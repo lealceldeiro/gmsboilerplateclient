@@ -1,25 +1,6 @@
-
-<!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 navbar navbar-styled1">
-
-    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-        &lt;!&ndash;<a href="" class=" pull-left btn btn-xs btn-primary" data-ng-click="vm.new()">
-            <span class="glyphicon glyphicon-plus"></span> <span class="hidden-xs hidden-sm">Nuevo</span>
-        </a>&ndash;&gt;
-    </div>
-
-    <div class="mrg-left-m-19 mrg-left-m-38 col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        <div ng-include='"client/app/modules/../../../_common/html/includes/list/resultPerPage.html"'></div>
-    </div>
-
-
-</div>-->
-
-
-
-<div ng-cloak layout-gt-sm="row" layout="column" >
+<div ng-cloak layout-gt-md="row" layout="column" >
 
     <div flex-gt-sm="50" flex>
-
         <md-toolbar layout="row" class="md-hue-3">
             <div class="md-toolbar-tools">
                 <span>Etiqueta</span>
@@ -40,7 +21,6 @@
     <md-divider></md-divider>
 
     <div flex-gt-sm="50" flex>
-
         <md-toolbar layout="row" class="md-hue-3">
             <div class="md-toolbar-tools">
                 <span>Nombre</span>
@@ -60,11 +40,12 @@
 
 </div>
 
-<br>
-<md-divider ng-show="!vm.entities.loading && vm.entities.all.length"></md-divider>
-<br>
+<div  data-ng-show="!vm.entities.loading && vm.entities.all.length && pc.showPagination()">
 
-<div  data-ng-show="!vm.entities.loading && vm.entities.all.length">
+    <br>
+    <md-divider></md-divider>
+    <br>
+
     <md-content>
         <cl-paging flex cl-pages="pc.getTotalPages()"
                    cl-steps="pc.getMaxLinks()"
