@@ -1,0 +1,30 @@
+<md-dialog aria-label="{{title}}">
+    <form name="mdDialogTab">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{title}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="_common/img/svg/close.svg" aria-label="Cerrar"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="max-width:800px;max-height:810px; ">
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="{{t}}" ng-repeat="t in tabs track by $index">
+                    <md-content class="md-padding">
+                        <h1 class="md-display-2">{{tabsTitles[$index] | caser}}</h1>
+                        <p data-ng-bind-html="tabsContent[$index]"></p>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-repeat="b in buttons track by $index" ng-click="buttons.action[$index](b)" >
+                {{b.text}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

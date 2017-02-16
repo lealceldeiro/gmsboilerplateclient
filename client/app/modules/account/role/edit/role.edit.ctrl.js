@@ -6,11 +6,12 @@
 
 (function () {
 
-    var roleEditCtrl = function (indexSrv, roleSrv, navigationSrv, ROUTE, systemSrv, notificationSrv, blockSrv, permissionSrv) {
+    var roleEditCtrl = function (indexSrv, roleSrv, navigationSrv, ROUTE, systemSrv, notificationSrv, blockSrv,
+                                 permissionSrv, tabDialogSrv, $filter) {
         var vm = this;
         const keyP = 'ROLE_EDIT';
-
-        var flagSearch = false;
+        var permissionsTabTitles = null;
+        var permissionsTabContents = null;
 
         vm.wizard = {
             role: {},
@@ -24,7 +25,7 @@
                 maxLinks: 5,
 
                 all: [],
-                selected: null
+                selected: []
             },
 
             init: fnInit,
@@ -32,7 +33,8 @@
             save: fnSave,
 
             searchPermissions: fnSearchPermissions,
-            setIsSearching: fnSetIsSearching
+
+            showRoleListDialog: fnShowRoleListDialog
         };
 
         vm.wizard.init();
@@ -109,6 +111,9 @@
         }
 
         function _loadPermissions(criteria) {
+            if (!criteria) {
+                criteria = vm.wizard['PerSearchTerm'];
+            }
             vm.wizard.permissions.all = [];
 
             var fnKey = keyP + "_loadPermissions";
@@ -149,22 +154,55 @@
 
 
         function fnSearchPermissions(criteria) {
-            if (flagSearch) {
                 _loadPermissions(criteria);
+        }
+
+        function fnShowRoleListDialog() {
+            if (!permissionsTabTitles) {
+                var fnKey = keyP + "_loadPermissions-fnShowRoleListDialog";
+
+                permissionSrv.search(0, 0).then(
+                    function (data) {
+                        var e = systemSrv.eval(data, fnKey, false, true);
+                        if (e) {
+                            permissionsTabTitles = [];
+                            permissionsTabContents = [];
+                            var aux = systemSrv.getItems(fnKey);
+                            var name, idx, label;
+
+                            for(var i = 0, l = aux.length; i < l; i++){
+                                name = aux[i].name.substring(aux[i].name.indexOf("__") + 2, aux[i].name.length);
+                                if (name.length > 1) {
+                                    idx = permissionsTabTitles.indexOf(name);
+                                    label = $filter('caser')(aux[i].label);
+                                    if (idx == -1) {
+                                        permissionsTabTitles.push(name);
+                                        permissionsTabContents[permissionsTabTitles.length - 1] = label;
+                                    }
+                                    else{
+                                        permissionsTabContents[idx] += "<br/>" + "<br/>" + label;
+                                    }
+                                }
+                            }
+
+                            __show();
+                        }
+                    }
+                )
+            }else{
+                __show();
             }
         }
 
-        function fnSetIsSearching(s) {
-            flagSearch = s === true;
-            if (!flagSearch) {
-                _loadPermissions();
-            }
+        function __show() {
+            tabDialogSrv.setTabs(permissionsTabTitles);
+            tabDialogSrv.setTabsContent(permissionsTabContents, true);
         }
 
     };
 
     roleEditCtrl.$inject = ['indexSrv', 'roleSrv', 'navigationSrv', 'ROUTE', 'systemSrv', 'notificationSrv', 'blockSrv',
-        'permissionSrv'];
+        'permissionSrv', 'tabDialogSrv', '$filter'];
 
     angular.module('rrms')
         .controller('roleEditCtrl', roleEditCtrl);

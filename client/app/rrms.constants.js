@@ -32,4 +32,20 @@
                 PERMISSIONS: '/permissions'
             }
         )
+        .constant(
+            'BROADCAST',
+            {
+                auth: {
+                    REFRESH_TOKEN: 'REFRESH_TOKEN',
+                    UNAUTHORIZED_BACKWARD: 'UNAUTHORIZED_BACKWARD'
+
+                },
+                modal: {
+                    SHOW_DIALOG_TAB: 'SHOW_DIALOG_TAB'
+                },
+                pagination: {
+                    RESET_PAGINATION: "RESET_PAGINATION"
+                }
+            }
+        )
 })();

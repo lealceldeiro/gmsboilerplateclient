@@ -4,7 +4,7 @@
 
 'use strict';
 
-var loginSrv = function ($http, systemSrv, baseSrv, sessionSrv, $rootScope) {
+var loginSrv = function ($http, systemSrv, baseSrv, sessionSrv, $rootScope, BROADCAST) {
     var vm = this;
 
     var url = systemSrv.APIAbsoluteUrl;
@@ -27,7 +27,7 @@ var loginSrv = function ($http, systemSrv, baseSrv, sessionSrv, $rootScope) {
                 if (e) {
                     sessionSrv.setSecurityToken(systemSrv.getAuthToken());
                     sessionSrv.setSecurityRefreshToken(systemSrv.getAuthRefreshToken());
-                    $rootScope.$broadcast('UNAUTHORIZED_BACKWARD');
+                    $rootScope.$broadcast(BROADCAST.auth.UNAUTHORIZED_BACKWARD);
                 }
             }
         )
@@ -74,7 +74,7 @@ var loginSrv = function ($http, systemSrv, baseSrv, sessionSrv, $rootScope) {
 
 };
 
-loginSrv.$inject = ['$http', 'systemSrv', 'baseSrv', 'sessionSrv', '$rootScope'];
+loginSrv.$inject = ['$http', 'systemSrv', 'baseSrv', 'sessionSrv', '$rootScope', 'BROADCAST'];
 
 angular.module('rrms')
     .service('loginSrv', loginSrv);

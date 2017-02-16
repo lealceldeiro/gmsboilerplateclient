@@ -4,7 +4,7 @@
 
 'use strict';
 
-var paginationSrv = function ($rootScope) {
+var paginationSrv = function ($rootScope, BROADCAST) {
     var self = this;
 
     const FIRST_STEP = 8;
@@ -40,7 +40,7 @@ var paginationSrv = function ($rootScope) {
         self.core.rest.offset = 0;
         self.core.totalItems = 0;
 
-        $rootScope.$broadcast('RESET_PAGINATION');
+        $rootScope.$broadcast(BROADCAST.pagination.RESET_PAGINATION);
     }
 
     function fnInitialise(totalItems) {
@@ -115,7 +115,7 @@ var paginationSrv = function ($rootScope) {
 
 };
 
-paginationSrv.$inject = ['$rootScope'];
+paginationSrv.$inject = ['$rootScope', 'BROADCAST'];
 
 angular.module('rrms')
     .service('paginationSrv', paginationSrv);

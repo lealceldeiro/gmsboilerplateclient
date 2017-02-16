@@ -4,7 +4,7 @@
 
 'use strict';
 
-var f = function (__env, $location, ROUTE, sessionSrv, systemSrv, notificationSrv, $rootScope) {
+var f = function (__env, $location, ROUTE, sessionSrv, systemSrv, notificationSrv, $rootScope, BROADCAST) {
 
     var FORBIDDEN = 403;
 
@@ -29,17 +29,17 @@ var f = function (__env, $location, ROUTE, sessionSrv, systemSrv, notificationSr
     function responseError(rejection) {
         if(rejection.status === systemSrv.unauthorized_code_resp){
             if (sessionSrv.isLogged()) {
-                $rootScope.$broadcast('REFRESH_TOKEN');
+                $rootScope.$broadcast(BROADCAST.auth.REFRESH_TOKEN);
             }
             else {
                 notificationSrv.showNotif(notificationSrv.utilText.unauthorized.es,
                     notificationSrv.utilText.titleError.es, notificationSrv.type.ERROR);
-                $rootScope.$broadcast('UNAUTHORIZED_BACKWARD');
+                $rootScope.$broadcast(BROADCAST.auth.UNAUTHORIZED_BACKWARD);
             }
 
         }
         else if(rejection.status === FORBIDDEN){
-            $rootScope.$broadcast('UNAUTHORIZED_BACKWARD');
+            $rootScope.$broadcast(BROADCAST.auth.UNAUTHORIZED_BACKWARD);
         }
     }
 
@@ -54,7 +54,7 @@ var conf = function ($httpProvider) {
     $httpProvider['interceptors'].push('envValidityChecker');
 };
 
-f.$inject = ['__env', '$location', 'ROUTE', 'sessionSrv', 'systemSrv', 'notificationSrv', '$rootScope'];
+f.$inject = ['__env', '$location', 'ROUTE', 'sessionSrv', 'systemSrv', 'notificationSrv', '$rootScope', 'BROADCAST'];
 conf.$inject = ['$httpProvider'];
 
 angular
