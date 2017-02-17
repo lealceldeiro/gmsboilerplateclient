@@ -5,12 +5,12 @@
 'use strict';
 
 var humanReadable = function () {
-    return function (data) {
+    return function (data, prefix, postfix) {
         switch (data){
             case true:
-                return 'Si';
+                return prefix + ' Activo ' + postfix;
             case false:
-                return 'No';
+                return prefix + ' Inactivo ' + postfix;
         }
     }
 };

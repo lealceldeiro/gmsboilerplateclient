@@ -1,14 +1,51 @@
+<div class="min-width-500px">
+    <form role="form" name="loginForm">
 
-<link rel="stylesheet" href="_common/css/login.css">
+        <md-toolbar>
+            <div class="md-toolbar-tools" layout-align="center center">
+                <div layout-align="center center">
+                    <div layout-align="center center" flex="100">
+                        <h2>Autenticaci&oacute;n</h2>
+                    </div>
+                </div>
+            </div>
+        </md-toolbar>
 
-<form novalidate name="loginForm">
-    <h1>Autenticaci&oacute;n</h1>
-    <input placeholder="Usuario o dirección email" type="text" required
-           data-ng-model="vm.emailOrUsername">
-    <input placeholder="Password" type="password" required
-           data-ng-model="vm.password">
-    <div class="action">
-        <button data-ng-click="vm.login(loginForm)">Login</button>
-    </div>
+        <md-content class="md-no-momentum">
 
-</form>
+            <!--usernname or email-->
+            <md-input-container class="md-icon-float md-block">
+                <label>Usuario o dirección email</label>
+                <md-icon md-svg-src="_common/img/svg/profile.svg"></md-icon>
+                <input ng-model="vm.emailOrUsername" type="text" required>
+
+                <div ng-messages="loginForm.emailOrUsername.$error" md-auto-hide="false">
+                    <div ng-message="required">
+                        El usuario o correo electr&oacute;nico es obligtorio
+                    </div>
+                </div>
+            </md-input-container>
+
+            <!--password-->
+            <md-input-container class="md-icon-float md-block">
+                <label>Contrase&ntilde;a</label>
+                <md-icon md-svg-src="_common/img/svg/password.svg"></md-icon>
+                <input ng-model="vm.password" type="password" required>
+                <div ng-messages="loginForm.password.$error" md-auto-hide="false">
+                    <div ng-message="required">
+                        La contrase&ntilde;a es obligtoria
+                    </div>
+                </div>
+            </md-input-container>
+
+            <div layout-align="center center">
+                <md-button class="md-primary md-raised bl" aria-label="Aceptar" layout-fill
+                           ng-click="vm.login(loginForm)">
+                    Aceptar
+                </md-button>
+            </div>
+
+        </md-content>
+
+    </form>
+</div>

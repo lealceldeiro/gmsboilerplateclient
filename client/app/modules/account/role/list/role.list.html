@@ -3,22 +3,22 @@
     <div flex-gt-sm="99" flex>
         <md-content>
             <md-list flex>
+                <md-divider ng-show="vm.roles.all.length"></md-divider>
                 <md-list-item class="md-2-line" ng-repeat="item in vm.roles.all" ng-click="vm.view(item.id)" aria-label="Role: {{item.label}}">
                     <div class="md-list-item-text" layout="column">
                         <h3 data-ng-bind="item.label"></h3>
                         <p data-ng-bind="item.description"></p>
-
-                        <span flex></span>
-
-                        <md-switch
+                        <p data-ng-bind="item.enabled | humanReadable:'(':')'"></p>
+                        <md-checkbox
                                 class="md-secondary"
                                 aria-label="Activar/Desactivar"
                                 ng-model="item.enabled"
                                 ng-click="vm.activateDeactivate(item)"
                         >
 
-                        </md-switch>
+                        </md-checkbox>
                     </div>
+                    <md-divider></md-divider>
                 </md-list-item>
             </md-list>
         </md-content>
