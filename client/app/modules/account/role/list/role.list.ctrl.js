@@ -39,48 +39,64 @@
             paginationSrv.resetPagination();
         }
 
-        function fnSearch() {
-            blockSrv.setIsLoading(vm.wizard.roles, true);
-            vm.wizard.roles.all = [];
-            var offset = paginationSrv.getOffset();
-            var max = paginationSrv.getItemsPerPage();
-            var ent = sessionSrv.loginEntity();
-            var u = sessionSrv.currentUser();
+        function fnSearch(changeFlag) {
+            if (changeFlag) {
+                roleSrv.sessionData.allRoles = false;
+            }
+            if(roleSrv.sessionData.allRoles){
+                fnSearchAll();
+            }
+            else {
+                blockSrv.setIsLoading(vm.wizard.roles, true);
+                vm.wizard.roles.all = [];
+                var offset = paginationSrv.getOffset();
+                var max = paginationSrv.getItemsPerPage();
+                var ent = sessionSrv.loginEntity();
+                var u = sessionSrv.currentUser();
 
-            var fnKey = keyP + "fnSearch";
-            roleSrv.search(u ? u.id : 0, ent ? ent.id : 0, offset, max).then(
-                function (data) {
-                    var e = systemSrv.eval(data, fnKey, false, true);
-                    blockSrv.setIsLoading(vm.wizard.roles);
-                    if (e) {
-                        paginationSrv.setTotalItems(systemSrv.getTotal(fnKey));
-                        vm.wizard.roles.all = systemSrv.getItems(fnKey);
-                        vm.wizard.roles.allLoaded = false;
+                var fnKey = keyP + "fnSearch";
+                roleSrv.search(u ? u.id : 0, ent ? ent.id : 0, offset, max).then(
+                    function (data) {
+                        var e = systemSrv.eval(data, fnKey, false, true);
+                        blockSrv.setIsLoading(vm.wizard.roles);
+                        if (e) {
+                            paginationSrv.setTotalItems(systemSrv.getTotal(fnKey));
+                            vm.wizard.roles.all = systemSrv.getItems(fnKey);
+                            vm.wizard.roles.allLoaded = false;
+                        }
                     }
-                }
-            )
+                )
+            }
 
         }
 
-        function fnSearchAll() {
-            blockSrv.setIsLoading(vm.wizard.roles, true);
+        function fnSearchAll(changeFlag) {
+            if (changeFlag) {
+                roleSrv.sessionData.allRoles = true;
+            }
+            if(!roleSrv.sessionData.allRoles){
+                fnSearch();
+            }
+            else {
+                blockSrv.setIsLoading(vm.wizard.roles, true);
 
-            vm.wizard.roles.all = [];
-            var offset = paginationSrv.getOffset();
-            var max = paginationSrv.getItemsPerPage();
-            var fnKey = keyP + "fnSearchAll";
+                vm.wizard.roles.all = [];
+                var offset = paginationSrv.getOffset();
+                var max = paginationSrv.getItemsPerPage();
+                var fnKey = keyP + "fnSearchAll";
 
-            roleSrv.searchAll(offset, max).then(
-                function (data) {
-                    var e = systemSrv.eval(data, fnKey, false, true);
-                    blockSrv.setIsLoading(vm.wizard.roles);
-                    if (e) {
-                        paginationSrv.setTotalItems(systemSrv.getTotal(fnKey));
-                        vm.wizard.roles.all = systemSrv.getItems(fnKey);
-                        vm.wizard.roles.allLoaded = true;
+                roleSrv.searchAll(offset, max).then(
+                    function (data) {
+                        var e = systemSrv.eval(data, fnKey, false, true);
+                        blockSrv.setIsLoading(vm.wizard.roles);
+                        if (e) {
+                            paginationSrv.setTotalItems(systemSrv.getTotal(fnKey));
+                            vm.wizard.roles.all = systemSrv.getItems(fnKey);
+                            vm.wizard.roles.allLoaded = true;
+                        }
                     }
-                }
-            );
+                );
+            }
         }
 
         function fnEdit(id) {

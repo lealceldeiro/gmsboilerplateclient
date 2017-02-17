@@ -36,6 +36,7 @@
         <div data-ng-show="blockCtrl.blocked" class="rrms-screen-loader" data-screen-type="0">
         </div>
     </div>
+    <div data-ng-controller="toastManagerCtrl as tmc"></div>
 </div>
 
 <!----JAVASCRIPT---->
@@ -137,10 +138,15 @@
 
 
 <!--*********MD Controllers**********-->
-<script src="_common/js/mdControllers/fabSpeedDial.js"></script>
-<script src="_common/js/mdControllers/chip.js"></script>
-<script src="_common/js/mdControllers/dialogManager.js"></script>
+<script src="_common/js/mdControllers/fabSpeedDial.ctrl.js"></script>
+<script src="_common/js/mdControllers/chip.ctrl.js"></script>
+<script src="_common/js/mdControllers/dialogManager.ctrl.js"></script>
+<script src="_common/js/mdControllers/toolBar.ctrl.js"></script>
+<script src="_common/js/mdControllers/toast.ctrl.js"></script>
+<script src="_common/js/mdControllers/toastManager.ctrl.js"></script>
 <!--*********MD Controllers**********-->
-<script src="_common/js/mdService/tabDialog.js"></script>
+<script src="_common/js/mdService/tabDialog.srv.js"></script>
+<script src="_common/js/mdService/toolBar.srv.js"></script>
+<script src="_common/js/mdService/toast.srv.js"></script>
 </body>
 </html>

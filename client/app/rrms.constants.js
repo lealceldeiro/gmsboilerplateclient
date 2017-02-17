@@ -45,6 +45,16 @@
                 },
                 pagination: {
                     RESET_PAGINATION: "RESET_PAGINATION"
+                },
+                component:{
+                    toolbar: {
+                        show: 'show.TOOLBAR',
+                        hide: 'hide.TOOLBAR'
+                    }
+                },
+                toast:{
+                    OPEN: 'toast.OPEN',
+                    CLOSE: 'toast.CLOSE'
                 }
             }
         )

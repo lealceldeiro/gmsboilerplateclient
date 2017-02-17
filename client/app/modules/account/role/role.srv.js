@@ -9,6 +9,9 @@ var roleSrv = function (systemSrv, $http, valueSrv, baseSrv) {
     var rolesUrl = systemSrv.APIAbsoluteUrl + 'role/';
 
     self.service = {
+
+        sessionData:{},
+
         search: fnSearch,
         searchAll: fnSearchAll,
         show: fnShow,

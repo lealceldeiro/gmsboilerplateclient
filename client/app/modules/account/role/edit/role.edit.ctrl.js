@@ -195,6 +195,7 @@
         }
 
         function __show() {
+            tabDialogSrv.title = "Permisos";
             tabDialogSrv.setTabs(permissionsTabTitles);
             tabDialogSrv.setTabsContent(permissionsTabContents, true);
         }
