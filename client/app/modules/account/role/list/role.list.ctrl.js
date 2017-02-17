@@ -24,6 +24,7 @@
             remove: fnRemove,
             new: fnNew,
             edit: fnEdit,
+            activateDeactivate: fnActivateDeactivate,
 
             searchByPageChange: fnSearchByPageChange
         };
@@ -84,6 +85,26 @@
 
         function fnEdit(id) {
             navigationSrv.goTo(ROUTE.ROLE_EDIT, ROUTE.ROLE_EDIT_PL, id);
+        }
+
+        function fnActivateDeactivate(item) {
+            if (item) {
+                blockSrv.block();
+                var fnKey = keyP + "fnActivate";
+
+                roleSrv.activate(item.id, item.enabled).then(
+                    function (data) {
+                        var e = systemSrv.eval(data, fnKey, false, true);
+                        blockSrv.unBlock();
+                        if (!e) { //if fail, return element to after submission position (md-switch changes model)
+                            item.enabled = !item.enabled;
+                        }
+                    }
+                );
+            }
+            else{
+                console.warn("There is no role for that index");
+            }
         }
 
         function fnView(id) {

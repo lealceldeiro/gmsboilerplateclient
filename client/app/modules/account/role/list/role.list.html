@@ -10,7 +10,14 @@
 
                         <span flex></span>
 
-                        <md-switch class="md-secondary" ng-model="item.enabled"></md-switch>
+                        <md-switch
+                                class="md-secondary"
+                                aria-label="Activar/Desactivar"
+                                ng-model="item.enabled"
+                                ng-click="vm.activateDeactivate(item)"
+                        >
+
+                        </md-switch>
                     </div>
                 </md-list-item>
             </md-list>

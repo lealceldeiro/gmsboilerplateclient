@@ -14,6 +14,7 @@ var roleSrv = function (systemSrv, $http, valueSrv, baseSrv) {
         show: fnShow,
         remove: fnRemove,
         save: fnSave,
+        activate: fnActivate,
 
         permissionsByUser: fnPermissionsByUser
     };
@@ -71,6 +72,11 @@ var roleSrv = function (systemSrv, $http, valueSrv, baseSrv) {
             def = $http.put(url, params);
         }
         return baseSrv.resolveDeferred(def);
+    }
+
+    function fnActivate(id, activate) {
+        var url = rolesUrl + id + "/activate/" + activate;
+        return baseSrv.resolveDeferred($http.post(url))
     }
 
     function fnPermissionsByUser(id, offset, max) {
