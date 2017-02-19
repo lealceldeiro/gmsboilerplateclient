@@ -1,5 +1,6 @@
 <div ng-cloak layout-gt-sm="row" layout="column" >
     <div flex-gt-sm="99" flex>
+        <!--change role view-->
         <md-button aria-label="Ver mis roles solo en esta entidad" class="md-icon-button"
                    ng-show="vm.roles.allLoaded"
                    ng-click="vm.search(true)">
@@ -13,6 +14,13 @@
             <md-tooltip md-direction="right">Ver todos los roles</md-tooltip>
         </md-button>
 
+        <!--add new role-->
+        <md-button aria-label="Nuevo rol" class="md-icon-button"
+                   ng-click="vm.new()">
+            <md-icon md-svg-src="_common/img/svg/new.svg"></md-icon>
+            <md-tooltip md-direction="right">Nuevo rol</md-tooltip>
+        </md-button>
+
         <md-content>
             <md-list flex>
                 <md-divider ng-show="vm.roles.all.length"></md-divider>
@@ -21,8 +29,15 @@
                         <h3 data-ng-bind="item.label"></h3>
                         <p data-ng-bind="item.description"></p>
                         <p data-ng-bind="item.enabled | humanReadable:'(':')'"></p>
+
+
+                        <md-button class="md-secondary" aria-label="edit role"
+                                   ng-click="vm.edit(item.id)">
+                            <md-icon md-svg-src="_common/img/svg/edit.svg"></md-icon>
+                        </md-button>
+
                         <md-checkbox
-                                class="md-secondary"
+                                class="m-top-4px md-secondary"
                                 aria-label="Activar/Desactivar"
                                 ng-model="item.enabled"
                                 ng-click="vm.activateDeactivate(item)"

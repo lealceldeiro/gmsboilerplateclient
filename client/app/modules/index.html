@@ -17,9 +17,6 @@
     <link rel="stylesheet" href="_common/css/margins.css">
     <link rel="stylesheet" href="_common/css/sizes.css">
 
-    <!--**componentes**-->
-    <link rel="stylesheet" href="_components/screenLoader/screen.loader.css">
-
     <!--**libs**-->
 </head>
 <body data-ng-model-options="{allowInvalid: true}">
@@ -31,12 +28,13 @@
     >
     </div>
 
-    <!--for blocking screen-->
+    <!--block screen-->
     <div data-ng-controller="blockCtrl as blockCtrl">
         <div data-ng-show="blockCtrl.blocked" class="rrms-screen-loader" data-screen-type="0">
         </div>
     </div>
-    <div data-ng-controller="toastManagerCtrl as tmc"></div>
+    <!--messages-->
+    <div data-ng-controller="toastCtrl as tmc"></div>
 </div>
 
 <!----JAVASCRIPT---->
@@ -108,26 +106,31 @@
 
 
 <!--**_components**-->
-<script src="_components/screenLoader/screen.loader.drtv.js"></script>
 <script src="_components/screenBlocker/blockS.srv.js"></script>
 <script src="_components/screenBlocker/blockS.ctrl.js"></script>
 
+<script src="_components/fabSpeedDial/fabSpeedDial.ctrl.js"></script>
+<script src="_components/chips/chip.ctrl.js"></script>
+<script src="_components/dialog/dialogManager.ctrl.js"></script>
+<script src="_components/dialog/dialog.srv.js"></script>
+<script src="_components/toolbar/toolBar.ctrl.js"></script>
+<script src="_components/toolbar/toolBar.srv.js"></script>
+<script src="_components/toast/toast.ctrl.js"></script>
+<script src="_components/toast/toast.srv.js"></script>
+
 <!--**_common**-->
 <!--navigation-->
-<script src="_common/js/navigation/navigation.srv.js"></script>
-<script src="_common/js/navigation/pagination.srv.js"></script>
-<script src="_common/js/navigation/pagination.ctrl.js"></script>
+<script src="_components/navigation/navigation.srv.js"></script>
+<script src="_components/navigation/pagination.srv.js"></script>
+<script src="_components/navigation/pagination.ctrl.js"></script>
 <!--notification-->
 <script src="_common/js/notification/notification.srv.js"></script>
-<script src="_common/js/notification/notification.ctrl.js"></script>
 <!--system-->
 <script src="_common/js/system/system.srv.js"></script>
 <!--filter-->
 <script src="_common/js/filter/humanReadable.filter.js"></script>
 <script src="_common/js/filter/trimmer.filter.js"></script>
 <script src="_common/js/filter/caser.filter.js"></script>
-<!--dynamic content-->
-<script src="_common/js/dynamic_content/dynamic.drtv.js"></script>
 <!--util-->
 <script src="_common/js/util/string.srv.js"></script>
 <script src="_common/js/util/value.srv.js"></script>
@@ -135,18 +138,5 @@
 <!--collection-->
 <script src="_common/js/collection/search.srv.js"></script>
 <script src="_common/js/collection/data.srv.js"></script>
-
-
-<!--*********MD Controllers**********-->
-<script src="_common/js/mdControllers/fabSpeedDial.ctrl.js"></script>
-<script src="_common/js/mdControllers/chip.ctrl.js"></script>
-<script src="_common/js/mdControllers/dialogManager.ctrl.js"></script>
-<script src="_common/js/mdControllers/toolBar.ctrl.js"></script>
-<script src="_common/js/mdControllers/toast.ctrl.js"></script>
-<script src="_common/js/mdControllers/toastManager.ctrl.js"></script>
-<!--*********MD Controllers**********-->
-<script src="_common/js/mdService/tabDialog.srv.js"></script>
-<script src="_common/js/mdService/toolBar.srv.js"></script>
-<script src="_common/js/mdService/toast.srv.js"></script>
 </body>
 </html>

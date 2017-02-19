@@ -7,7 +7,7 @@
 (function () {
 
     var roleEditCtrl = function (indexSrv, roleSrv, navigationSrv, ROUTE, systemSrv, notificationSrv, blockSrv,
-                                 permissionSrv, tabDialogSrv, $filter) {
+                                 permissionSrv, dialogSrv, $filter) {
         var vm = this;
         const keyP = 'ROLE_EDIT';
         var permissionsTabTitles = null;
@@ -195,15 +195,15 @@
         }
 
         function __show() {
-            tabDialogSrv.title = "Permisos";
-            tabDialogSrv.setTabs(permissionsTabTitles);
-            tabDialogSrv.setTabsContent(permissionsTabContents, true);
+            dialogSrv.title = "Permisos";
+            dialogSrv.setTabs(permissionsTabTitles);
+            dialogSrv.setTabsContent(permissionsTabContents, true);
         }
 
     };
 
     roleEditCtrl.$inject = ['indexSrv', 'roleSrv', 'navigationSrv', 'ROUTE', 'systemSrv', 'notificationSrv', 'blockSrv',
-        'permissionSrv', 'tabDialogSrv', '$filter'];
+        'permissionSrv', 'dialogSrv', '$filter'];
 
     angular.module('rrms')
         .controller('roleEditCtrl', roleEditCtrl);

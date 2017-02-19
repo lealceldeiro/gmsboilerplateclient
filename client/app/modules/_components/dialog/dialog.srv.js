@@ -7,7 +7,7 @@
     'use strict';
 
     angular.module('rrms')
-        .service('tabDialogSrv', ['$rootScope', 'BROADCAST', function ($rootScope, BROADCAST) {
+        .service('dialogSrv', ['$rootScope', 'BROADCAST', function ($rootScope, BROADCAST) {
             var self = this;
 
             self.service = {
@@ -15,6 +15,7 @@
                 setTitle: fnSetTitle,
                 setTabs: fnSetTabs,
                 setTabsContent: fnSetTabsContent,
+                setSimpleContent: fnSetSimpleContent,
                 setButtons: fnSetButtons,
                 setEv: fnSetEv,
                 setTabsTitles: fnSetTabsTitles
@@ -43,6 +44,12 @@
                 self.service.tabsContent = tabsContent;
                 if (showModal) {
                     $rootScope.$broadcast(BROADCAST.modal.SHOW_DIALOG_TAB)
+                }
+            }
+            function fnSetSimpleContent(content, showModal) {
+                self.service.simpleContent = content;
+                if (showModal) {
+                    $rootScope.$broadcast(BROADCAST.modal.SHOW_DIALOG)
                 }
             }
             function fnSetButtons(buttons, showModal) {

@@ -7,7 +7,12 @@
                 <md-list-item class="md-2-line" ng-repeat="item in vm.entities.all">
                     <div class="md-list-item-text" layout="column">
                         <h3 data-ng-bind="item.label | caser"></h3>
-                        <p data-ng-bind="item.name | caser"></p>
+
+                        <p>
+                            <small  data-ng-bind="'(Label: ' + (item.name | caser) + ')'">
+                            </small>
+                        </p>
+
                     </div>
                     <md-divider></md-divider>
                 </md-list-item>

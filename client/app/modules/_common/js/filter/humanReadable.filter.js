@@ -8,9 +8,9 @@ var humanReadable = function () {
     return function (data, prefix, postfix) {
         switch (data){
             case true:
-                return prefix + ' Activo ' + postfix;
+                return prefix + 'Activo' + postfix;
             case false:
-                return prefix + ' Inactivo ' + postfix;
+                return prefix + 'Inactivo' + postfix;
         }
     }
 };

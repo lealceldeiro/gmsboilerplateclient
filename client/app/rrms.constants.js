@@ -41,7 +41,8 @@
 
                 },
                 modal: {
-                    SHOW_DIALOG_TAB: 'SHOW_DIALOG_TAB'
+                    SHOW_DIALOG_TAB: 'SHOW_DIALOG_TAB',
+                    SHOW_DIALOG: 'SHOW_DIALOG'
                 },
                 pagination: {
                     RESET_PAGINATION: "RESET_PAGINATION"
