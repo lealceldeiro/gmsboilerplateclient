@@ -7,7 +7,7 @@
 (function () {
 
     var f = function (indexSrv, systemSrv, userSrv, navigationSrv, paginationSrv, ROUTE, searchSrv, blockSrv, sessionSrv,
-                      $rootScope) {
+                      $rootScope, dialogSrv) {
         var vm = this;
         const keyP = 'USER_LIST';
 
@@ -138,7 +138,7 @@
             if (typeof id !== 'undefined' && id !== null) {
                 vm.idToRemove = id;
                 var buttons = [{text:"Borrar", function: _doRemove}];
-                dialogSrv.showDialog("Confirmación", "Seguro desea eliminar este rol?", buttons);
+                dialogSrv.showDialog("Confirmación", "Seguro desea eliminar este usuario?", buttons);
             }
         }
 
@@ -152,7 +152,7 @@
                         var idx = searchSrv.indexOf(vm.wizard.entities.all, 'id', vm.idToRemove);
                         if (idx !== -1) {
                             var us = sessionSrv.currentUser();
-                            if (us && us.id == id) { //current user?
+                            if (us && us.id == vm.idToRemove) { //current user?
                                 sessionSrv.clearSession();
 
                                 //update users's logged in/out status
@@ -164,6 +164,10 @@
                                 fnChangePage();
                                 delete vm.idToRemove;
                             }
+                        }
+                        else{
+                            fnChangePage();
+                            delete vm.idToRemove;
                         }
                     }
                     blockSrv.unBlock();
@@ -187,7 +191,7 @@
     };
 
     f.$inject = ['indexSrv', 'systemSrv', 'userSrv', 'navigationSrv', 'paginationSrv', 'ROUTE', 'searchSrv', 'blockSrv',
-        'sessionSrv', '$rootScope'];
+        'sessionSrv', '$rootScope', 'dialogSrv'];
 
     angular.module('rrms')
         .controller('userListCtrl', f);
