@@ -11,10 +11,10 @@
         </md-toolbar>
         <md-dialog-content style="max-width:800px;max-height:810px; ">
             <md-tabs md-dynamic-height md-border-bottom>
-                <md-tab label="{{t}}" ng-repeat="t in tabs track by $index">
+                <md-tab label="{{tabsTitles[$index]}}" ng-repeat="t in tabsContent track by $index">
                     <md-content class="md-padding">
-                        <h1 class="md-display-2">{{tabsTitles[$index] | caser}}</h1>
-                        <p data-ng-bind-html="tabsContent[$index]"></p>
+                        <h1 class="md-display-2">{{tabsHeaders[$index] | caser}}</h1>
+                        <p data-ng-bind-html="t"></p>
                     </md-content>
                 </md-tab>
             </md-tabs>

@@ -21,9 +21,9 @@
                 showDialog();
             });
 
-            function showDialog (title, tabs, tabsTitles, simpleDialogText, tabsContent, buttons, ev) {
+            function showDialog (title, tabsHeaders, tabsTitles, simpleDialogText, tabsContent, buttons, ev) {
                 dialogSrv.title = title || dialogSrv.title;
-                dialogSrv.tabs = tabs || dialogSrv.tabs;
+                dialogSrv.tabsHeaders = tabsHeaders || dialogSrv.tabsHeaders;
                 dialogSrv.tabsTitles = tabsTitles || dialogSrv.tabsTitles;
                 dialogSrv.tabsContent = tabsContent || dialogSrv.tabsContent;
                 dialogSrv.text = simpleDialogText || dialogSrv.text;
@@ -65,7 +65,7 @@
 
                 $scope.title = dialogSrv.title;
                 $scope.text = dialogSrv.text;
-                $scope.tabs = dialogSrv.tabs;
+                $scope.tabsHeaders = dialogSrv.tabsHeaders;
                 $scope.tabsTitles = dialogSrv.tabsTitles;
                 $scope.simpleContent = dialogSrv.simpleContent;
                 $scope.tabsContent = dialogSrv.tabsContent;
