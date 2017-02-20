@@ -127,8 +127,7 @@
                         self.service.apiItems[storeKey] = data[self.service.items_resp];
                         self.service.apiItem[storeKey] = data[self.service.item_resp];
                         if (notifyOnSuccess) {
-                            notificationSrv.showNotif(self.service.apiMessage[storeKey], notificationSrv.utilText.titleSuccess.es,
-                                notificationSrv.type.SUCCESS);
+                            notificationSrv.showNotification(self.service.apiMessage[storeKey], notificationSrv.utilText.titleSuccess.es);
                         }
 
                         return true
@@ -137,8 +136,7 @@
                         self.service.apiMessage[storeKey] = data[self.service.error_message_resp] || notificationSrv.utilText.unSuccessfulOperation.es;
 
                         if (notifyOnUnSuccess) {
-                            notificationSrv.showNotif(self.service.apiMessage[storeKey], notificationSrv.utilText.titleError.es,
-                                notificationSrv.type.ERROR);
+                            notificationSrv.showNotification(self.service.apiMessage[storeKey], notificationSrv.utilText.titleError.es);
                         }
 
                         return false
@@ -146,8 +144,7 @@
                 }
                 self.service.apiMessage[storeKey] = 'There was not data provided for request with key "' + storeKey + '"';
                 if (notifyOnUnSuccess) {
-                    notificationSrv.showNotif(self.service.apiMessage[storeKey], notificationSrv.utilText.titleError.es,
-                        notificationSrv.type.ERROR);
+                    notificationSrv.showNotification(self.service.apiMessage[storeKey], notificationSrv.utilText.titleError.es);
                 }
                 return false
             }

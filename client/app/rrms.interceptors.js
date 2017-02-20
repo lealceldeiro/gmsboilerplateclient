@@ -32,8 +32,7 @@ var f = function (__env, $location, ROUTE, sessionSrv, systemSrv, notificationSr
                 $rootScope.$broadcast(BROADCAST.auth.REFRESH_TOKEN);
             }
             else {
-                notificationSrv.showNotif(notificationSrv.utilText.unauthorized.es,
-                    notificationSrv.utilText.titleError.es, notificationSrv.type.ERROR);
+                notificationSrv.showNotification(notificationSrv.utilText.unauthorized.es);
                 $rootScope.$broadcast(BROADCAST.auth.UNAUTHORIZED_BACKWARD);
             }
 

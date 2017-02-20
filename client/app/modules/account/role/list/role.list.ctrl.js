@@ -7,7 +7,7 @@
 (function () {
 
     var roleListCtrl = function (indexSrv, systemSrv, roleSrv, navigationSrv, paginationSrv, ROUTE, searchSrv, blockSrv,
-                                 sessionSrv) {
+                                 sessionSrv, dialogSrv) {
         var vm = this;
         const keyP = 'ROLE_LIST';
 
@@ -42,6 +42,7 @@
         function fnSearch(changeFlag) {
             if (changeFlag) {
                 roleSrv.sessionData.allRoles = false;
+                paginationSrv.resetPagination();
             }
             if(roleSrv.sessionData.allRoles){
                 fnSearchAll();
@@ -73,6 +74,7 @@
         function fnSearchAll(changeFlag) {
             if (changeFlag) {
                 roleSrv.sessionData.allRoles = true;
+                paginationSrv.resetPagination();
             }
             if(!roleSrv.sessionData.allRoles){
                 fnSearch();
@@ -132,16 +134,25 @@
         }
 
         function fnRemove(id) {
-            var fnKey = keyP + "fnRemove";
+            if (typeof id !== 'undefined' && id !== null) {
+                vm.idToRemove = id;
+                var buttons = [{text:"Borrar", function: _doRemove}];
+                dialogSrv.showDialog("Confirmación", "Seguro desea eliminar este rol?", buttons);
+            }
+        }
+
+        function _doRemove() {
+            var fnKey = keyP + "_doRemove";
             blockSrv.block();
-            roleSrv.remove(id).then(
+            roleSrv.remove(vm.idToRemove).then(
                 function (data) {
                     var e = systemSrv.eval(data, fnKey, true, true);
                     if (e) {
-                        var idx = searchSrv.indexOf(vm.wizard.roles.all, 'id', id);
+                        var idx = searchSrv.indexOf(vm.wizard.roles.all, 'id', vm.idToRemove);
                         if (idx !== -1) {
                             vm.wizard.roles.all.splice(idx,1);
-                            fnSearchByPageChange();
+                            fnChangePage();
+                            delete vm.idToRemove;
                         }
                     }
                     blockSrv.unBlock();
@@ -166,7 +177,7 @@
     };
 
     roleListCtrl.$inject = ['indexSrv', 'systemSrv', 'roleSrv', 'navigationSrv', 'paginationSrv', 'ROUTE', 'searchSrv',
-        'blockSrv', 'sessionSrv'];
+        'blockSrv', 'sessionSrv', 'dialogSrv'];
 
     angular.module('rrms')
         .controller('roleListCtrl', roleListCtrl);

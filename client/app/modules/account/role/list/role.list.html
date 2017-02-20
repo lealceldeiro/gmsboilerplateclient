@@ -5,13 +5,13 @@
                    ng-show="vm.roles.allLoaded"
                    ng-click="vm.search(true)">
             <md-icon md-svg-src="_common/img/svg/tag.svg"></md-icon>
-            <md-tooltip md-direction="right">Ver mis roles en esta entidad</md-tooltip>
+            <md-tooltip>Ver mis roles en esta entidad</md-tooltip>
         </md-button>
         <md-button aria-label="Ver todos los roles" class="md-icon-button"
                    ng-hide="vm.roles.allLoaded"
                    ng-click="vm.searchAll(true)">
             <md-icon md-svg-src="_common/img/svg/multitag.svg"></md-icon>
-            <md-tooltip md-direction="right">Ver todos los roles</md-tooltip>
+            <md-tooltip>Ver todos los roles</md-tooltip>
         </md-button>
 
         <!--add new role-->
@@ -29,11 +29,10 @@
                         <h3 data-ng-bind="item.label"></h3>
                         <p data-ng-bind="item.description"></p>
                         <p data-ng-bind="item.enabled | humanReadable:'(':')'"></p>
-
-
                         <md-button class="md-secondary" aria-label="edit role"
                                    ng-click="vm.edit(item.id)">
                             <md-icon md-svg-src="_common/img/svg/edit.svg"></md-icon>
+                            <md-tooltip>Editar</md-tooltip>
                         </md-button>
 
                         <md-checkbox
@@ -44,8 +43,10 @@
                         >
                         </md-checkbox>
 
-                        <md-button class="md-secondary" aria-label="delete role">
+                        <md-button class="md-secondary" aria-label="delete role"
+                                   ng-click="vm.remove(item.id)">
                             <md-icon md-svg-src="_common/img/svg/bin.svg"></md-icon>
+                            <md-tooltip>Eliminar</md-tooltip>
                         </md-button>
                     </div>
                     <md-divider></md-divider>

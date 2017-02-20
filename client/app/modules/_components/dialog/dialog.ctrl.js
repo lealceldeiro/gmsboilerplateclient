@@ -6,7 +6,7 @@
     'use strict';
 
     angular.module('rrms')
-        .controller('dialogManagerCtrl', ['$mdDialog', 'dialogSrv', '$scope', 'BROADCAST',
+        .controller('dialogCtrl', ['$mdDialog', 'dialogSrv', '$scope', 'BROADCAST',
 
             function($mdDialog, dialogSrv, $scope, BROADCAST) {
 
@@ -16,25 +16,29 @@
                 type = BROADCAST.modal.SHOW_DIALOG_TAB;
                 showDialog();
             });
+            $scope.$on(BROADCAST.modal.SHOW_DIALOG, function () {
+                type = BROADCAST.modal.SHOW_DIALOG;
+                showDialog();
+            });
 
-            function showDialog (title, tabs, tabsTitles, tabsContent, buttons, ev) {
+            function showDialog (title, tabs, tabsTitles, simpleDialogText, tabsContent, buttons, ev) {
                 dialogSrv.title = title || dialogSrv.title;
                 dialogSrv.tabs = tabs || dialogSrv.tabs;
                 dialogSrv.tabsTitles = tabsTitles || dialogSrv.tabsTitles;
                 dialogSrv.tabsContent = tabsContent || dialogSrv.tabsContent;
-                dialogSrv.simpleContent = tabsContent || dialogSrv.simpleContent;
+                dialogSrv.text = simpleDialogText || dialogSrv.text;
                 dialogSrv.buttons = buttons ||  dialogSrv.buttons;
                 dialogSrv.ev = ev || dialogSrv.ev;
 
                 if (dialogSrv.title || dialogSrv.tabs || dialogSrv.tabsTitles || dialogSrv.tabsContent
-                    || dialogSrv.buttons || dialogSrv.ev) {
+                    || dialogSrv.buttons || dialogSrv.ev || dialogSrv.text) {
                     var template;
                     switch (type){
                         case BROADCAST.modal.SHOW_DIALOG_TAB:
-                            template = "tabDialog.tmpl.html";
+                            template = "dialog_tab.tmpl.html";
                             break;
                         case BROADCAST.modal.SHOW_DIALOG:
-                            template = "simpleDialog.tmpl.html";
+                            template = "dialog_simple.tmpl.html";
                             break;
                     }
 
@@ -60,6 +64,7 @@
             function DialogController($scope, $mdDialog) {
 
                 $scope.title = dialogSrv.title;
+                $scope.text = dialogSrv.text;
                 $scope.tabs = dialogSrv.tabs;
                 $scope.tabsTitles = dialogSrv.tabsTitles;
                 $scope.simpleContent = dialogSrv.simpleContent;

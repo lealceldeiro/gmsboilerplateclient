@@ -48,7 +48,7 @@ var notificationSrv = function (toastSrv) {
             }
         },
 
-        showNotif: fnShow
+        showNotification: fnShow
     };
 
     return self.service;
@@ -63,7 +63,7 @@ var notificationSrv = function (toastSrv) {
      * @param actions (optional) Functions to be executed as action presented by a Text
      * @param actionNames (optional) Texts which names the actions
      */
-    function fnShow(message, title, type, actions, actionNames) {
+    function fnShow(message, actions, actionNames) {
         var buttons = [];
 
         //wrap buttons info

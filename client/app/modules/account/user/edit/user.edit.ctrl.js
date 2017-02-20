@@ -60,8 +60,7 @@
                     indexSrv.siteTile = 'Editar Usuario';
                 }
                 else{
-                    notificationSrv.showNotif(notificationSrv.utilText.mustSelectElement.es,
-                        notificationSrv.utilText.titleError.es, notificationSrv.type.ERROR);
+                    notificationSrv.showNotification(notificationSrv.utilText.mustSelectElement.es);
                     navigationSrv.goTo(ROUTE.USERS);
                 }
             }
