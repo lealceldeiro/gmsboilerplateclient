@@ -4,21 +4,21 @@
         <md-button aria-label="Ver usuarios solo en esta entidad" class="md-icon-button"
                    ng-show="vm.entities.allLoaded"
                    ng-click="vm.search(true)">
-            <md-icon md-svg-src="_common/img/svg/tag.svg"></md-icon>
+            <md-icon md-svg-src="_common/img/svg/user.svg"></md-icon>
             <md-tooltip>Ver usuarios solo en esta entidad</md-tooltip>
         </md-button>
         <md-button aria-label="Ver todos los usuarios" class="md-icon-button"
                    ng-hide="vm.entities.allLoaded"
                    ng-click="vm.searchAll(true)">
-            <md-icon md-svg-src="_common/img/svg/multitag.svg"></md-icon>
+            <md-icon md-svg-src="_common/img/svg/multiuser.svg"></md-icon>
             <md-tooltip>Ver todos los usuarios</md-tooltip>
         </md-button>
 
         <!--add new user-->
         <md-button aria-label="Nuevo usuario" class="md-icon-button"
                    ng-click="vm.new()">
-            <md-icon md-svg-src="_common/img/svg/new.svg"></md-icon>
-            <md-tooltip md-direction="right">Nuevo usuario</md-tooltip>
+            <md-icon md-svg-src="_common/img/svg/new_user.svg"></md-icon>
+            <md-tooltip>Nuevo usuario</md-tooltip>
         </md-button>
 
         <md-content>

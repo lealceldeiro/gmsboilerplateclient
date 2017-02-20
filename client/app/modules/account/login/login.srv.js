@@ -67,8 +67,8 @@ var loginSrv = function ($http, systemSrv, baseSrv, sessionSrv, $rootScope, BROA
         return baseSrv.resolveDeferred($http(req));
     }
 
-    function fnGetLoginEntity() {
-        var def = $http.get(url + "config/entity/last");
+    function fnGetLoginEntity(userId) {
+        var def = $http.get(url + "config/entity/last/" + userId);
         return baseSrv.resolveDeferred(def);
     }
 

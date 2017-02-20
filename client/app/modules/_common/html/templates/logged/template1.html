@@ -95,7 +95,7 @@
                         <md-fab-trigger>
                             <md-button aria-label="menu" class="md-fab md-mini">
                                 <md-tooltip md-direction="down">
-                                    {{sCtrl.user.username || sCtrl.user.email}}
+                                    {{sCtrl.user.username || sCtrl.user.email}} en "{{sCtrl.oEntity.name || sCtrl.oEntity.username}}"
                                 </md-tooltip>
                                 <md-icon md-svg-src="_common/img/svg/profile.svg"></md-icon>
                             </md-button>
@@ -109,7 +109,7 @@
                             </md-button>
 
                             <md-button aria-label="Seleccionar Entidad" class="md-fab md-mini md-hue-1" ng-click="sCtrl.go('/main')">
-                                <md-tooltip md-direction="down">{{sCtrl.oEntity.name || sCtrl.oEntity.username}}</md-tooltip>
+                                <md-tooltip md-direction="down">Cambiar de entidad ("{{sCtrl.oEntity.name || sCtrl.oEntity.username}}")</md-tooltip>
                                 <md-icon md-no-ink md-svg-src="_common/img/svg/owned-entity.svg" aria-label="Seleccionar Entidad"></md-icon>
                             </md-button>
 

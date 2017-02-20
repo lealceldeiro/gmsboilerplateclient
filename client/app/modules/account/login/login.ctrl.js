@@ -33,34 +33,44 @@
         function fnLogin(form) {
             if (form && form.$valid) {
                 blockSrv.block();
+
+                //do login
                 loginSrv.login(vm.wizard.emailOrUsername, vm.wizard.password).then(
                     function (data) {
                         var e = systemSrv.evalAuth(data, false, false);
                         if (e) {
-                            var key = "fnLogin" + keyP;
-                            loginSrv.getLoginEntity().then(
-                                function (data) {
-                                    var e2 = systemSrv.eval(data, key, false,  true);
-                                    if (e2) {
-                                        _moveToMain();
-                                        sessionSrv.setCurrentOwnedEntity(systemSrv.getItem(key));
-                                    }
-                                    else{
-                                        _unblockS();
-                                    }
-                                }
-                            );
-
                             var key2 = "fnLogin-getByUsername" + keyP;
+
+                            //get user data
                             userSrv.getByUsername(systemSrv.getAuthUser()).then(
                                 function (data) {
                                     var e2 = systemSrv.eval(data, key2);
                                     if (e2) {
-                                        _moveToMain();
+                                        var key = "fnLogin" + keyP;
+
+                                        //get last entity
+                                        loginSrv.getLoginEntity(systemSrv.getItem(key2).id).then(
+                                            function (data) {
+                                                var e2 = systemSrv.eval(data, key, false,  true);
+                                                if (e2) {
+                                                    //notify of login action
+                                                    $rootScope.$broadcast('TRIGGER_ACTION_AUTH'); //$rootScope instead of $scope so the change is propagated to all scopes
+
+                                                    navigationSrv.goTo(ROUTE.MAIN);
+
+                                                    sessionSrv.setCurrentOwnedEntity(systemSrv.getItem(key));
+
+                                                    blockSrv.unBlock();
+                                                }
+                                                else{
+                                                    blockSrv.unBlock();
+                                                }
+                                            }
+                                        );
                                         sessionSrv.setCurrentUser(systemSrv.getItem(key2));
                                     }
                                     else{
-                                        _unblockS();
+                                        blockSrv.unBlock();
                                     }
                                 }
                             );
@@ -74,24 +84,6 @@
                         }
                     }
                 );
-            }
-        }
-
-        function _moveToMain() {
-            if (++m >= total) {
-                m = 0;
-
-                //notify of login action
-                $rootScope.$broadcast('TRIGGER_ACTION_AUTH'); //$rootScope instead of $scope so the change is propagated to all scopes
-
-                navigationSrv.goTo(ROUTE.MAIN);
-                blockSrv.unBlock();
-            }
-        }
-
-        function _unblockS() {
-            if (++m2 >= total2) {
-                blockSrv.unBlock();
             }
         }
 
