@@ -150,7 +150,6 @@
                     if (e) {
                         var idx = searchSrv.indexOf(vm.wizard.roles.all, 'id', vm.idToRemove);
                         if (idx !== -1) {
-                            vm.wizard.roles.all.splice(idx,1);
                             fnChangePage();
                             delete vm.idToRemove;
                         }

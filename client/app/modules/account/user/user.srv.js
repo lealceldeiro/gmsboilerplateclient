@@ -9,12 +9,15 @@ var f = function (systemSrv, $http, valueSrv, baseSrv) {
     var url = systemSrv.APIAbsoluteUrl + 'user/';
 
     self.service = {
+        sessionData:{},
+
         search: fnSearch,
         searchAll: fnSearchAll,
         show: fnShow,
         getByUsername: fnGetByUsername,
         remove: fnRemove,
         save: fnSave,
+        activate: fnActivate,
 
         rolesByUser: fnRolesByUser,
         entitiesByUser: fnEntitiesByUser
@@ -63,6 +66,10 @@ var f = function (systemSrv, $http, valueSrv, baseSrv) {
         }
 
         return baseSrv.resolveDeferred(def);
+    }
+
+    function fnActivate(id, activate) {
+        return baseSrv.resolveDeferred($http.post(url + id + "/activate/" + activate))
     }
 
     function fnRolesByUser(id, eid, offset, max) {

@@ -9,25 +9,6 @@
                 <md-menu-bar>
                     <span>&boxv;</span>
 
-                    <!--User-->
-                    <md-menu>
-                        <button class="md-raised md-primary" ng-click="$mdMenu.open()">
-                            Usuarios
-                        </button>
-                        <md-menu-content>
-                            <md-menu-item>
-                                <md-button ng-click="sCtrl.go('/users/new')">
-                                    Nuevo usuario
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-divider></md-menu-divider>
-                            <md-menu-item>
-                                <md-button ng-click="sCtrl.go('/users')">
-                                    Ver listado de usuarios
-                                </md-button>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
 
                     <!--owned entities-->
                     <md-menu>
@@ -44,6 +25,26 @@
                             <md-menu-item>
                                 <md-button ng-click="sCtrl.go('/owned-entities')">
                                     Ver listado de entidades
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+
+                    <!--User-->
+                    <md-menu>
+                        <button class="md-raised md-primary" ng-click="$mdMenu.open()">
+                            Usuarios
+                        </button>
+                        <md-menu-content>
+                            <md-menu-item>
+                                <md-button ng-click="sCtrl.go('/users/new')">
+                                    Nuevo usuario
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-divider></md-menu-divider>
+                            <md-menu-item>
+                                <md-button ng-click="sCtrl.go('/users')">
+                                    Ver listado de usuarios
                                 </md-button>
                             </md-menu-item>
                         </md-menu-content>
