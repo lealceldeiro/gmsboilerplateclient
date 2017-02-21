@@ -42,6 +42,9 @@
                     </md-chips>
                 </div>
 
+                <!--for controlling when no permission is selected, make form invalid-->
+                <input type="hidden" data-ng-if="!vm.permissions.selected.length" required data-ng-model="vm.controlRquired">
+
                 <br/>
                 <div class="row">
                     <md-button md-no-ink class="md-accent" ng-click="vm.showRoleListDialog()" >

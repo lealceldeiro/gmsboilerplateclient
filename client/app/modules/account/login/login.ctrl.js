@@ -60,11 +60,8 @@
 
                                                     sessionSrv.setCurrentOwnedEntity(systemSrv.getItem(key));
 
-                                                    blockSrv.unBlock();
                                                 }
-                                                else{
-                                                    blockSrv.unBlock();
-                                                }
+                                                blockSrv.unBlock();
                                             }
                                         );
                                         sessionSrv.setCurrentUser(systemSrv.getItem(key2));
