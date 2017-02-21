@@ -20,12 +20,13 @@
 
 
                 <!--permissions-->
-                <div ng-controller="chipCtrl as chipCtrl">
+                <div ng-controller="chipCtrl as chipCtrl" data-ng-if="vm.permissions.all.length">
                     <md-chips ng-model="vm.permissions.selected" md-autocomplete-snap
                               md-transform-chip="chipCtrl.transformChip($chip)"
                               md-require-match="true"
                               md-separator-keys="chipCtrl.separatorKeys">
                         <md-autocomplete
+                                md-min-length="0"
                                 md-selected-item="chipCtrl.selectedChip"
                                 md-search-text="vm.pSearchText"
                                 md-items="item in vm.permissions.all"
