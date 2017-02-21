@@ -20,8 +20,13 @@
 
 
                 <!--permissions-->
-                <div ng-controller="chipCtrl as chipCtrl" data-ng-if="vm.permissions.all.length">
-                    <md-chips ng-model="vm.permissions.selected" md-autocomplete-snap
+                <div layout="row" data-ng-controller="chipCtrl as chipCtrl" data-ng-if="vm.permissions.all.length">
+                    <div flex="3" layout="center center">
+                        <md-icon md-svg-src="_common/img/svg/key.svg"></md-icon>
+                    </div>
+                    <span flex></span>
+                    <div flex="95">
+                        <md-chips ng-model="vm.permissions.selected" md-autocomplete-snap
                               md-transform-chip="chipCtrl.transformChip($chip)"
                               md-require-match="true"
                               md-separator-keys="chipCtrl.separatorKeys">
@@ -40,15 +45,16 @@
                             </span>
                         </md-chip-template>
                     </md-chips>
+                    </div>
                 </div>
 
                 <!--for controlling when no permission is selected, make form invalid-->
                 <input type="hidden" data-ng-if="!vm.permissions.selected.length" required data-ng-model="vm.controlRquired">
 
                 <br/>
-                <div class="row">
+                <div class="row" data-ng-show="vm.permissions.all.length">
                     <md-button md-no-ink class="md-accent" ng-click="vm.showRoleListDialog()" >
-                        Ver todos los permisos disponibles
+                        Ver todos los permisos disponibles&nbsp;({{vm.permissions.all.length}})
                     </md-button>
                 </div>
 

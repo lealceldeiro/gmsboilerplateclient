@@ -194,7 +194,7 @@
         }
 
         function __show() {
-            dialogSrv.showTabDialog("Permisos", permissionsTabTitles, permissionsTabContents);
+            dialogSrv.showTabDialog("Permisos (" + vm.wizard.permissions.all.length + ")", permissionsTabTitles, permissionsTabContents);
         }
 
     };
