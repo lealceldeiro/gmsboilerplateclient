@@ -22,7 +22,7 @@
             /**
              * Sets a tabbed modal components and shows it
              * @param title modal title
-             * @param tabs modal tabs titles
+             * @param tabsHeaders modal tabs titles
              * @param tabsTitles header for each tab content
              * @param tabsContent Content of each tab of the modal
              * @param buttons Buttons of the modal
