@@ -6,7 +6,7 @@
 
 (function () {
 
-    var roleViewCtrl = function (ROUTE, indexSrv, roleSrv, navigationSrv, notificationSrv, systemSrv, blockSrv) {
+    var roleViewCtrl = function (ROUTE, indexSrv, roleSrv, navigationSrv, notificationSrv, systemSrv, blockSrv, dialogSrv) {
         var vm = this;
         const keyP = 'ROLE_VIEW';
 
@@ -65,16 +65,25 @@
         }
 
         function fnRemove() {
-            var fnKey = keyP + "fnRemove";
+            var buttons = [{text:"Borrar", function: _doRemove, primary: true}];
+            dialogSrv.showDialog("Confirmación", "Seguro desea eliminar este rol?", buttons);
+
+        }
+
+        function _doRemove() {
+            var fnKey = keyP + "_doRemove";
+            blockSrv.block();
             roleSrv.remove(vm.id).then(
                 function (data) {
                     var e = systemSrv.eval(data, fnKey, true, true);
                     if (e) {
                         navigationSrv.goTo(ROUTE.ROLES);
+                        blockSrv.unBlock();
                     }
                 }
             )
         }
+
 
         function fnCancel() {
             navigationSrv.goTo(ROUTE.ROLES);
@@ -88,6 +97,7 @@
             var fnKey2 = keyP + "_loadPermissions";
             var offset = vm.wizard.permissions.offset;
             var max = vm.wizard.permissions.itemsPerPage;
+            vm.wizard.permissions.all = [];
 
             blockSrv.setIsLoading(vm.wizard.permissions,true);
             roleSrv.permissionsByUser(id, offset, max).then(
@@ -95,7 +105,10 @@
                     blockSrv.setIsLoading(vm.wizard.permissions);
                     var e = systemSrv.eval(data, fnKey2, false, true);
                     if (e) {
-                        vm.wizard.permissions.all = systemSrv.getItems(fnKey2);
+                        var items = systemSrv.getItems(fnKey2);
+                        for(var i = 0, l = items.length; i < l; i++){
+                            vm.wizard.permissions.all.push(items[i].label);
+                        }
                         vm.wizard.permissions.total = systemSrv.getTotal(fnKey2);
                     }
                 }
@@ -114,7 +127,8 @@
 
     };
 
-    roleViewCtrl.$inject = ['ROUTE', 'indexSrv', 'roleSrv', 'navigationSrv', 'notificationSrv', 'systemSrv', 'blockSrv'];
+    roleViewCtrl.$inject = ['ROUTE', 'indexSrv', 'roleSrv', 'navigationSrv', 'notificationSrv', 'systemSrv', 'blockSrv',
+        'dialogSrv'];
 
     angular.module('rrms')
         .controller('roleViewCtrl', roleViewCtrl);
