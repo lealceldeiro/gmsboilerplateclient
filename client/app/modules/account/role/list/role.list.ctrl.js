@@ -136,7 +136,7 @@
         function fnRemove(id) {
             if (typeof id !== 'undefined' && id !== null) {
                 vm.idToRemove = id;
-                var buttons = [{text:"Borrar", function: _doRemove}];
+                var buttons = [{text:"Borrar", function: _doRemove, primary: true}];
                 dialogSrv.showDialog("Confirmación", "Seguro desea eliminar este rol?", buttons);
             }
         }

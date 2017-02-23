@@ -4,20 +4,20 @@
         <md-button aria-label="Ver usuarios solo en esta entidad" class="md-icon-button"
                    ng-show="vm.entities.allLoaded"
                    ng-click="vm.search(true)">
-            <md-icon md-svg-src="_common/img/svg/user.svg"></md-icon>
+            <md-icon md-svg-src="_common/img/action/ic_flip_to_back_24px.svg"></md-icon>
             <md-tooltip>Ver usuarios solo en esta entidad</md-tooltip>
         </md-button>
         <md-button aria-label="Ver todos los usuarios" class="md-icon-button"
                    ng-hide="vm.entities.allLoaded"
                    ng-click="vm.searchAll(true)">
-            <md-icon md-svg-src="_common/img/svg/multiuser.svg"></md-icon>
+            <md-icon md-svg-src="_common/img/action/ic_flip_to_front_24px.svg"></md-icon>
             <md-tooltip>Ver todos los usuarios</md-tooltip>
         </md-button>
 
         <!--add new user-->
         <md-button aria-label="Nuevo usuario" class="md-icon-button"
                    ng-click="vm.new()">
-            <md-icon md-svg-src="_common/img/svg/new_user.svg"></md-icon>
+            <md-icon md-svg-src="_common/img/content/ic_add_24px.svg"></md-icon>
             <md-tooltip>Nuevo usuario</md-tooltip>
         </md-button>
 
@@ -29,9 +29,9 @@
                         <h3 data-ng-bind="item.name + ' (' + item.username + ')'"></h3>
                         <p data-ng-bind="item.email"></p>
                         <p data-ng-bind="item.enabled | humanReadable:'(':')'"></p>
-                        <md-button class="md-secondary" aria-label="editar usuario"
+                        <md-button class="md-secondary md-icon-button" aria-label="editar usuario"
                                    ng-click="vm.edit(item.id)">
-                            <md-icon md-svg-src="_common/img/svg/edit.svg"></md-icon>
+                            <md-icon md-svg-src="_common/img/content/ic_create_24px.svg"></md-icon>
                             <md-tooltip>Editar</md-tooltip>
                         </md-button>
 
@@ -43,9 +43,9 @@
                         >
                         </md-checkbox>
 
-                        <md-button class="md-secondary" aria-label="delete role"
+                        <md-button class="md-secondary md-icon-button" aria-label="delete role"
                                    ng-click="vm.remove(item.id)">
-                            <md-icon md-svg-src="_common/img/svg/bin.svg"></md-icon>
+                            <md-icon md-svg-src="_common/img/action/ic_delete_24px.svg"></md-icon>
                             <md-tooltip>Eliminar</md-tooltip>
                         </md-button>
                     </div>
