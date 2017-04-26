@@ -24,9 +24,7 @@
 
     };
 
-    mainCtrl.$inject = ['indexSrv'];
-
     angular.module('rrms')
-        .controller('mainCtrl', mainCtrl);
+        .controller('mainCtrl', ['indexSrv', mainCtrl]);
 
 })();

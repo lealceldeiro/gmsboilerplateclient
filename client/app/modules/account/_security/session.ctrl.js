@@ -70,15 +70,6 @@
             $rootScope.$broadcast('TRIGGER_ACTION_AUTH'); //$rootScope instead of $scope so the change is propagated to all scopes
 
             navigationSrv.goTo(ROUTE.LOGIN);
-
-            /*loginSrv.logout().then(
-                function (data) {
-                    var e = true;//todo
-                    if (e) {
-                    }
-                }
-            );
-            */
         }
 
         function goTo(r) {
@@ -87,9 +78,7 @@
 
     };
 
-    sessionCtrl.$inject = ['sessionSrv', 'navigationSrv', 'ROUTE', 'systemSrv', '$rootScope'];
-
     angular.module('rrms')
-        .controller('sessionCtrl', sessionCtrl);
+        .controller('sessionCtrl', ['sessionSrv', 'navigationSrv', 'ROUTE', 'systemSrv', '$rootScope', sessionCtrl]);
 
 })();

@@ -19,7 +19,7 @@ var f = function (systemSrv, $http, valueSrv, baseSrv) {
         save: fnSave,
         activate: fnActivate,
 
-        rolesByUser: fnRolesByUser,
+        rolesByUserAndEntity: fnRolesByUserAndEntity,
         entitiesByUser: fnEntitiesByUser
     };
 
@@ -72,7 +72,7 @@ var f = function (systemSrv, $http, valueSrv, baseSrv) {
         return baseSrv.resolveDeferred($http.post(url + id + "/activate/" + activate))
     }
 
-    function fnRolesByUser(id, eid, offset, max) {
+    function fnRolesByUserAndEntity(id, eid, offset, max) {
         var params = valueSrv.nNnN(offset) ? "?offset=" + offset : "";
         if (valueSrv.nNnN(max)) {
             params += params === ""? "?max=" + max : "&max=" + max;

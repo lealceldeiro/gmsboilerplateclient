@@ -91,7 +91,7 @@
             var max = vm.wizard.roles.itemsPerPage;
             var ent = sessionSrv.loginEntity();
 
-            userSrv.rolesByUser(id, ent ? ent.id : 0, offset, max).then(
+            userSrv.rolesByUserAndEntity(id, ent ? ent.id : 0, offset, max).then(
                 function (data) {
                     var e = systemSrv.eval(data, fnKey2, false, true);
                     if (e) {

@@ -39,36 +39,45 @@
                     function (data) {
                         var e = systemSrv.evalAuth(data, false, false);
                         if (e) {
-                            var key2 = "fnLogin-getByUsername" + keyP;
+                            var key = "fnLogin-getByUsername" + keyP;
 
                             //get user data
                             userSrv.getByUsername(systemSrv.getAuthUser()).then(
                                 function (data) {
-                                    var e2 = systemSrv.eval(data, key2);
+                                    var e2 = systemSrv.eval(data, key);
                                     if (e2) {
-                                        var key = "fnLogin" + keyP;
+                                        var key2 = "fnLogin-getLoginEntity" + keyP;
 
                                         //get last entity
-                                        loginSrv.getLoginEntity(systemSrv.getItem(key2).id).then(
+                                        loginSrv.getLoginEntity(systemSrv.getItem(key).id).then(
                                             function (data) {
-                                                var e2 = systemSrv.eval(data, key, false,  true);
-                                                if (e2) {
-                                                    //notify of login action
-                                                    $rootScope.$broadcast('TRIGGER_ACTION_AUTH'); //$rootScope instead of $scope so the change is propagated to all scopes
+                                                var e3 = systemSrv.eval(data, key2, false, true);
+                                                if (e3) {
+                                                    var key3 = "fnLogin-entitiesByUser" + keyP;
+                                                    userSrv.entitiesByUser(systemSrv.getItem(key)['id']).then(function (data) {
 
-                                                    navigationSrv.goTo(ROUTE.MAIN);
+                                                        systemSrv.eval(data, key3, false, true);
 
-                                                    sessionSrv.setCurrentOwnedEntity(systemSrv.getItem(key));
+                                                        var cu = sessionSrv.currentUser();
+                                                        cu.entities = systemSrv.getItems(key3);
+                                                        sessionSrv.setCurrentUser(cu);
 
+                                                        //notify of login action
+                                                        $rootScope.$broadcast('TRIGGER_ACTION_AUTH'); //$rootScope instead of $scope so the change is propagated to all scopes
+
+                                                        navigationSrv.goTo(ROUTE.MAIN);
+
+                                                        blockSrv.unBlock();
+                                                    });
+
+                                                    sessionSrv.setCurrentOwnedEntity(systemSrv.getItem(key2));
                                                 }
-                                                blockSrv.unBlock();
+                                                else { blockSrv.unBlock();}
                                             }
                                         );
-                                        sessionSrv.setCurrentUser(systemSrv.getItem(key2));
+                                        sessionSrv.setCurrentUser(systemSrv.getItem(key));
                                     }
-                                    else{
-                                        blockSrv.unBlock();
-                                    }
+                                    else { blockSrv.unBlock(); }
                                 }
                             );
 
@@ -76,14 +85,11 @@
                             sessionSrv.setSecurityToken(systemSrv.getAuthToken());
                             sessionSrv.setSecurityRefreshToken(systemSrv.getAuthRefreshToken());
                         }
-                        else{
-                            blockSrv.unBlock();
-                        }
+                        else {blockSrv.unBlock();}
                     }
                 );
             }
         }
-
     };
 
     loginCtrl.$inject = ['indexSrv', 'sessionSrv', 'navigationSrv', 'systemSrv', 'loginSrv', 'ROUTE', 'blockSrv',

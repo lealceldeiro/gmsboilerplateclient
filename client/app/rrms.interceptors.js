@@ -54,12 +54,9 @@
         $httpProvider['interceptors'].push('envValidityChecker');
     };
 
-    f.$inject = ['__env', '$location', 'ROUTE', 'sessionSrv', 'systemSrv', 'notificationSrv', '$rootScope', 'BROADCAST'];
-    conf.$inject = ['$httpProvider'];
-
     angular
         .module('rrms')
-        .factory('envValidityChecker', f)
+        .factory('envValidityChecker', ['__env', '$location', 'ROUTE', 'sessionSrv', 'systemSrv', 'notificationSrv', '$rootScope', 'BROADCAST', f])
         .config(['$httpProvider', conf]);
 
 

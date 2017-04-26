@@ -2,12 +2,14 @@
     <div flex-gt-sm="99" flex>
         <!--change role view-->
         <md-button aria-label="Ver usuarios solo en esta entidad" class="md-icon-button"
+                   ng-if="sCtrl.user.entities.length > 1"
                    ng-show="vm.entities.allLoaded"
                    ng-click="vm.search(true)">
             <md-icon md-svg-src="_common/img/action/ic_flip_to_back_24px.svg"></md-icon>
             <md-tooltip>Ver usuarios solo en esta entidad</md-tooltip>
         </md-button>
         <md-button aria-label="Ver todos los usuarios" class="md-icon-button"
+                   ng-if="sCtrl.user.entities.length > 1"
                    ng-hide="vm.entities.allLoaded"
                    ng-click="vm.searchAll(true)">
             <md-icon md-svg-src="_common/img/action/ic_flip_to_front_24px.svg"></md-icon>
