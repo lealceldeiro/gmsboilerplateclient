@@ -1,7 +1,7 @@
-<div class="demo-md-panel-content"  data-ng-cloak>
+<div data-ng-cloak>
 
-    <div layout="column" layout-padding>
-        <form data-ng-show="vm.role" role="form" name="editRoleForm">
+    <form data-ng-show="vm.role" role="form" name="editRoleForm">
+        <div layout="column" layout-padding>
             <md-content class="md-no-momentum">
 
                 <!--name-->
@@ -27,24 +27,24 @@
                     <span flex></span>
                     <div flex="95">
                         <md-chips ng-model="vm.permissions.selected" md-autocomplete-snap
-                              md-transform-chip="chipCtrl.transformChip($chip)"
-                              md-require-match="true"
-                              md-separator-keys="chipCtrl.separatorKeys">
-                        <md-autocomplete
-                                md-min-length="0"
-                                md-selected-item="chipCtrl.selectedChip"
-                                md-search-text="vm.pSearchText"
-                                md-items="item in vm.permissions.all"
-                                md-item-text="item.label"
-                                placeholder="Seleccione los permisos">
-                            <span md-highlight-text="vm.pSearchText">{{item.label | caser}}</span>
-                        </md-autocomplete>
-                        <md-chip-template>
+                                  md-transform-chip="chipCtrl.transformChip($chip)"
+                                  md-require-match="true"
+                                  md-separator-keys="chipCtrl.separatorKeys">
+                            <md-autocomplete
+                                    md-min-length="0"
+                                    md-selected-item="chipCtrl.selectedChip"
+                                    md-search-text="vm.pSearchText"
+                                    md-items="item in vm.permissions.all"
+                                    md-item-text="item.label"
+                                    placeholder="Seleccione los permisos">
+                                <span md-highlight-text="vm.pSearchText">{{item.label | caser}}</span>
+                            </md-autocomplete>
+                            <md-chip-template>
                             <span>
                               <strong>{{$chip.label | caser}}</strong>
                             </span>
-                        </md-chip-template>
-                    </md-chips>
+                            </md-chip-template>
+                        </md-chips>
                     </div>
                 </div>
 
@@ -66,8 +66,8 @@
                 </md-input-container>
 
             </md-content>
-        </form>
-    </div>
+        </div>
+    </form>
 
 
     <div data-ng-hide="!vm.roleData.loading" layout="row" layout-align="center center">

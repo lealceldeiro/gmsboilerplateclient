@@ -1,6 +1,140 @@
+<div data-ng-cloak>
+
+
+    <form data-ng-show="vm.entity" role="form" name="editUserForm">
+        <div layout="row" layout-padding layout-wrap>
+            <div flex="50">
+                <md-content class="md-no-momentum">
+                    <!--name-->
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Nombre</label>
+                        <md-icon md-svg-src="_common/img/social/ic_person_outline_24px.svg"></md-icon>
+                        <input ng-model="vm.entity.name" type="text">
+                    </md-input-container>
+
+                    <!--username-->
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Usuario</label>
+                        <md-icon md-svg-src="_common/img/social/ic_person_24px.svg"></md-icon>
+                        <input ng-model="vm.entity.username" type="text">
+                    </md-input-container>
+
+                    <!--email-->
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Email</label>
+                        <md-icon md-svg-src="_common/img/communication/ic_email_24px.svg"></md-icon>
+                        <input ng-model="vm.entity.email" type="text">
+                    </md-input-container>
+                </md-content>
+            </div>
+
+            <div flex="50">
+                <md-content class="md-no-momentum">
+                    <!--password-->
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Contrase&ntilde;a</label>
+                        <md-icon md-svg-src="_common/img/action/ic_lock_24px.svg"></md-icon>
+                        <input ng-model="vm.entity.password" type="password">
+                    </md-input-container>
+
+                    <!--repeat password-->
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Repetir contrase&ntilde;a</label>
+                        <md-icon md-svg-src="_common/img/action/ic_lock_outline_24px.svg"></md-icon>
+                        <input ng-model="vm.entity.password2" type="password">
+                    </md-input-container>
+
+                    <div layout="row" layout-padding>
+                        <div flex="50">
+                            <md-checkbox class="m-left-m-10px" ng-model="vm.entity.enabled" aria-label="Activo">
+                                Activo
+                            </md-checkbox>
+                        </div>
+                        <div flex="50">
+                            <span>Photo will go here</span>
+                        </div>
+                    </div>
+
+                </md-content>
+            </div>
+
+            <!--Roles when single Entity-->
+            <div class="m-left-m-10px" flex="100" layout="row" data-ng-controller="chipCtrl as chipCtrl"
+                 data-ng-if="vm.roles.all.length && vm.entities.length === 1">
+                <div flex="5" layout="center start">
+                    <md-icon md-svg-src="_common/img/social/ic_group_24px.svg"></md-icon>
+                </div>
+                <div flex="95">
+                    <md-chips ng-model="vm.roles.selected" md-autocomplete-snap
+                              md-transform-chip="chipCtrl.transformChip($chip)"
+                              md-require-match="true"
+                              md-separator-keys="chipCtrl.separatorKeys">
+                        <md-autocomplete
+                                md-min-length="0"
+                                md-selected-item="chipCtrl.selectedChip"
+                                md-search-text="vm.pSearchText"
+                                md-items="item in vm.roles.all"
+                                md-item-text="item.label"
+                                placeholder="Seleccione los roles">
+                            <span md-highlight-text="vm.pSearchText">{{item.label}}</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                                <span>
+                                  <strong>{{$chip.label}}</strong>
+                                </span>
+                        </md-chip-template>
+                    </md-chips>
+                </div>
+            </div>
+            <!--for controlling when no role is selected, make form invalid-->
+            <input type="hidden" data-ng-if="vm.roles.all.length && !vm.roles.selected.length" required
+                   data-ng-model="vm.controlRquired">
+
+        </div>
+
+        <!--todo: Roles when more than one entity-->
+        <div data-ng-if="vm.entities.length > 1 || !vm.entities" layout="row" layout-padding layout-wrap>
+            <!--OwnedEntity-->
+            <div flex="30">
+                <md-virtual-repeat-container>
+                    <div md-virtual-repeat="item in sCtrl.user.entities" flex>
+                        {{item.name}}
+                    </div>
+                </md-virtual-repeat-container>
+            </div>
+
+            <div flex="70">
+
+            </div>
+        </div>
+
+    </form>
+
+    <div data-ng-hide="!vm.entityData.loading" layout="row" layout-align="center center">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+
+    <md-divider></md-divider>
+    <br/>
+
+    <md-button class="md-primary md-raised"
+               ng-click="vm.save(editUserForm)">
+        Guardar
+    </md-button>
+    <md-button class="md-active md-raised"
+               ng-click="vm.cancel()">
+        Cancelar
+    </md-button>
+
+</div>
+
+<!--
+
+
+&lt;!&ndash;**************&ndash;&gt;
 <div class="center-block blocked-2-styled">
     <form data-ng-show="vm.entity" role="form" name="editUserForm">
-        <!--username and password-->
+        &lt;!&ndash;username and password&ndash;&gt;
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group">
@@ -19,7 +153,7 @@
                 </div>
             </div>
         </div>
-        <!--name and repeat password-->
+        &lt;!&ndash;name and repeat password&ndash;&gt;
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group">
@@ -38,7 +172,7 @@
                 </div>
             </div>
         </div>
-        <!--email and roles-->
+        &lt;!&ndash;email and roles&ndash;&gt;
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group">
@@ -97,3 +231,4 @@
         </div>
     </div>
 </div>
+-->

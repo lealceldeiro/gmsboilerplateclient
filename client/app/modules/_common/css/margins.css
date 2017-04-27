@@ -2,6 +2,9 @@
 .m-left-20px {
     margin-left: 20px;
 }
+.m-left-m-10px {
+    margin-left: -10px !important;
+}
 
 /*top*/
 

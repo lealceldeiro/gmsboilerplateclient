@@ -5,3 +5,7 @@
 .min-height-600px {
     min-height: 600px;
 }
+
+md-virtual-repeat-container {
+    height: 40px;
+}

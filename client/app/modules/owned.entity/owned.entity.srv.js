@@ -25,7 +25,7 @@
          * Search for owned entities
          * @param uid Logged user id
          * @param offset offset for paging
-         * @param max max offset for paging
+         * @param max max for paging
          * @param criteria criteria for searching
          * @returns {*} Promise
          */

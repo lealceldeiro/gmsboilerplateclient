@@ -7,11 +7,14 @@
     'use strict';
 
     var f = function (indexSrv, userSrv, navigationSrv, ROUTE, systemSrv, notificationSrv, roleSrv, blockSrv, sessionSrv,
-                      searchSrv) {
+                      $timeout, ownedEntitySrv) {
         var vm = this;
         const keyP = 'USER_EDIT';
 
-        var flagSearch = false;
+        vm.priv = {
+            MAX_TRY: 3,
+            tryLoadRoles: 0
+        };
 
         vm.wizard = {
             entity: {},
@@ -19,8 +22,6 @@
             entityData: null,
 
             roles: {
-
-                allLoaded: false,
 
                 offset: 0,
                 max: 8,
@@ -30,10 +31,7 @@
                 selected: null
             },
 
-            setIsSearching: fnSetIsSearching,
-            searchRoles: fnSearchRoles,
             loadRoles: fnLoadRoles,
-            searchAllRoles: fnSearchAllRoles,
 
             init: fnInit,
             cancel: fnCancel,
@@ -46,15 +44,17 @@
 
         //fn
         function fnInit() {
+
+            fnLoadRoles();
+
             if (navigationSrv.currentPath() === ROUTE.USER_NEW) {
                 indexSrv.siteTile = 'Nuevo Usuario';
-
-                fnLoadRoles();
+                _loadAllEntities();
             }
             else {
                 vm.wizard.entity = null;
                 var p = navigationSrv.currentParams();
-                if (p && null !== p.id && typeof p.id !== 'undefined' && p.id != 'undefined'&& p.id != 'null') {
+                if (p && null !== p.id && typeof p.id !== 'undefined' && p.id !== 'undefined'&& p.id !== 'null') {
                     vm.id = p.id;
                     fnLoadData(p.id);
                     indexSrv.siteTile = 'Editar Usuario';
@@ -67,7 +67,7 @@
         }
 
         function fnLoadData(id) {
-            blockSrv.setIsLoading(vm.wizard.entityData,true);
+            blockSrv.setIsLoading(vm.wizard.entityData, true);
             var fnKey = keyP + "fnLoadData";
             //get info
             userSrv.show(id).then(
@@ -79,20 +79,47 @@
                     blockSrv.setIsLoading(vm.wizard.entityData);
                 }
             );
-            _loadRolesInitial(id);
+
+            var fnKey2 = keyP + "fnLoadData-entitiesByUser";
+            userSrv.entitiesByUser(id, 0, 0).then(function (data) {
+                var e = systemSrv.eval(data, fnKey2, false, true);
+                if (e) {
+                    vm.wizard.entities = systemSrv.getItems(fnKey2);
+
+
+                    //user is associated to only one entity
+                    if (vm.wizard.entities.length === 1) {
+                        fnLoadAssignedRoles(id, vm.wizard.entities[0]['id']);
+                    }
+                    else {
+                        //todo
+                    }
+                }
+            });
         }
 
         function fnSave(form) {
             if (form && form.$valid) {
-                var le = sessionSrv.loginEntity();
+                if (vm.wizard.entities.length > 1) {
+                    //todo
+                }
+                else {
+                    var le = vm.wizard.entities[0];
+                }
+
                 blockSrv.block();
                 var params = {
                     username : vm.wizard.entity.username,
                     name : vm.wizard.entity.name,
                     email : vm.wizard.entity.email,
                     password : vm.wizard.entity.password,
+
+                    //todo: refactor for multi entity
                     roles: [],
-                    entity: le ? le.id : 0
+                    entity: le ? le.id : 0,
+                    //end todo
+
+                    enabled: vm.wizard.entity.enabled
                 };
                 var fnKey = keyP + "fnSave";
                 angular.forEach(vm.wizard.roles.selected, function (element) {
@@ -115,117 +142,66 @@
             navigationSrv.goTo(ROUTE.USERS);
         }
 
-        function fnLoadRoles(criteria) {
+        function fnLoadRoles() {
             blockSrv.block();
             vm.wizard.roles.all = [];
-            var temp = [];
-            Object.assign(temp, vm.wizard.roles.selected);
             vm.wizard.roles.selected = [];
 
             var fnKey = keyP + "_loadRoles";
-            var ent = sessionSrv.loginEntity();
-            var u = sessionSrv.currentUser();
 
-            roleSrv.search(u ? u.id : 0, ent ? ent.id : 0, 0, 0, criteria).then(
+            roleSrv.searchAll(0, 0).then( //off: 0, max: 0
                 function (data) {
                     var e = systemSrv.eval(data, fnKey, false, true);
                     if (e) {
                         vm.wizard.roles.all = systemSrv.getItems(fnKey);
+                    }
+                    blockSrv.unBlock();
+                }
+            )
+        }
 
-                        var idxA;
-                        angular.forEach(temp, function (it) {
-                            idxA = searchSrv.indexOf(vm.wizard.roles.all, 'id', it.id);
-                            if (idxA !== -1) {
-                                vm.wizard.roles.selected.push(vm.wizard.roles.all[idxA]);
-                            }
-                        });
+        function fnLoadAssignedRoles(uid, eid) {
+            //all roles are loaded
+            if (vm.wizard.roles.all.length > 0) {
+                vm.wizard.roles.selected = [];
 
-                        if (!criteria) {
-                            vm.wizard.roles.allLoaded = false;
+                var fnKey = keyP + "fnLoadAssignedRoles";
+
+                roleSrv.search(uid, eid, 0, 0).then(
+                    function (data) {
+                        var e = systemSrv.eval(data, fnKey, false, true);
+                        if (e) {
+                            vm.wizard.roles.selected = systemSrv.getItems(fnKey);
                         }
                     }
-                    blockSrv.unBlock();
-                }
-            )
+                )
+            }
+            else if(vm.priv.tryLoadRoles++ < vm.priv.MAX_TRY) {
+                $timeout(function () {
+                    fnLoadAssignedRoles(uid, eid);
+                }, 500)
+            }
         }
-
-        function fnSearchAllRoles(criteria) {
+        
+        function _loadAllEntities() {
             blockSrv.block();
-            vm.wizard.roles.all = [];
-            var temp = [];
-            Object.assign(temp, vm.wizard.roles.selected);
-            vm.wizard.roles.selected = [];
-
-            var fnKey = keyP + "_loadRoles";
-            roleSrv.searchAll(0, 0, criteria).then(
-                function (data) {
-                    var e = systemSrv.eval(data, fnKey, false, true);
-                    if (e) {
-                        vm.wizard.roles.all = systemSrv.getItems(fnKey);
-                        /*var r, idx, j = 0;
-                         do {
-                         r = vm.wizard.roles.selected[j++];
-                         if (r) {
-                         idx = searchSrv.indexOf(vm.wizard.roles.all, 'id', r.id);
-                         vm.wizard.roles.all.splice(idx, 1);
-                         }
-                         } while(r);*/
-                        var idxA;
-                        angular.forEach(temp, function (it) {
-                            idxA = searchSrv.indexOf(vm.wizard.roles.all, 'id', it.id);
-                            if (idxA !== -1) {
-                                vm.wizard.roles.selected.push(vm.wizard.roles.all[idxA]);
-                            }
-                        });
-                        vm.wizard.roles.allLoaded = true
-                    }
-                    blockSrv.unBlock();
+            var fnKey = keyP + "_loadAllEntities";
+            vm.wizard.entities = [];
+            var u = sessionSrv.currentUser();
+            ownedEntitySrv.search(u.id, 0, 0).then(function (data) {
+                var e = systemSrv.eval(data, fnKey, false, true);
+                if (e) {
+                    vm.wizard.entities = systemSrv.getItems(fnKey);
                 }
-            )
+                blockSrv.unBlock();
+            })
+
         }
 
-        function _loadRolesInitial(id, criteria) {
-            vm.wizard.roles.all = [];
-            var fnKey = keyP + "_loadRolesInitial";
-
-            var ent = sessionSrv.loginEntity();
-            roleSrv.search(id, ent ? ent.id : 0, 0, 0, criteria).then(    //zero for avoiding issue with ui-select filtering
-                function (data) {
-                    var e = systemSrv.eval(data, fnKey, false, true);
-                    if (e) {
-                        vm.wizard.roles.all = systemSrv.getItems(fnKey);
-                        vm.wizard.roles.selected = vm.wizard.roles.all;
-                    }
-                }
-            );
-        }
-
-        function fnSearchRoles(criteria) {
-            if (flagSearch) {
-                if (vm.wizard.roles.allLoaded) {
-                    fnSearchAllRoles(criteria);
-                }
-                else{
-                    fnLoadRoles(criteria);
-                }
-            }
-        }
-
-        function fnSetIsSearching(s) {
-            flagSearch = s === true;
-            if (!flagSearch) {
-                if (vm.wizard.roles.allLoaded) {
-                    fnSearchAllRoles();
-                }
-                else{
-                    fnLoadRoles();
-                }
-            }
-        }
     };
 
     angular.module('rrms')
         .controller('userEditCtrl', ['indexSrv', 'userSrv', 'navigationSrv', 'ROUTE', 'systemSrv', 'notificationSrv', 'roleSrv',
-            'blockSrv', 'sessionSrv', 'searchSrv', f]);
+            'blockSrv', 'sessionSrv', '$timeout', 'ownedEntitySrv', f]);
 
 })();
