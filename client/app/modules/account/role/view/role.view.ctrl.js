@@ -2,9 +2,9 @@
  * Created by Asiel on 11/9/2016.
  */
 
-'use strict';
-
 (function () {
+
+    'use strict';
 
     var roleViewCtrl = function (ROUTE, indexSrv, roleSrv, navigationSrv, notificationSrv, systemSrv, blockSrv, dialogSrv) {
         var vm = this;
@@ -127,10 +127,8 @@
 
     };
 
-    roleViewCtrl.$inject = ['ROUTE', 'indexSrv', 'roleSrv', 'navigationSrv', 'notificationSrv', 'systemSrv', 'blockSrv',
-        'dialogSrv'];
-
     angular.module('rrms')
-        .controller('roleViewCtrl', roleViewCtrl);
+        .controller('roleViewCtrl', ['ROUTE', 'indexSrv', 'roleSrv', 'navigationSrv', 'notificationSrv', 'systemSrv', 'blockSrv',
+            'dialogSrv', roleViewCtrl]);
 
 })();

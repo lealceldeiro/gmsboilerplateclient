@@ -2,9 +2,9 @@
  * Created by Asiel on 11/11/2016.
  */
 
-'use strict';
-
 (function () {
+
+    'use strict';
 
     var paginationCtrl = function (paginationSrv, $scope) {
         var vm = this;
@@ -74,9 +74,7 @@
 
     };
 
-    paginationCtrl.$inject = ['paginationSrv', '$scope'];
-
     angular.module('rrms')
-        .controller('paginationCtrl', paginationCtrl);
+        .controller('paginationCtrl', ['paginationSrv', '$scope', paginationCtrl]);
 
 })();

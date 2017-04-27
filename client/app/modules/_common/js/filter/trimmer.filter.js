@@ -2,6 +2,8 @@
  * Created by Asiel on 12/26/2016.
  */
 
+(function(){
+
 'use strict';
 
 var f = function () {
@@ -14,7 +16,6 @@ var f = function () {
     }
 };
 
-f.$inject = [];
-
 angular.module('rrms')
     .filter('trimmer', f);
+})();

@@ -76,9 +76,7 @@
             }
         };
 
-        f.$inject = ['$timeout'];
-
         angular.module('rrms')
-            .service('blockSrv', f);
+            .service('blockSrv', ['$timeout', f]);
     }
 )();

@@ -2,6 +2,8 @@
  * Created by Asiel on 12/21/2016.
  */
 
+(function(){
+
 'use strict';
 
 var f = function () {
@@ -62,8 +64,7 @@ var f = function () {
 
 };
 
-f.$inject = [];
-
 angular
     .module('rrms')
     .service('dataSrv', f);
+})();

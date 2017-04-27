@@ -2,9 +2,9 @@
  * Created by Asiel on 12/22/2016.
  */
 
-'use strict';
-
 (function () {
+
+    'use strict';
 
     var f = function (indexSrv, systemSrv, userSrv, navigationSrv, paginationSrv, ROUTE, searchSrv, blockSrv, sessionSrv,
                       $rootScope, dialogSrv) {
@@ -190,10 +190,8 @@
 
     };
 
-    f.$inject = ['indexSrv', 'systemSrv', 'userSrv', 'navigationSrv', 'paginationSrv', 'ROUTE', 'searchSrv', 'blockSrv',
-        'sessionSrv', '$rootScope', 'dialogSrv'];
-
     angular.module('rrms')
-        .controller('userListCtrl', f);
+        .controller('userListCtrl', ['indexSrv', 'systemSrv', 'userSrv', 'navigationSrv', 'paginationSrv', 'ROUTE', 'searchSrv', 'blockSrv',
+            'sessionSrv', '$rootScope', 'dialogSrv', f]);
 
 })();

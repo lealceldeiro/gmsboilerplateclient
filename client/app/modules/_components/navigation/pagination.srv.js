@@ -2,6 +2,8 @@
  * Created by Asiel on 11/6/2016.
  */
 
+(function(){
+
 'use strict';
 
 var paginationSrv = function ($rootScope, BROADCAST) {
@@ -116,7 +118,7 @@ var paginationSrv = function ($rootScope, BROADCAST) {
 
 };
 
-paginationSrv.$inject = ['$rootScope', 'BROADCAST'];
-
 angular.module('rrms')
-    .service('paginationSrv', paginationSrv);
+    .service('paginationSrv', ['$rootScope', 'BROADCAST', paginationSrv]);
+
+})();

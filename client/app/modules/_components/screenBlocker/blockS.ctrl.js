@@ -25,9 +25,7 @@
             return vm.wizard;
         };
 
-        f.$inject = ['$scope', 'blockSrv'];
-
         angular.module('rrms')
-            .controller('blockCtrl', f);
+            .controller('blockCtrl', ['$scope', 'blockSrv', f]);
     }
 )();

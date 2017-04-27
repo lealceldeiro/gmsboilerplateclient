@@ -2,6 +2,8 @@
  * Created by Asiel on 11/6/2016.
  */
 
+(function(){
+
 'use strict';
 
 var navigationSrv = function ($location, $route, ROUTE, $window, stringSrv) {
@@ -63,3 +65,5 @@ navigationSrv.$inject = ['$location', '$route', 'ROUTE', '$window', 'stringSrv']
 
 angular.module('rrms')
     .service('navigationSrv', navigationSrv);
+
+})();

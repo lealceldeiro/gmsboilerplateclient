@@ -2,20 +2,22 @@
  * Created by Asiel on 11/6/2016.
  */
 
-'use strict';
+(function() {
 
-var indexSrv = function () {
-    var vm = this;
+    'use strict';
+
+    var indexSrv = function () {
+        var vm = this;
 
 
-    vm.service = {
-        siteTile: ''
+        vm.service = {
+            siteTile: ''
+        };
+
+        return vm.service;
     };
 
-    return vm.service;
-};
+    angular.module('rrms')
+        .service('indexSrv', indexSrv);
 
-indexSrv.$inject = [];
-
-angular.module('rrms')
-    .service('indexSrv', indexSrv);
+}());

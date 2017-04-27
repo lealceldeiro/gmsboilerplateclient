@@ -2,6 +2,8 @@
  * Created by Asiel on 11/6/2016.
  */
 
+(function(){
+
 'use strict';
 
 var sessionSrv = function (baseSrv, systemSrv, localStorageService) {
@@ -174,3 +176,5 @@ sessionSrv.$inject = ['baseSrv', 'systemSrv', 'localStorageService'];
 
 angular.module('rrms')
     .service('sessionSrv', sessionSrv);
+
+})();

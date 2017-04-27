@@ -1,6 +1,7 @@
 /**
  * Created by Asiel on 11/10/2016.
  */
+(function(){
 
 'use strict';
 
@@ -19,3 +20,4 @@ humanReadable.$inject = [];
 
 angular.module('rrms')
     .filter('humanReadable', humanReadable);
+})();

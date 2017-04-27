@@ -2,9 +2,9 @@
  * Created by Asiel on 11/6/2016.
  */
 
-'use strict';
-
 (function() {
+
+    'use strict';
 
     var routing = function ($routeProvider, ROUTE) {
 

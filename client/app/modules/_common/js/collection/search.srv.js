@@ -2,6 +2,8 @@
  * Created by Asiel on 12/21/2016.
  */
 
+(function(){
+
 'use strict';
 
 var searchSrv = function () {
@@ -213,3 +215,5 @@ searchSrv.$inject = [];
 angular
     .module('rrms')
     .service('searchSrv', searchSrv);
+
+})();

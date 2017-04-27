@@ -2,11 +2,11 @@
  * Created by Asiel on 11/6/2016.
  */
 
-'use strict';
-
 (function () {
 
-    var indexCtrl = function ($scope, indexSrv, sessionSrv) {
+    'use strict';
+
+    var f = function ($scope, indexSrv, sessionSrv) {
         var vm = this;
 
         vm.wizard = {
@@ -38,9 +38,7 @@
 
     };
 
-    indexCtrl.$inject = ['$scope', 'indexSrv', 'sessionSrv'];
-
     angular.module('rrms')
-        .controller('indexCtrl', indexCtrl);
+        .controller('indexCtrl', ['$scope', 'indexSrv', 'sessionSrv', f]);
 
 })();

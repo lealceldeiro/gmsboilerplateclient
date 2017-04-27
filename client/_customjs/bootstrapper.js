@@ -1,20 +1,23 @@
 /**
  * Created by Asiel on 11/7/2016.
  */
+(function(){
+    var App = function () {
 
-var App = function () {
+        var uiInit = function () {
 
-    var uiInit = function () {
+        };
 
-    };
+        return {
+            init: function () {
+                uiInit();
+            }
+        };
 
-    return {
-        init: function () {
-            uiInit();
-        }
-    };
-
-}();
+    }();
 
 //init app when page load
-$(document).ready(App.init);
+    $(document).ready(App.init);
+
+
+})();

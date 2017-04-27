@@ -1,6 +1,7 @@
 /**
  * Created by Asiel on 01/20/2017.
  */
+(function(){
 
 'use strict';
 
@@ -27,7 +28,7 @@ var f = function () {
     };
 };
 
-f.$inject = [];
-
 angular.module('rrms')
     .filter('caser', f);
+
+})();

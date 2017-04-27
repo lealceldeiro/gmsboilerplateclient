@@ -2,6 +2,8 @@
  * Created by Asiel on 1/10/2017.
  */
 
+(function(){
+
 'use strict';
 
 var f = function () {
@@ -13,7 +15,6 @@ var f = function () {
     }
 };
 
-f.$inject = [];
-
 angular.module('rrms')
     .directive('rrmsScreenLoader', f);
+})();

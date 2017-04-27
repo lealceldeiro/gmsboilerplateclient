@@ -2,9 +2,9 @@
  * Created by Asiel on 11/6/2016.
  */
 
-'use strict';
-
 (function () {
+
+    'use strict';
 
     var sessionCtrl = function (sessionSrv, navigationSrv, ROUTE, systemSrv, $rootScope) {
         var vm = this;

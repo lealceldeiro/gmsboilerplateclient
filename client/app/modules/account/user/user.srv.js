@@ -93,7 +93,5 @@ var f = function (systemSrv, $http, valueSrv, baseSrv) {
     }
 };
 
-f.$inject = ['systemSrv', '$http', 'valueSrv', 'baseSrv'];
-
 angular.module('rrms')
-    .service('userSrv', f);
+    .service('userSrv', ['systemSrv', '$http', 'valueSrv', 'baseSrv', f]);

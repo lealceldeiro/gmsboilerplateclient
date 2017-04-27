@@ -2,9 +2,9 @@
  * Created by Asiel on 11/6/2016.
  */
 
-'use strict';
-
 (function () {
+
+    'use strict';
 
     var loginCtrl = function (indexSrv, sessionSrv, navigationSrv, systemSrv, loginSrv, ROUTE, blockSrv, userSrv, $rootScope) {
         var vm = this;
@@ -92,10 +92,9 @@
         }
     };
 
-    loginCtrl.$inject = ['indexSrv', 'sessionSrv', 'navigationSrv', 'systemSrv', 'loginSrv', 'ROUTE', 'blockSrv',
-        'userSrv', '$rootScope'];
 
     angular.module('rrms')
-        .controller('loginCtrl', loginCtrl);
+        .controller('loginCtrl', ['indexSrv', 'sessionSrv', 'navigationSrv', 'systemSrv', 'loginSrv',
+            'ROUTE', 'blockSrv', 'userSrv', '$rootScope', loginCtrl]);
 
 })();

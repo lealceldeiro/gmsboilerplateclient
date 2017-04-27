@@ -2,9 +2,9 @@
  * Created by Asiel on 11/9/2016.
  */
 
-'use strict';
-
 (function () {
+
+    'use strict';
 
     var roleListCtrl = function (indexSrv, systemSrv, roleSrv, navigationSrv, paginationSrv, ROUTE, searchSrv, blockSrv,
                                  sessionSrv, dialogSrv) {
@@ -175,10 +175,8 @@
 
     };
 
-    roleListCtrl.$inject = ['indexSrv', 'systemSrv', 'roleSrv', 'navigationSrv', 'paginationSrv', 'ROUTE', 'searchSrv',
-        'blockSrv', 'sessionSrv', 'dialogSrv'];
-
     angular.module('rrms')
-        .controller('roleListCtrl', roleListCtrl);
+        .controller('roleListCtrl', ['indexSrv', 'systemSrv', 'roleSrv', 'navigationSrv', 'paginationSrv', 'ROUTE', 'searchSrv',
+            'blockSrv', 'sessionSrv', 'dialogSrv', roleListCtrl]);
 
 })();

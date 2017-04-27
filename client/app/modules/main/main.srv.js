@@ -2,19 +2,21 @@
  * Created by Asiel on 11/6/2016.
  */
 
-'use strict';
+(function () {
 
-var mainSrv = function () {
-    var vm = this;
+    'use strict';
+
+    var mainSrv = function () {
+        var vm = this;
 
 
-    vm.service = {
+        vm.service = {
+        };
+
+        return vm.service;
     };
 
-    return vm.service;
-};
+    angular.module('rrms')
+        .service('mainSrv', mainSrv);
 
-mainSrv.$inject = [];
-
-angular.module('rrms')
-    .service('mainSrv', mainSrv);
+}());

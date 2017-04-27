@@ -25,10 +25,8 @@
             }
                 
         };
-        
-        f.$inject = ['baseSrv', 'systemSrv', '$http'];
-        
+
         angular.module('rrms')
-            .service('permissionSrv', f)
+            .service('permissionSrv', ['baseSrv', 'systemSrv', '$http', f])
     }
 )();

@@ -2,9 +2,9 @@
  * Created by Asiel on 01/20/2017.
  */
 
-'use strict';
-
 (function () {
+
+    'use strict';
 
     var f = function (indexSrv, systemSrv, permissionSrv, paginationSrv, blockSrv) {
         var vm = this;
@@ -64,10 +64,8 @@
 
     };
 
-    f.$inject = ['indexSrv', 'systemSrv', 'permissionSrv', 'paginationSrv',
-        'blockSrv'];
-
     angular.module('rrms')
-        .controller('permissionCtrl', f);
+        .controller('permissionCtrl', ['indexSrv', 'systemSrv', 'permissionSrv', 'paginationSrv',
+            'blockSrv', f]);
 
 })();

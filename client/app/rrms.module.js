@@ -2,9 +2,9 @@
  * Created by Asiel on 11/6/2016.
  */
 
-'use strict';
-
 (function() {
+
+    'use strict';
 
     var env = {
         api: {},
@@ -43,6 +43,5 @@
     )
         .constant('__env', env)         // Register environment in AngularJS as constant
         .config(['$logProvider', config]);
-
 
 })();
