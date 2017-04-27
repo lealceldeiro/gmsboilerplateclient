@@ -18,7 +18,7 @@
 
             //login
             .when(ROUTE.LOGIN,{
-                    templateUrl: 'account/login/login.html',
+                    templateUrl: 'account/_login/login.html',
                     controller: 'loginCtrl',
                     controllerAs: 'vm'
                 }
