@@ -23,27 +23,30 @@
         var up = systemSrv.grant;
         vm.wizard.show = {
             settings: function () {
-                return !(p.indexOf(up.READ_USER) === -1 && p.indexOf(up.READ_ROLE) === -1 && p.indexOf(up.READ_PERMISSION) === -1)
+                return !(
+                    p.indexOf(up.READ_USER) === -1
+                    && p.indexOf(up.READ_ROLE) === -1
+                    && p.indexOf(up.READ_PERMISSION) === -1
+                )
             },
-
 
             manageUser: function () { return p.indexOf(up.MANAGE_USER) !== -1; },
             readUser:   function () { return p.indexOf(up.READ_USER) !== -1; },
             createUser: function () { return p.indexOf(up.CREATE_USER) !== -1;},
             updateUser: function () { return p.indexOf(up.UPDATE_USER) !== -1;},
-            delteUser:  function () { return p.indexOf(up.DELETE_USER) !== -1;},
+            deleteUser:  function () { return p.indexOf(up.DELETE_USER) !== -1;},
 
             manageRole: function () { return p.indexOf(up.MANAGE_ROLE) !== -1; },
             readRole:   function () { return p.indexOf(up.READ_ROLE) !== -1; },
             createRole: function () { return p.indexOf(up.CREATE_ROLE) !== -1;},
             updateRole: function () { return p.indexOf(up.UPDATE_ROLE) !== -1;},
-            delteRole:  function () { return p.indexOf(up.DELETE_ROLE) !== -1;},
+            deleteRole:  function () { return p.indexOf(up.DELETE_ROLE) !== -1;},
 
             managePermission: function () { return p.indexOf(up.MANAGE_PERMISSION) !== -1; },
             readPermission:   function () { return p.indexOf(up.READ_PERMISSION) !== -1; },
             createPermission: function () { return p.indexOf(up.CREATE_PERMISSION) !== -1;},
             updatePermission: function () { return p.indexOf(up.UPDATE_PERMISSION) !== -1;},
-            deltePermission:  function () { return p.indexOf(up.DELETE_PERMISSION) !== -1;}
+            deletePermission:  function () { return p.indexOf(up.DELETE_PERMISSION) !== -1;}
         };
         //endregion
 

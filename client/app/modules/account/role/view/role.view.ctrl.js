@@ -36,7 +36,7 @@
         //fn
         function fnInit() {
             var p = navigationSrv.currentParams();
-            if (p && null !== p.id && typeof p.id !== 'undefined' && p.id != 'undefined'&& p.id != 'null') {
+            if (p && null !== p.id && typeof p.id !== 'undefined' && p.id !== 'undefined'&& p.id !== 'null') {
                 vm.id = p.id;
                 fnLoadData(p.id);
                 indexSrv.siteTile = 'Ver Rol';
@@ -100,7 +100,7 @@
             vm.wizard.permissions.all = [];
 
             blockSrv.setIsLoading(vm.wizard.permissions,true);
-            roleSrv.permissionsByUser(id, offset, max).then(
+            roleSrv.permissionsByUser(id, 0, 0).then(
                 function (data) {
                     blockSrv.setIsLoading(vm.wizard.permissions);
                     var e = systemSrv.eval(data, fnKey2, false, true);

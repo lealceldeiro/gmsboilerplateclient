@@ -36,7 +36,7 @@
         //fn
         function fnInit() {
             var p = navigationSrv.currentParams();
-            if (p && null !== p.id && typeof p.id !== 'undefined' && p.id != 'undefined'&& p.id != 'null') {
+            if (p && null !== p.id && typeof p.id !== 'undefined' && p.id !== 'undefined'&& p.id !== 'null') {
                 vm.id = p.id;
                 fnLoadData(p.id);
                 indexSrv.siteTile = 'Ver Usuario';
