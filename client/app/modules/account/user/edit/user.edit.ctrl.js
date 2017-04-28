@@ -50,6 +50,7 @@
             if (navigationSrv.currentPath() === ROUTE.USER_NEW) {
                 indexSrv.siteTile = 'Nuevo Usuario';
                 _loadAllEntities();
+                vm.wizard.entity = {enabled: true};
             }
             else {
                 vm.wizard.entity = null;

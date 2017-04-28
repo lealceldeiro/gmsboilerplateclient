@@ -1,5 +1,5 @@
 {
-  "base_url_req": "<base_url>",
+  "base_url_req": "http://127.0.0.1:8080/gmsboilerplate",
 
   "api_relative_url_req": "<relative_url>",
 
