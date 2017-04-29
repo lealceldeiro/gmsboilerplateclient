@@ -3,6 +3,7 @@
   "CREATE_USER"           : "CREATE__USER",
   "READ_USER"             : "READ__USER",
   "READ_ALL_USER"         : "READ_ALL__USER",
+  "READ_ASSOCIATED_USER"  : "READ_ASSOCIATED__USER",
   "UPDATE_USER"           : "UPDATE__USER",
   "DELETE_USER"           : "DELETE__USER",
 

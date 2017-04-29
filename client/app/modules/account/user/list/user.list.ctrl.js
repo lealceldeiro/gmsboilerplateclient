@@ -88,17 +88,33 @@
                 var max = paginationSrv.getItemsPerPage();
                 var fnKey = keyP + "fnSearchAll";
 
-                userSrv.searchAll(offset, max).then(
+                var p = sessionSrv.getPermissions();
+                var def;
+                if (p.indexOf(systemSrv.grant.READ_ALL_USER) !== -1) {
+                    def = userSrv.searchAll(offset, max)
+                }
+                else if(p.indexOf(systemSrv.grant.READ_ASSOCIATED_USER) !== -1) {
+                    var eidS = [];
+                    var es = sessionSrv.currentUser().entities;
+                    angular.forEach(es, function (e) {
+                        eidS.push(e['id']);
+                    });
+                    def = userSrv.searchAllFromEntities(eidS, offset, max);
+                }
+                else { blockSrv.setIsLoading(vm.wizard.entities); }
+
+                def.then(
                     function (data) {
-                        var e = systemSrv.eval(data, fnKey, false, true);
-                        blockSrv.setIsLoading(vm.wizard.entities);
-                        if (e) {
+                        var r = systemSrv.eval(data, fnKey, false, true);
+                        if (r) {
                             paginationSrv.setTotalItems(systemSrv.getTotal(fnKey));
                             vm.wizard.entities.all = systemSrv.getItems(fnKey);
                             vm.wizard.entities.allLoaded = true;
                         }
+                        blockSrv.setIsLoading(vm.wizard.entities);
                     }
                 );
+
             }
         }
 
@@ -152,7 +168,7 @@
                         var idx = searchSrv.indexOf(vm.wizard.entities.all, 'id', vm.idToRemove);
                         if (idx !== -1) {
                             var us = sessionSrv.currentUser();
-                            if (us && us.id == vm.idToRemove) { //current user?
+                            if (us && us.id === vm.idToRemove) { //current user?
                                 sessionSrv.clearSession();
 
                                 //update users's logged in/out status

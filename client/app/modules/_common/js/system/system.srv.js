@@ -33,23 +33,35 @@
             self.service = {
                 //regions PERMISSIONS
                 grant: {
-                    MANAGE_USER:        __env.permissions.MANAGE_USER       || "MANAGE_USER",
-                    CREATE_USER:        __env.permissions.CREATE_USER       || "CREATE_USER",
-                    READ_USER:          __env.permissions.READ_USER         || "READ_USER",
-                    UPDATE_USER:        __env.permissions.UPDATE_USER       || "UPDATE_USER",
-                    DELETE_USER:        __env.permissions.DELETE_USER       || "DELETE_USER",
+                    MANAGE_USER:            __env.permissions.MANAGE_USER           || "MANAGE__USER",
+                    CREATE_USER:            __env.permissions.CREATE_USER           || "CREATE__USER",
+                    READ_USER:              __env.permissions.READ_USER             || "READ__USER",
+                    READ_ALL_USER:          __env.permissions.READ_ALL_USER         || "READ__USER",
+                    READ_ASSOCIATED_USER:   __env.permissions.READ_ALL_USER         || "READ__ASSOCIATED_USER",
+                    UPDATE_USER:            __env.permissions.UPDATE_USER           || "UPDATE__USER",
+                    DELETE_USER:            __env.permissions.DELETE_USER           || "DELETE__USER",
 
-                    MANAGE_ROLE:        __env.permissions.MANAGE_ROLE       || "MANAGE_ROLE",
-                    CREATE_ROLE:        __env.permissions.CREATE_ROLE       || "CREATE_ROLE",
-                    READ_ROLE:          __env.permissions.READ_ROLE         || "READ_ROLE",
-                    UPDATE_ROLE:        __env.permissions.UPDATE_ROLE       || "UPDATE_ROLE",
-                    DELETE_ROLE:        __env.permissions.DELETE_ROLE       || "DELETE_ROLE",
+                    MANAGE_ROLE:            __env.permissions.MANAGE_ROLE           || "MANAGE__ROLE",
+                    CREATE_ROLE:            __env.permissions.CREATE_ROLE           || "CREATE__ROLE",
+                    READ_ROLE:              __env.permissions.READ_ROLE             || "READ__ROLE",
+                    UPDATE_ROLE:            __env.permissions.UPDATE_ROLE           || "UPDATE__ROLE",
+                    DELETE_ROLE:            __env.permissions.DELETE_ROLE           || "DELETE__ROLE",
 
-                    MANAGE_PERMISSION:  __env.permissions.MANAGE_PERMISSION || "MANAGE_PERMISSION",
-                    CREATE_PERMISSION:  __env.permissions.CREATE_PERMISSION || "CREATE_PERMISSION",
-                    READ_PERMISSION:    __env.permissions.READ_PERMISSION   || "READ_PERMISSION",
-                    UPDATE_PERMISSION:  __env.permissions.UPDATE_PERMISSION || "UPDATE_PERMISSION",
-                    DELETE_PERMISSION:  __env.permissions.DELETE_PERMISSION || "DELETE_PERMISSION"
+                    MANAGE_PERMISSION:      __env.permissions.MANAGE_PERMISSION     || "MANAGE__PERMISSION",
+                    CREATE_PERMISSION:      __env.permissions.CREATE_PERMISSION     || "CREATE__PERMISSION",
+                    READ_PERMISSION:        __env.permissions.READ_PERMISSION       || "READ__PERMISSION",
+                    UPDATE_PERMISSION:      __env.permissions.UPDATE_PERMISSION     || "UPDATE__PERMISSION",
+                    DELETE_PERMISSION:      __env.permissions.DELETE_PERMISSION     || "DELETE__PERMISSION",
+
+                    MANAGE_OWNED_ENTITY:    __env.permissions.MANAGE_OWNED_ENTITY   || "MANAGE__OWNED_ENTITY",
+                    CREATE_OWNED_ENTITY:    __env.permissions.CREATE_OWNED_ENTITY   || "CREATE__OWNED_ENTITY",
+                    READ_OWNED_ENTITY:      __env.permissions.READ_OWNED_ENTITY     || "READ__OWNED_ENTITY",
+                    READ_ALL_OWNED_ENTITY:  __env.permissions.READ_ALL_OWNED_ENTITY || "READ_ALL__OWNED_ENTITY",
+                    UPDATE_OWNED_ENTITY:    __env.permissions.UPDATE_OWNED_ENTITY   || "UPDATE__OWNED_ENTITY",
+                    DELETE_OWNED_ENTITY:    __env.permissions.DELETE_OWNED_ENTITY   || "DELETE__OWNED_ENTITY",
+
+                    MANAGE_PROFILE:         __env.permissions.MANAGE_PROFILE        || "MANAGE__PROFILE",
+                    READ_PROFILE:           __env.permissions.READ_PROFILE          || "READ__PROFILE"
                 },
                 //endregion
 
@@ -122,21 +134,25 @@
                 validate(storeKey);
                 if (data) {
                     if (data[self.service.success_resp]) {
-                        self.service.apiMessage[storeKey] = data[self.service.success_message_resp] || notificationSrv.utilText.successfulOperation.es;
+                        self.service.apiMessage[storeKey] = data[self.service.success_message_resp]
+                            || notificationSrv.utilText.successfulOperation.es;
                         self.service.apiTotalCount[storeKey] = data[self.service.total_count_resp];
                         self.service.apiItems[storeKey] = data[self.service.items_resp];
                         self.service.apiItem[storeKey] = data[self.service.item_resp];
                         if (notifyOnSuccess) {
-                            notificationSrv.showNotification(self.service.apiMessage[storeKey], notificationSrv.utilText.titleSuccess.es);
+                            notificationSrv.showNotification(self.service.apiMessage[storeKey],
+                                notificationSrv.utilText.titleSuccess.es);
                         }
 
                         return true
                     }
                     else {
-                        self.service.apiMessage[storeKey] = data[self.service.error_message_resp] || notificationSrv.utilText.unSuccessfulOperation.es;
+                        self.service.apiMessage[storeKey] = data[self.service.error_message_resp] ||
+                            notificationSrv.utilText.unSuccessfulOperation.es;
 
                         if (notifyOnUnSuccess) {
-                            notificationSrv.showNotification(self.service.apiMessage[storeKey], notificationSrv.utilText.titleError.es);
+                            notificationSrv.showNotification(self.service.apiMessage[storeKey],
+                                notificationSrv.utilText.titleError.es);
                         }
 
                         return false

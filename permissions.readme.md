@@ -38,6 +38,11 @@ All field are optionals as well as this file (though is recommended to keep it a
             <td style="border: 1px solid;"><code>READ_ALL_USER</code></td>
         </tr>
         <tr>
+            <td style="border: 1px solid;"><code>READ_ASSOCIATED_USER</code></td>
+            <td style="border: 1px solid;"><code>String</code> that indicates the permission which allows actions for reading all users' data for those users present in some entities</td>
+            <td style="border: 1px solid;"><code>READ_ASSOCIATED_USER</code></td>
+        </tr>
+        <tr>
             <td style="border: 1px solid;"><code>UPDATE_USER</code></td>
             <td style="border: 1px solid;"><code>String</code> that indicates the permission which allows actions for updating users</td>
             <td style="border: 1px solid;"><code>UPDATE_USER</code></td>
@@ -142,6 +147,19 @@ All field are optionals as well as this file (though is recommended to keep it a
             <td style="border: 1px solid;"><code>String</code> that indicates the permission which allows actions for deleting owned entities' data</td>
             <td style="border: 1px solid;"><code>DELETE_OWNED_ENTITY</code></td>
         </tr>
+        <tr>
+                    <td colspan="3" style="text-align: center; font-style: italic;"><small>Profile</small></td>
+                </tr>
+                <tr>
+                            <td style="border: 1px solid;"><code>MANAGE_PROFILE</code></td>
+                            <td style="border: 1px solid;"><code>String</code> that indicates the permission which allows actions related to a users' own data</td>
+                            <td style="border: 1px solid;"><code>MANAGE_PROFILE</code></td>
+                        </tr>
+                        <tr>
+                                                    <td style="border: 1px solid;"><code>READ_PROFILE</code></td>
+                                                    <td style="border: 1px solid;"><code>String</code> that indicates the permission which allows actions for reading a users' own data</td>
+                                                    <td style="border: 1px solid;"><code>READ_PROFILE</code></td>
+                                                </tr>
     <tbody>
 </table>
 </p>

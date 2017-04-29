@@ -13,6 +13,7 @@ var f = function (systemSrv, $http, valueSrv, baseSrv) {
 
         search: fnSearch,
         searchAll: fnSearchAll,
+        searchAllFromEntities: fnSearchAllFromEntities,
         show: fnShow,
         getByUsername: fnGetByUsername,
         remove: fnRemove,
@@ -36,6 +37,20 @@ var f = function (systemSrv, $http, valueSrv, baseSrv) {
         var params = baseSrv.getParams(offset, max, criteria);
 
         var def = $http.get(url + params);
+        return baseSrv.resolveDeferred(def);
+    }
+
+    function fnSearchAllFromEntities(eidS, offset, max, criteria) {
+        var params = baseSrv.getParams(offset, max, criteria);
+
+        if (angular.isDefined(eidS) && angular.isArray(eidS)) {
+            var es = "?";
+            angular.forEach(eidS, function (id) {
+                es += id + "&";
+            })
+        }
+
+        var def = $http.get(url + "associated" + es.substring(0, es.length - 1) + params);
         return baseSrv.resolveDeferred(def);
     }
 
