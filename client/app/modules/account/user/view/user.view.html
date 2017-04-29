@@ -1,83 +1,99 @@
-<div class="center-block blocked-3-styled">
+<div data-ng-cloak>
+
+
     <form data-ng-show="vm.entity" role="form" name="viewUserForm">
+        <div layout="row" layout-padding layout-wrap>
+            <div flex="50">
+                <md-content class="md-no-momentum">
+                    <!--name-->
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Nombre</label>
+                        <md-icon md-svg-src="_common/img/social/ic_person_outline_24px.svg"></md-icon>
+                        <input ng-model="vm.entity.name" type="text" readonly>
+                    </md-input-container>
 
-        <div class="row">
-            <div class="form-group">
-                <label class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Usuario</label>
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    <span data-ng-bind="vm.entity.username"></span>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group">
-                <label class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Nombre</label>
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    <span data-ng-bind="vm.entity.name"></span>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group">
-                <label class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Email</label>
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    <span data-ng-bind="vm.entity.email"></span>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group">
-                <label class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Roles (Casa actual)</label>
-                <div class="mrg-l-m-3 col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    <div ng-show="vm.roles.total">
-                        <table class="table table-responsive table-striped table-bordered" id="userRolesTable">
-                            <thead>
-                            </thead>
-                            <tbody>
-                            <tr data-dir-paginate="it in vm.roles.all | itemsPerPage:vm.roles.itemsPerPage"
-                                data-total-items="vm.roles.total"
-                                data-pagination-id="userRolesList">
-                                <td><span data-ng-bind="it.label"></span></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <nav class="text-center">
-                            <dir-pagination-controls
-                                    pagination-id="userRolesList"
-                                    on-page-change="vm.changePage(newPageNumber)"
-                                    max-size="5"
-                            >
-                            </dir-pagination-controls>
-                        </nav>
-                    </div>
+                    <!--username-->
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Usuario</label>
+                        <md-icon md-svg-src="_common/img/social/ic_person_24px.svg"></md-icon>
+                        <input ng-model="vm.entity.username" type="text" readonly>
+                    </md-input-container>
 
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" data-ng-show="vm.roles.loading">
-                        <div class="rrms-screen-loader" data-screen-type="2">
+                    <!--email-->
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Email</label>
+                        <md-icon md-svg-src="_common/img/communication/ic_email_24px.svg"></md-icon>
+                        <input ng-model="vm.entity.email" type="text" readonly>
+                    </md-input-container>
+                </md-content>
+            </div>
+
+            <div flex="50">
+                <md-content class="md-no-momentum">
+                    <div layout="row" layout-padding>
+                        <div flex="50">
+                            <md-checkbox class="m-left-m-10px" ng-model="vm.entity.enabled" aria-label="Activo" disabled>
+                                Activo
+                            </md-checkbox>
+                        </div>
+                        <div flex="50">
+                            <span>Photo will go here</span>
                         </div>
                     </div>
 
-                    <div ng-hide=" vm.roles.loading || vm.roles.total">
-                        <div class="rrmsAlert" data-type="warning"
-                             data-message="No hay roles asociados a este usuario todavía"></div>
-                    </div>
+                </md-content>
+            </div>
+
+            <!--Roles when single Entity-->
+            <div class="m-left-m-10px" flex="100" layout="row" data-ng-controller="chipCtrl as chipCtrl"
+                 data-ng-if="vm.roles.all.length && vm.entities.length === 1">
+                <div flex="5" layout="center start">
+                    <md-icon md-svg-src="_common/img/social/ic_group_24px.svg"></md-icon>
                 </div>
+                <div flex="95">
+                    <md-chips ng-model="vm.roles.all" readonly>
+                    </md-chips>
+                </div>
+            </div>
+            <!--for controlling when no role is selected, make form invalid-->
+            <input type="hidden" data-ng-if="vm.roles.all.length && !vm.roles.selected.length" required
+                   data-ng-model="vm.controlRquired">
+
+        </div>
+
+        <!--todo: Roles when more than one entity-->
+        <div data-ng-if="vm.entities.length > 1 || !vm.entities" layout="row" layout-padding layout-wrap>
+            <!--OwnedEntity-->
+            <div flex="30">
+                <md-virtual-repeat-container>
+                    <div md-virtual-repeat="item in sCtrl.user.entities" flex>
+                        {{item.name}}
+                    </div>
+                </md-virtual-repeat-container>
+            </div>
+
+            <div flex="70">
+
             </div>
         </div>
 
-        <div class="form-action">
-            <hr>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <a class="btn btn-primary btn-sm" href="" data-ng-click="vm.cancel()">Volver</a>
-                    <a class="btn btn-default btn-sm" href="" data-ng-click="vm.edit()">Editar</a>
-                    <a class="btn btn-danger btn-sm" href="" data-ng-click="vm.remove()">Eliminar</a>
-                </div>
-            </div>
-        </div>
     </form>
 
-    <div data-ng-show="vm.entityData.loading">
-        <div class="rrms-screen-loader" data-screen-type="2">
-        </div>
+    <div data-ng-hide="!vm.entityData.loading && !vm.roles.loading" layout="row" layout-align="center center">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
+
+    <md-divider></md-divider>
+    <br/>
+
+    <md-button class="md-primary md-raised" ng-click="vm.cancel()">
+        Volver
+    </md-button>
+    <md-button class="md-accent md-raised" ng-click="vm.edit()">
+        Editar
+    </md-button>
+    <md-button class="md-warn md-raised" ng-click="vm.remove()">
+        Eliminar
+    </md-button>
+
 </div>

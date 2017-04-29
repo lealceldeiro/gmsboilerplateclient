@@ -6,7 +6,8 @@
 
     'use strict';
 
-    var f = function (ROUTE, indexSrv, userSrv, navigationSrv, notificationSrv, systemSrv, blockSrv, sessionSrv) {
+    var f = function (ROUTE, indexSrv, userSrv, navigationSrv, notificationSrv, systemSrv, blockSrv, sessionSrv,
+                      dialogSrv) {
         var vm = this;
         const keyP = 'USER_VIEW';
 
@@ -60,16 +61,40 @@
                     blockSrv.setIsLoading(vm.wizard.entityData);
                 }
             );
-            _loadRoles(id);
+
+            var fnKey2 = keyP + "fnLoadData-entitiesByUser";
+            userSrv.entitiesByUser(id, 0, 0).then(function (data) {
+                vm.wizard.entities = [];
+                var e = systemSrv.eval(data, fnKey2, false, true);
+                if (e) {
+                    vm.wizard.entities = systemSrv.getItems(fnKey2);
+
+                    //user is associated to only one entity
+                    if (vm.wizard.entities.length === 1) {
+                        _loadRoles(id, vm.wizard.entities[0]['id']);
+                    }
+                    else {
+                        //todo
+                    }
+                }
+            });
         }
 
         function fnRemove() {
-            var fnKey = keyP + "fnRemove";
+            var buttons = [{text:"Borrar", function: _doRemove, primary: true}];
+            dialogSrv.showDialog("Confirmación", "Seguro desea eliminar este usuario?", buttons);
+
+        }
+
+        function _doRemove() {
+            var fnKey = keyP + "_doRemove";
+            blockSrv.block();
             userSrv.remove(vm.id).then(
                 function (data) {
                     var e = systemSrv.eval(data, fnKey, true, true);
                     if (e) {
                         navigationSrv.goTo(ROUTE.USERS);
+                        blockSrv.unBlock();
                     }
                 }
             )
@@ -83,19 +108,20 @@
             navigationSrv.goTo(ROUTE.USER_EDIT, ROUTE.USER_EDIT_PL, vm.id);
         }
 
-        function _loadRoles(id) {
+        function _loadRoles(id, eid) {
             blockSrv.setIsLoading(vm.wizard.roles, true);
-
+            vm.wizard.roles.all = [];
+            vm.wizard.roles.total = 0;
             var fnKey2 = keyP + "_loadRoles";
-            var offset = vm.wizard.roles.offset;
-            var max = vm.wizard.roles.itemsPerPage;
-            var ent = sessionSrv.loginEntity();
 
-            userSrv.rolesByUserAndEntity(id, ent ? ent.id : 0, offset, max).then(
+            userSrv.rolesByUserAndEntity(id, eid, 0, 0).then(
                 function (data) {
                     var e = systemSrv.eval(data, fnKey2, false, true);
                     if (e) {
-                        vm.wizard.roles.all = systemSrv.getItems(fnKey2);
+                        var items = systemSrv.getItems(fnKey2);
+                        for(var i = 0, l = items.length; i < l; i++){
+                            vm.wizard.roles.all.push(items[i].label);
+                        }
                         vm.wizard.roles.total = systemSrv.getTotal(fnKey2);
                     }
                     blockSrv.setIsLoading(vm.wizard.roles);
@@ -104,7 +130,7 @@
         }
 
         function fnChangePage(newPageNumber) {
-            if (typeof newPageNumber == 'undefined' || newPageNumber < 1 || newPageNumber == null) {
+            if (typeof newPageNumber === 'undefined' || newPageNumber < 1 || newPageNumber === null) {
                 newPageNumber = 1;
             }
             vm.wizard.roles.offset = (newPageNumber - 1) * vm.wizard.roles.itemsPerPage;
@@ -115,6 +141,7 @@
     };
 
     angular.module('rrms')
-        .controller('userViewCtrl', ['ROUTE', 'indexSrv', 'userSrv', 'navigationSrv', 'notificationSrv', 'systemSrv', 'blockSrv', 'sessionSrv', f]);
+        .controller('userViewCtrl', ['ROUTE', 'indexSrv', 'userSrv', 'navigationSrv', 'notificationSrv', 'systemSrv',
+            'blockSrv', 'sessionSrv', 'dialogSrv', f]);
 
 })();

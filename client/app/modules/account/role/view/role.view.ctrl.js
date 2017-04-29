@@ -95,9 +95,8 @@
 
         function _loadPermissions(id) {
             var fnKey2 = keyP + "_loadPermissions";
-            var offset = vm.wizard.permissions.offset;
-            var max = vm.wizard.permissions.itemsPerPage;
             vm.wizard.permissions.all = [];
+            vm.wizard.permissions.total = 0;
 
             blockSrv.setIsLoading(vm.wizard.permissions,true);
             roleSrv.permissionsByUser(id, 0, 0).then(
@@ -117,7 +116,7 @@
 
 
         function fnChangePage(newPageNumber) {
-            if (typeof newPageNumber == 'undefined' || newPageNumber < 1 || newPageNumber == null) {
+            if (typeof newPageNumber === 'undefined' || newPageNumber < 1 || newPageNumber === null) {
                 newPageNumber = 1;
             }
             vm.wizard.permissions.offset = (newPageNumber - 1) * vm.wizard.permissions.itemsPerPage;

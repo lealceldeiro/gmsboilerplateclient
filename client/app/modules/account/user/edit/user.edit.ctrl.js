@@ -83,6 +83,7 @@
 
             var fnKey2 = keyP + "fnLoadData-entitiesByUser";
             userSrv.entitiesByUser(id, 0, 0).then(function (data) {
+                vm.wizard.entities = [];
                 var e = systemSrv.eval(data, fnKey2, false, true);
                 if (e) {
                     vm.wizard.entities = systemSrv.getItems(fnKey2);
