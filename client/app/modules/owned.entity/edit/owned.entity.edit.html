@@ -7,21 +7,39 @@
                 <md-input-container class="md-icon-float md-block">
                     <label>Nombre</label>
                     <md-icon md-svg-src="_common/img/action/ic_home_24px.svg"></md-icon>
-                    <input ng-model="vm.entity.name" type="text">
+                    <input ng-model="vm.entity.name" type="text" name="name" required/>
+
+                    <div ng-messages="editEntityForm.name.$error" md-auto-hide="false">
+                        <div ng-message="required">
+                            El nombre es obligtorio
+                        </div>
+                    </div>
                 </md-input-container>
 
                 <!--username-->
                 <md-input-container class="md-icon-float md-block">
                     <label>Usuario</label>
                     <md-icon md-svg-src="_common/img/social/ic_person_24px.svg"></md-icon>
-                    <textarea ng-model="vm.entity.username"></textarea>
+                    <input data-ng-model="vm.entity.username" name="username" required/>
+
+                    <div ng-messages="editEntityForm.username.$error" md-auto-hide="false">
+                        <div ng-message="required">
+                            El usuario es obligtorio
+                        </div>
+                    </div>
                 </md-input-container>
 
                 <!--description-->
                 <md-input-container class="md-icon-float md-block">
                     <label>Descripci&oacute;n</label>
                     <md-icon md-svg-src="_common/img/action/ic_description_24px.svg"></md-icon>
-                    <textarea ng-model="vm.entity.description"></textarea>
+                    <textarea ng-model="vm.entity.description" name="description" required></textarea>
+
+                    <div ng-messages="editEntityForm.description.$error" md-auto-hide="false">
+                        <div ng-message="required">
+                            La descripci&oacute;n es obligtoria
+                        </div>
+                    </div>
                 </md-input-container>
 
             </md-content>

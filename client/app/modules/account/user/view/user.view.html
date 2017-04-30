@@ -9,21 +9,21 @@
                     <md-input-container class="md-icon-float md-block">
                         <label>Nombre</label>
                         <md-icon md-svg-src="_common/img/social/ic_person_outline_24px.svg"></md-icon>
-                        <input ng-model="vm.entity.name" type="text" readonly>
+                        <input ng-model="vm.entity.name" type="text" readonly/>
                     </md-input-container>
 
                     <!--username-->
                     <md-input-container class="md-icon-float md-block">
                         <label>Usuario</label>
                         <md-icon md-svg-src="_common/img/social/ic_person_24px.svg"></md-icon>
-                        <input ng-model="vm.entity.username" type="text" readonly>
+                        <input ng-model="vm.entity.username" type="text" readonly/>
                     </md-input-container>
 
                     <!--email-->
                     <md-input-container class="md-icon-float md-block">
                         <label>Email</label>
                         <md-icon md-svg-src="_common/img/communication/ic_email_24px.svg"></md-icon>
-                        <input ng-model="vm.entity.email" type="text" readonly>
+                        <input ng-model="vm.entity.email" type="text" readonly/>
                     </md-input-container>
                 </md-content>
             </div>
@@ -57,7 +57,7 @@
             </div>
             <!--for controlling when no role is selected, make form invalid-->
             <input type="hidden" data-ng-if="vm.roles.all.length && !vm.roles.selected.length" required
-                   data-ng-model="vm.controlRquired">
+                   data-ng-model="vm.controlRquired"/>
 
         </div>
 

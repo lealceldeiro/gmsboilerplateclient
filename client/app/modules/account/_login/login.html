@@ -1,5 +1,5 @@
 <div class="min-width-500px">
-    <form role="form" name="loginForm">
+    <form role="form" name="loginForm" novalidate>
 
         <md-toolbar>
             <div class="md-toolbar-tools" layout-align="center center">
@@ -21,7 +21,7 @@
             <md-input-container class="md-icon-float md-block">
                 <label>Usuario o dirección email</label>
                 <md-icon md-svg-src="_common/img/social/ic_person_24px.svg"></md-icon>
-                <input ng-model="vm.emailOrUsername" type="text" required>
+                <input ng-model="vm.emailOrUsername" type="text" required name="emailOrUsername"/>
 
                 <div ng-messages="loginForm.emailOrUsername.$error" md-auto-hide="false">
                     <div ng-message="required">
@@ -34,7 +34,7 @@
             <md-input-container class="md-icon-float md-block">
                 <label>Contrase&ntilde;a</label>
                 <md-icon md-svg-src="_common/img/action/ic_lock_24px.svg"></md-icon>
-                <input ng-model="vm.password" type="password" required>
+                <input ng-model="vm.password" type="password" required name="password"/>
                 <div ng-messages="loginForm.password.$error" md-auto-hide="false">
                     <div ng-message="required">
                         La contrase&ntilde;a es obligtoria

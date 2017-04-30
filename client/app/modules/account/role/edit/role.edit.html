@@ -8,14 +8,24 @@
                 <md-input-container class="md-icon-float md-block">
                     <label>Nombre</label>
                     <md-icon md-svg-src="_common/img/social/ic_group_24px.svg"></md-icon>
-                    <input ng-model="vm.role.label" type="text">
+                    <input ng-model="vm.role.label" type="text" required name="label" />
+                    <div ng-messages="editRoleForm.label.$error" md-auto-hide="false">
+                        <div ng-message="required">
+                            El nombre es obligatorio
+                        </div>
+                    </div>
                 </md-input-container>
 
                 <!--description-->
                 <md-input-container class="md-icon-float md-block">
                     <label>Descripci&oacute;n</label>
                     <md-icon md-svg-src="_common/img/action/ic_description_24px.svg"></md-icon>
-                    <textarea ng-model="vm.role.description"></textarea>
+                    <textarea ng-model="vm.role.description" required name="description"></textarea>
+                    <div ng-messages="editRoleForm.description.$error" md-auto-hide="false">
+                        <div ng-message="required">
+                            La descripci&oacute;n es obligatoria
+                        </div>
+                    </div>
                 </md-input-container>
 
 
@@ -48,8 +58,9 @@
                     </div>
                 </div>
 
+                <!--todo: show validation errors when no permission is selected-->
                 <!--for controlling when no permission is selected, make form invalid-->
-                <input type="hidden" data-ng-if="!vm.permissions.selected.length" required data-ng-model="vm.controlRquired">
+                <input type="hidden" data-ng-if="!vm.permissions.selected.length" required data-ng-model="vm.controlRquired" />
 
                 <br/>
                 <div class="row" data-ng-show="vm.permissions.all.length">

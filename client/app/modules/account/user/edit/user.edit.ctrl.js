@@ -31,11 +31,15 @@
                 selected: null
             },
 
+            passwordMatch:{},
+
             loadRoles: fnLoadRoles,
 
             init: fnInit,
             cancel: fnCancel,
-            save: fnSave
+            save: fnSave,
+
+            checkPasswordMatch: fnCheckPasswordMatch
         };
 
         vm.wizard.init();
@@ -108,7 +112,7 @@
         }
 
         function fnSave(form) {
-            if (form && form.$valid) {
+            if (form && form.$valid && !vm.wizard.passwordMatch.notMatch) {
                 if (vm.wizard.entities.length > 1) {
                     //todo
                 }
@@ -152,6 +156,14 @@
             navigationSrv.goTo(ROUTE.USERS);
         }
 
+        function fnCheckPasswordMatch() {
+            delete vm.wizard.passwordMatch.notMatch;
+            if (vm.wizard.entity.password && vm.wizard.entity.password2 &&
+                vm.wizard.entity.password != vm.wizard.entity.password2) {
+                vm.wizard.passwordMatch.notMatch = true;
+            }
+        }
+
         function fnLoadRoles() {
             blockSrv.block();
             vm.wizard.roles.all = [];
@@ -192,7 +204,7 @@
                 }, 500)
             }
         }
-        
+
         function _loadAllEntities() {
             blockSrv.block();
             var fnKey = keyP + "_loadAllEntities";
