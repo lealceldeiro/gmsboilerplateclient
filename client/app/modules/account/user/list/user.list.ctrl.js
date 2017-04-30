@@ -123,22 +123,43 @@
 
         function fnActivateDeactivate(item) {
             if (item) {
-                blockSrv.block();
-                var fnKey = keyP + "fnActivateDeactivate";
-
-                userSrv.activate(item.id, item.enabled).then(
-                    function (data) {
-                        var e = systemSrv.eval(data, fnKey, false, true);
-                        blockSrv.unBlock();
-                        if (!e) { //if fail, return element to after submission position (md-switch changes model)
+                vm.itemToDeActivate = item;
+                var us = sessionSrv.currentUser();
+                if (us && us.id === item.id && !item.enabled) { //deactivate current user?
+                    var buttons = [{text:"Desactivar", function: _doActivateDeactivate, primary: true}];
+                    dialogSrv.showDialog("Confirmación", "Va a desactivar su usuario. Seguro desea continuar?", buttons,
+                        function(){
                             item.enabled = !item.enabled;
-                        }
-                    }
-                );
+                        });
+                }
+                else {
+                    _doActivateDeactivate(true);
+                }
+
             }
             else{
-                console.warn("There is no role for that index");
+                console.warn("There is no user for that index");
             }
+        }
+
+        function _doActivateDeactivate(notCurrentUser) {
+            blockSrv.block();
+
+            var fnKey = keyP + "fnActivateDeactivate";
+
+            userSrv.activate(vm.itemToDeActivate.id, vm.itemToDeActivate.enabled).then(
+                function (data) {
+                    var e = systemSrv.eval(data, fnKey, false, true);
+                    blockSrv.unBlock();
+                    if (!e) { //if fail, return element to after submission position (md-switch changes model)
+                        vm.itemToDeActivate.enabled = !vm.itemToDeActivate.enabled;
+                    }
+                    if (notCurrentUser !== true) {
+                        sessionSrv.logOut();
+                        navigationSrv.goTo(ROUTE.LOGIN);
+                    }
+                }
+            );
         }
 
         function fnView(id) {

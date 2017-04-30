@@ -64,6 +64,7 @@
                             var it = systemSrv.getItems(fnKey);
                             if (it) {
                                 vm.wizard.entities.all = it;
+                                vm.wizard.entities.allLoaded = false;
                             }
                         }
                     }

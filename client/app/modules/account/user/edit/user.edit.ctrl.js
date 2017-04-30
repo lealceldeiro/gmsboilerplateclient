@@ -7,7 +7,7 @@
     'use strict';
 
     var f = function (indexSrv, userSrv, navigationSrv, ROUTE, systemSrv, notificationSrv, roleSrv, blockSrv, sessionSrv,
-                      $timeout, ownedEntitySrv) {
+                      $timeout, ownedEntitySrv, dialogSrv) {
         var vm = this;
         const keyP = 'USER_EDIT';
 
@@ -39,7 +39,8 @@
             cancel: fnCancel,
             save: fnSave,
 
-            checkPasswordMatch: fnCheckPasswordMatch
+            checkPasswordMatch: fnCheckPasswordMatch,
+            arePasswordsRequired: fnArePasswordsRequired
         };
 
         vm.wizard.init();
@@ -113,43 +114,60 @@
 
         function fnSave(form) {
             if (form && form.$valid && !vm.wizard.passwordMatch.notMatch) {
-                if (vm.wizard.entities.length > 1) {
-                    //todo
-                }
-                else {
-                    var le = vm.wizard.entities[0];
-                }
-
-                blockSrv.block();
-                var params = {
-                    username : vm.wizard.entity.username,
-                    name : vm.wizard.entity.name,
-                    email : vm.wizard.entity.email,
-                    password : vm.wizard.entity.password,
-
-                    //todo: refactor for multi entity
-                    roles: [],
-                    entity: le ? le.id : 0,
-                    //end todo
-
-                    enabled: vm.wizard.entity.enabled
-                };
-                var fnKey = keyP + "fnSave";
-                angular.forEach(vm.wizard.roles.selected, function (element) {
-                    params.roles.push(element.id)
-                });
-
-                userSrv.save(params, vm.id).then(
-                    function (data) {
-                        blockSrv.unBlock();
-                        var e = systemSrv.eval(data, fnKey, true, true);
-                        if (e) {
-                            //success, go back to list
-                            fnCancel();
+                if (typeof vm.id !== 'undefined' && vm.id !== null && !vm.wizard.entity.enabled) {
+                    var u = sessionSrv.currentUser();
+                    if (u) {
+                        if (u.id == vm.id) {
+                            var buttons = [{text:"Guardar", function: _doSave, primary: true}];
+                            dialogSrv.showDialog("Confirmación", "Va a guardar sus datos con la propiedad 'activo' sin" +
+                                " marcar. Esto hará que no pueda acceder al sistema. Seguro desea continuar?", buttons);
                         }
-                    }
-                )
+                        else { _doSave(true); }
+                    } else { _doSave(true); }
+                }
+                else { _doSave(true); }
             }
+        }
+
+        function _doSave(notCurrentUser) {
+            if (vm.wizard.entities.length > 1) {
+                //todo
+            }
+            else {
+                var le = vm.wizard.entities[0];
+            }
+
+            blockSrv.block();
+            var params = {
+                username : vm.wizard.entity.username,
+                name : vm.wizard.entity.name,
+                email : vm.wizard.entity.email,
+                password : vm.wizard.entity.password,
+
+                //todo: refactor for multi entity
+                roles: [],
+                entity: le ? le.id : 0,
+                //end todo
+
+                enabled: vm.wizard.entity.enabled
+            };
+            var fnKey = keyP + "fnSave";
+            angular.forEach(vm.wizard.roles.selected, function (element) {
+                params.roles.push(element.id)
+            });
+
+            userSrv.save(params, vm.id).then(
+                function (data) {
+                    blockSrv.unBlock();
+                    var e = systemSrv.eval(data, fnKey, true, true);
+                    if (e) {
+                        if (notCurrentUser !== true) {
+                            sessionSrv.logOut();
+                            navigationSrv.goTo(ROUTE.LOGIN);
+                        } else { fnCancel(); }
+                    }
+                }
+            )
         }
 
         function fnCancel() {
@@ -162,6 +180,10 @@
                 vm.wizard.entity.password != vm.wizard.entity.password2) {
                 vm.wizard.passwordMatch.notMatch = true;
             }
+        }
+
+        function fnArePasswordsRequired() {
+            return typeof vm.id === 'undefined' || vm.id === null;
         }
 
         function fnLoadRoles() {
@@ -224,6 +246,6 @@
 
     angular.module('rrms')
         .controller('userEditCtrl', ['indexSrv', 'userSrv', 'navigationSrv', 'ROUTE', 'systemSrv', 'notificationSrv', 'roleSrv',
-            'blockSrv', 'sessionSrv', '$timeout', 'ownedEntitySrv', f]);
+            'blockSrv', 'sessionSrv', '$timeout', 'ownedEntitySrv', 'dialogSrv', f]);
 
 })();

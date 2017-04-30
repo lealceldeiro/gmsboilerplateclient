@@ -26,14 +26,16 @@
              * @param tabsTitles header for each tab content
              * @param tabsContent Content of each tab of the modal
              * @param buttons Buttons of the modal
+             * @param cancelAction Action to be taken if action canceled
              * @param ev Event which fired the modal
              */
-            function fnShowTabDialog(title, tabsTitles, tabsContent, tabsHeaders, buttons, ev) {
+            function fnShowTabDialog(title, tabsTitles, tabsContent, tabsHeaders, buttons, cancelAction, ev) {
                 self.service.title = title;
                 self.service.tabsHeaders = tabsHeaders;
                 self.service.tabsTitles = tabsTitles;
                 self.service.tabsContent = tabsContent;
                 self.service.buttons = buttons;
+                self.service.cancelAction = cancelAction;
                 self.service.ev = ev;
                 $rootScope.$broadcast(BROADCAST.modal.SHOW_DIALOG_TAB)
             }
@@ -43,12 +45,14 @@
              * @param title modal title
              * @param text Content of the modal
              * @param buttons Buttons of the modal
+             * @param cancelAction Action to be taken if action canceled
              * @param ev Event which fired the modal
              */
-            function fnShowSimpleDialog(title, text, buttons, ev) {
+            function fnShowSimpleDialog(title, text, buttons, cancelAction, ev) {
                 self.service.title = title;
                 self.service.text = text;
                 self.service.buttons = buttons;
+                self.service.cancelAction = cancelAction;
                 self.service.ev = ev;
                 $rootScope.$broadcast(BROADCAST.modal.SHOW_DIALOG);
             }

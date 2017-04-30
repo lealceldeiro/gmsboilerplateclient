@@ -21,17 +21,18 @@
                 showDialog();
             });
 
-            function showDialog (title, tabsHeaders, tabsTitles, simpleDialogText, tabsContent, buttons, ev) {
+            function showDialog (title, tabsHeaders, tabsTitles, simpleDialogText, tabsContent, buttons, cancelAction, ev) {
                 dialogSrv.title = title || dialogSrv.title;
                 dialogSrv.tabsHeaders = tabsHeaders || dialogSrv.tabsHeaders;
                 dialogSrv.tabsTitles = tabsTitles || dialogSrv.tabsTitles;
                 dialogSrv.tabsContent = tabsContent || dialogSrv.tabsContent;
                 dialogSrv.text = simpleDialogText || dialogSrv.text;
                 dialogSrv.buttons = buttons ||  dialogSrv.buttons;
+                dialogSrv.cancelAction = cancelAction ||  dialogSrv.cancelAction;
                 dialogSrv.ev = ev || dialogSrv.ev;
 
                 if (dialogSrv.title || dialogSrv.tabs || dialogSrv.tabsTitles || dialogSrv.tabsContent
-                    || dialogSrv.buttons || dialogSrv.ev || dialogSrv.text) {
+                    || dialogSrv.buttons || dialogSrv.cancelAction || dialogSrv.ev || dialogSrv.text) {
                     var template;
                     switch (type){
                         case BROADCAST.modal.SHOW_DIALOG_TAB:
@@ -52,7 +53,9 @@
                         .then(function(answer) {
                             //something selected
                         }, function() {
-                            //canceled
+                            if (angular.isDefined(dialogSrv.cancelAction) && angular.isFunction(dialogSrv.cancelAction)) {
+                                dialogSrv.cancelAction();
+                            }
                         });
                 }
                 else{
