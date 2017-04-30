@@ -79,8 +79,14 @@
         }
 
         function fnRemove() {
+            var u = sessionSrv.currentUser();
+            var msg = "Seguro desea eliminar este usuario?";
+            if (u && u.id == vm.id) {
+                msg = "Seguro deseas eliminar tu cuenta";
+                vm.toRemoveProfile = true;
+            }
             var buttons = [{text:"Borrar", function: _doRemove, primary: true}];
-            dialogSrv.showDialog("Confirmación", "Seguro desea eliminar este usuario?", buttons);
+            dialogSrv.showDialog("Confirmación", msg, buttons);
 
         }
 
@@ -91,7 +97,11 @@
                 function (data) {
                     var e = systemSrv.eval(data, fnKey, true, true);
                     if (e) {
-                        navigationSrv.goTo(ROUTE.USERS);
+                        if (vm.toRemoveProfile) {
+                            sessionSrv.logOut();
+                            navigationSrv.goTo(ROUTE.LOGIN);
+                        }
+                        else { navigationSrv.goTo(ROUTE.USERS); }
                     }
                     blockSrv.unBlock();
                 }

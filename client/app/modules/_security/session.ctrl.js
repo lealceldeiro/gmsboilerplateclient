@@ -6,14 +6,16 @@
 
     'use strict';
 
-    var sessionCtrl = function (sessionSrv, navigationSrv, ROUTE, systemSrv, $rootScope) {
+    var sessionCtrl = function (sessionSrv, navigationSrv, ROUTE, systemSrv) {
         var vm = this;
 
         vm.wizard = {
             init: fnInit,
 
             logout: fnLogout,
-            go: goTo
+            go: goTo,
+
+            viewProfile: fnViewProfile
         };
 
         vm.wizard.init();
@@ -67,11 +69,7 @@
         }
 
         function fnLogout() {
-            sessionSrv.clearSession();
-
-            //notify of login action
-            $rootScope.$broadcast('TRIGGER_ACTION_AUTH'); //$rootScope instead of $scope so the change is propagated to all scopes
-
+            sessionSrv.logOut();
             navigationSrv.goTo(ROUTE.LOGIN);
         }
 
@@ -79,9 +77,13 @@
             navigationSrv.goTo(r);
         }
 
+        function fnViewProfile() {
+            navigationSrv.goTo(ROUTE.USER_VIEW, ROUTE.USER_VIEW_PL, sessionSrv.currentUser().id);
+        }
+
     };
 
     angular.module('rrms')
-        .controller('sessionCtrl', ['sessionSrv', 'navigationSrv', 'ROUTE', 'systemSrv', '$rootScope', sessionCtrl]);
+        .controller('sessionCtrl', ['sessionSrv', 'navigationSrv', 'ROUTE', 'systemSrv', sessionCtrl]);
 
 })();

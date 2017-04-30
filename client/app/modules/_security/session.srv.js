@@ -6,7 +6,7 @@
 
 'use strict';
 
-var sessionSrv = function (baseSrv, systemSrv, localStorageService) {
+var sessionSrv = function (baseSrv, systemSrv, localStorageService, $rootScope) {
     var self = this;
     const lsPrefix = "gMS_localS_";
 
@@ -26,6 +26,7 @@ var sessionSrv = function (baseSrv, systemSrv, localStorageService) {
 
     self.service = {
         isLogged: fnIsLogged,
+        logOut: fnLogOut,
 
         securityToken: fnSecurityToken,
         setSecurityToken: fnSetSecurityToken,
@@ -63,6 +64,11 @@ var sessionSrv = function (baseSrv, systemSrv, localStorageService) {
         }
     }
 
+    function fnLogOut() {
+        fnClearSession();
+        //notify of login action
+        $rootScope.$broadcast('TRIGGER_ACTION_AUTH'); //$rootScope so the change is propagated to all scopes
+    }
 
     function fnSecurityToken() {
         if (!sToken) {
@@ -172,9 +178,7 @@ var sessionSrv = function (baseSrv, systemSrv, localStorageService) {
 
 };
 
-sessionSrv.$inject = ['baseSrv', 'systemSrv', 'localStorageService'];
-
 angular.module('rrms')
-    .service('sessionSrv', sessionSrv);
+    .service('sessionSrv', ['baseSrv', 'systemSrv', 'localStorageService', '$rootScope', sessionSrv]);
 
 })();

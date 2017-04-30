@@ -4,7 +4,7 @@
 
 'use strict';
 
-var f = function (systemSrv, $http, valueSrv, baseSrv) {
+var f = function (systemSrv, $http, valueSrv, baseSrv, ownedEntitySrv) {
     var self = this;
     var url = systemSrv.APIAbsoluteUrl + 'user/';
 
@@ -98,15 +98,9 @@ var f = function (systemSrv, $http, valueSrv, baseSrv) {
     }
 
     function fnEntitiesByUser(id, offset, max) {
-        var params = valueSrv.nNnN(offset) ? "?offset=" + offset : "";
-        if (valueSrv.nNnN(max)) {
-            params += params === ""? "?max=" + max : "&max=" + max;
-        }
-
-        var def = $http.get(url + id + "/entities/" + params);
-        return baseSrv.resolveDeferred(def);
+        return ownedEntitySrv.search(id, offset, max);
     }
 };
 
 angular.module('rrms')
-    .service('userSrv', ['systemSrv', '$http', 'valueSrv', 'baseSrv', f]);
+    .service('userSrv', ['systemSrv', '$http', 'valueSrv', 'baseSrv', 'ownedEntitySrv', f]);

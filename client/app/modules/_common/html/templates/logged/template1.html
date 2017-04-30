@@ -108,7 +108,7 @@
                                 <md-icon md-no-ink md-svg-src="_common/img/action/ic_exit_to_app_24px.svg" aria-label="Cerrar"></md-icon>
                             </md-button>
 
-                            <md-button aria-label="Mi perfil" class="md-fab md-mini md-accent" ng-click="">
+                            <md-button aria-label="Mi perfil" class="md-fab md-mini md-accent" ng-click="sCtrl.viewProfile()">
                                 <md-tooltip md-direction="down">
                                     Mi perfil ({{sCtrl.user.username || sCtrl.user.email + (sCtrl.user.entities.length > 1 ?
                                     "en " + sCtrl.oEntity.name || sCtrl.oEntity.username : "")}})

@@ -7,7 +7,7 @@
     'use strict';
 
     var f = function (indexSrv, systemSrv, userSrv, navigationSrv, paginationSrv, ROUTE, searchSrv, blockSrv, sessionSrv,
-                      $rootScope, dialogSrv) {
+                      dialogSrv) {
         var vm = this;
         const keyP = 'USER_LIST';
 
@@ -168,11 +168,7 @@
                         if (idx !== -1) {
                             var us = sessionSrv.currentUser();
                             if (us && us.id === vm.idToRemove) { //current user?
-                                sessionSrv.clearSession();
-
-                                //update users's logged in/out status
-                                $rootScope.$broadcast('TRIGGER_ACTION_AUTH');
-
+                                sessionSrv.logOut();
                                 navigationSrv.goTo(ROUTE.LOGIN);
                             }
                             else {
@@ -206,7 +202,7 @@
     };
 
     angular.module('rrms')
-        .controller('userListCtrl', ['indexSrv', 'systemSrv', 'userSrv', 'navigationSrv', 'paginationSrv', 'ROUTE', 'searchSrv', 'blockSrv',
-            'sessionSrv', '$rootScope', 'dialogSrv', f]);
+        .controller('userListCtrl', ['indexSrv', 'systemSrv', 'userSrv', 'navigationSrv', 'paginationSrv', 'ROUTE',
+            'searchSrv', 'blockSrv', 'sessionSrv', 'dialogSrv', f]);
 
 })();
