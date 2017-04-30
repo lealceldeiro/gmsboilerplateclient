@@ -10,13 +10,14 @@
 
         $routeProvider
 
-            //error
+            //region error
             .when(ROUTE.CONFIG_ERROR,{
                     templateUrl: '_common/html/views/envConfigError.html'
                 }
             )
+            //endregion
 
-            //login
+            //region login
             .when(ROUTE.LOGIN,{
                     templateUrl: 'account/_login/login.html',
                     controller: 'loginCtrl',
@@ -29,8 +30,9 @@
                     controllerAs: 'vm'
                 }
             )
+            //endregion
 
-            //roles
+            //region roles
             .when(ROUTE.ROLES,{
                     templateUrl: 'account/role/list/role.list.html',
                     controller: 'roleListCtrl',
@@ -55,8 +57,9 @@
                     controllerAs: 'vm'
                 }
             )
+            //endregion
 
-            //users
+            //region users
             .when(ROUTE.USERS,{
                     templateUrl: 'account/user/list/user.list.html',
                     controller: 'userListCtrl',
@@ -81,56 +84,43 @@
                     controllerAs: 'vm'
                 }
             )
+            //endregion
 
-            //owned entity
+            //region owned-entity
             .when(ROUTE.OWNED_ENTITY,{
                     templateUrl: 'owned.entity/list/owned.entity.list.html',
                     controller: 'ownedEntityListCtrl',
                     controllerAs: 'vm'
                 }
             )
-            /*.when(ROUTE.USER_EDIT,{
-                    templateUrl: 'account/user/edit/user.edit.html',
-                    controller: 'userEditCtrl',
+            .when(ROUTE.OWNED_ENTITY_EDIT,{
+                    templateUrl: 'owned.entity/edit/owned.entity.edit.html',
+                    controller: 'ownedEntityEditCtrl',
                     controllerAs: 'vm'
                 }
             )
-            .when(ROUTE.USER_NEW,{
-                    templateUrl: 'account/user/edit/user.edit.html',
-                    controller: 'userEditCtrl',
+            .when(ROUTE.OWNED_ENTITY_NEW,{
+                    templateUrl: 'owned.entity/edit/owned.entity.edit.html',
+                    controller: 'ownedEntityEditCtrl',
                     controllerAs: 'vm'
                 }
             )
-            .when(ROUTE.USER_VIEW,{
-                    templateUrl: 'account/user/view/user.view.html',
-                    controller: 'userViewCtrl',
+            .when(ROUTE.OWNED_ENTITY_VIEW,{
+                    templateUrl: 'owned.entity/view/owned.entity.view.html',
+                    controller: 'ownedEntityViewCtrl',
                     controllerAs: 'vm'
                 }
-            )*/
+            )
+            //endregion
 
-            //locations
-            .when(ROUTE.LOCATIONS,{
-                    templateUrl: 'main/main.html',
-                    controller: 'mainCtrl',
-                    controllerAs: 'vm'
-                }
-            )
-
-            //reservations
-            .when(ROUTE.RESERVATIONS,{
-                    templateUrl: 'main/main.html',
-                    controller: 'mainCtrl',
-                    controllerAs: 'vm'
-                }
-            )
-
-            //permissions
+            //region permissions
             .when(ROUTE.PERMISSIONS,{
                     templateUrl: 'account/permission/list/permission.list.html',
                     controller: 'permissionCtrl',
                     controllerAs: 'vm'
                 }
             )
+            //endregion
 
             //otherwise
             .otherwise(

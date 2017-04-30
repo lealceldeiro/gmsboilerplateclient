@@ -82,7 +82,14 @@
             );
 
             var fnKey2 = keyP + "fnLoadData-entitiesByUser";
-            userSrv.entitiesByUser(id, 0, 0).then(function (data) {
+            var def;
+            if (sessionSrv.currentUser().id == id) {
+                def = ownedEntitySrv.searchAll(0, 0);
+            }
+            else {
+                def = userSrv.entitiesByUser(id, 0, 0);
+            }
+            def.then(function (data) {
                 vm.wizard.entities = [];
                 var e = systemSrv.eval(data, fnKey2, false, true);
                 if (e) {
@@ -133,6 +140,7 @@
                         blockSrv.unBlock();
                         var e = systemSrv.eval(data, fnKey, true, true);
                         if (e) {
+                            //success, go back to list
                             fnCancel();
                         }
                     }

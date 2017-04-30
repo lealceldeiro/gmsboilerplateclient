@@ -50,7 +50,7 @@
                     }
                 }
                 if (show) {
-                    $rootScope.$broadcast(BROADCAST.toast.OPEN);
+                    $rootScope.$broadcast(BROADCAST.component.toast.OPEN);
                 }
             }
         }]);

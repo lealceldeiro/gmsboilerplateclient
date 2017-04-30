@@ -27,7 +27,7 @@
                 <md-list-item class="md-3-line" ng-repeat="item in vm.entities.all" ng-click="vm.view(item.id)" aria-label="Usuario: {{item.label}}">
                     <div class="md-list-item-text" layout="column">
                         <h3 data-ng-bind="item.name + ' (' + item.username + ')'"></h3>
-                        <p data-ng-bind="item.email"></p>
+                        <p style="font-style: italic;" data-ng-bind="item.email"></p>
                         <p data-ng-bind="item.enabled | humanReadable:'(':')'"></p>
                         <md-button class="md-secondary md-icon-button" aria-label="editar usuario"
                                    ng-click="vm.edit(item.id)">

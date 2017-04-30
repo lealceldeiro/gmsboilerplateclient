@@ -25,9 +25,7 @@
             init: fnInit,
             cancel: fnCancel,
             edit: fnEdit,
-            remove: fnRemove,
-
-            changePage: fnChangePage
+            remove: fnRemove
         };
 
         vm.wizard.init();
@@ -94,8 +92,8 @@
                     var e = systemSrv.eval(data, fnKey, true, true);
                     if (e) {
                         navigationSrv.goTo(ROUTE.USERS);
-                        blockSrv.unBlock();
                     }
+                    blockSrv.unBlock();
                 }
             )
         }
@@ -127,15 +125,6 @@
                     blockSrv.setIsLoading(vm.wizard.roles);
                 }
             )
-        }
-
-        function fnChangePage(newPageNumber) {
-            if (typeof newPageNumber === 'undefined' || newPageNumber < 1 || newPageNumber === null) {
-                newPageNumber = 1;
-            }
-            vm.wizard.roles.offset = (newPageNumber - 1) * vm.wizard.roles.itemsPerPage;
-
-            _loadRoles(vm.id);
         }
 
     };

@@ -98,6 +98,7 @@
                         blockSrv.unBlock();
                         var e = systemSrv.eval(data, fnKey, true, true);
                         if (e) {
+                            //success, go back to list
                             fnCancel();
                         }
                     }

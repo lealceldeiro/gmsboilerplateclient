@@ -30,7 +30,6 @@
         function fnInit() {
             indexSrv.siteTile = 'Permisos';
             paginationSrv.resetPagination();
-            //vm.wizard.search();// no need to call because it's called from html in cl-page-changed="vm.changePage(pc.currentPage)"
         }
 
         function fnSearch() {

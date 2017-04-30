@@ -7,7 +7,7 @@
     'use strict';
 
     var f = function (indexSrv, systemSrv, ownedEntitySrv, navigationSrv, paginationSrv, ROUTE, searchSrv, blockSrv,
-                      sessionSrv) {
+                      sessionSrv, dialogSrv) {
         var vm = this;
         const keyP = 'OWNED_ENTITY_LIST';
 
@@ -19,10 +19,13 @@
 
             changePage: fnChangePage,
             search: fnSearch,
+            searchAll: fnSearchAll,
             view: fnView,
             remove: fnRemove,
             new: fnNew,
-            edit: fnEdit
+            edit: fnEdit,
+
+            searchByPageChange: fnSearchByPageChange
         };
 
         vm.wizard.init();
@@ -33,58 +36,106 @@
         function fnInit() {
             indexSrv.siteTile = 'Owned Entity';
             paginationSrv.resetPagination();
-            vm.wizard.search();
         }
 
-        function fnSearch() {
-            vm.wizard.entities.all = [];
-            var offset = paginationSrv.getOffset();
-            var max = paginationSrv.getItemsPerPage();
+        function fnSearch(changeFlag) {
+            if (changeFlag) {
+                ownedEntitySrv.sessionData.allEntities = false;
+                paginationSrv.resetPagination();
+            }
+            if(ownedEntitySrv.sessionData.allEntities){
+                fnSearchAll();
+            }
+            else {
+                blockSrv.setIsLoading(vm.wizard.entities, true);
+                vm.wizard.entities.all = [];
+                var offset = paginationSrv.getOffset();
+                var max = paginationSrv.getItemsPerPage();
 
-            var fnKey = keyP + "fnSearch";
-            var u = sessionSrv.currentUser();
-            blockSrv.setIsLoading(vm.wizard.entities, true);
+                var fnKey = keyP + "fnSearch";
+                var u = sessionSrv.currentUser();
 
-            ownedEntitySrv.search(u ? u.id : 0, offset, max).then(
-                function (data) {
-                    var e = systemSrv.eval(data, fnKey, false, true);
-                    blockSrv.setIsLoading(vm.wizard.entities);
-                    if (e) {
-                        paginationSrv.setTotalItems(systemSrv.getTotal(fnKey));
-                        var it = systemSrv.getItems(fnKey);
-                        if (it) {
-                            vm.wizard.entities.all = it;
+                ownedEntitySrv.search(u ? u.id : 0, offset, max).then(
+                    function (data) {
+                        var e = systemSrv.eval(data, fnKey, false, true);
+                        blockSrv.setIsLoading(vm.wizard.entities);
+                        if (e) {
+                            paginationSrv.setTotalItems(systemSrv.getTotal(fnKey));
+                            var it = systemSrv.getItems(fnKey);
+                            if (it) {
+                                vm.wizard.entities.all = it;
+                            }
                         }
                     }
-                }
-            )
+                )
+            }
+        }
 
+        function fnSearchAll(changeFlag) {
+            if (changeFlag) {
+                ownedEntitySrv.sessionData.allEntities = true;
+                paginationSrv.resetPagination();
+            }
+            if(!ownedEntitySrv.sessionData.allEntities){
+                fnSearch();
+            }
+            else {
+                blockSrv.setIsLoading(vm.wizard.entities, true);
+
+                vm.wizard.entities.all = [];
+                var offset = paginationSrv.getOffset();
+                var max = paginationSrv.getItemsPerPage();
+                var fnKey = keyP + "fnSearchAll";
+
+                ownedEntitySrv.searchAll(offset, max).then(
+                    function (data) {
+                        var r = systemSrv.eval(data, fnKey, false, true);
+                        if (r) {
+                            paginationSrv.setTotalItems(systemSrv.getTotal(fnKey));
+                            vm.wizard.entities.all = systemSrv.getItems(fnKey);
+                            vm.wizard.entities.allLoaded = true;
+                        }
+                        blockSrv.setIsLoading(vm.wizard.entities);
+                    }
+                );
+
+            }
         }
 
         function fnEdit(id) {
-            navigationSrv.goTo(ROUTE.ROLE_EDIT, ROUTE.ROLE_EDIT_PL, id);
+            navigationSrv.goTo(ROUTE.OWNED_ENTITY_EDIT, ROUTE.OWNED_ENTITY_EDIT_PL, id);
         }
 
         function fnView(id) {
-            navigationSrv.goTo(ROUTE.ROLE_VIEW, ROUTE.ROLE_VIEW_PL, id);
+            navigationSrv.goTo(ROUTE.OWNED_ENTITY_VIEW, ROUTE.OWNED_ENTITY_VIEW_PL, id);
         }
 
         function fnNew() {
-            navigationSrv.goTo(ROUTE.ROLE_NEW);
+            navigationSrv.goTo(ROUTE.OWNED_ENTITY_NEW);
         }
 
         function fnRemove(id) {
-            var fnKey = keyP + "fnRemove";
-            roleSrv.remove(id).then(
+            if (typeof id !== 'undefined' && id !== null) {
+                vm.idToRemove = id;
+                var buttons = [{text:"Borrar", function: _doRemove, primary: true}];
+                dialogSrv.showDialog("Confirmación", "Seguro desea eliminar esta entidad?", buttons);
+            }
+        }
+
+        function _doRemove() {
+            blockSrv.block();
+            var fnKey = keyP + "_doRemove";
+            ownedEntitySrv.remove(vm.idToRemove).then(
                 function (data) {
                     var e = systemSrv.eval(data, fnKey, true, true);
                     if (e) {
-                        var idx = searchSrv.indexOf(vm.wizard.entities.all, 'id', id);
+                        var idx = searchSrv.indexOf(vm.wizard.entities.all, 'id', vm.idToRemove);
                         if (idx !== -1) {
-                            vm.wizard.entities.all.splice(idx,1);
-                            fnSearch();
+                            fnChangePage();
+                            delete vm.idToRemove;
                         }
                     }
+                    blockSrv.unBlock();
                 }
             )
         }
@@ -98,10 +149,14 @@
             vm.wizard.search();
         }
 
+        function fnSearchByPageChange() {
+            vm.wizard.entities.allLoaded? fnSearchAll() : fnSearch();
+        }
+
     };
 
     angular.module('rrms')
-        .controller('ownedEntityListCtrl', ['indexSrv', 'systemSrv', 'ownedEntitySrv', 'navigationSrv', 'paginationSrv', 'ROUTE', 'searchSrv',
-            'blockSrv', 'sessionSrv', f]);
+        .controller('ownedEntityListCtrl', ['indexSrv', 'systemSrv', 'ownedEntitySrv', 'navigationSrv', 'paginationSrv',
+            'ROUTE', 'searchSrv', 'blockSrv', 'sessionSrv', 'dialogSrv', f]);
 
 })();

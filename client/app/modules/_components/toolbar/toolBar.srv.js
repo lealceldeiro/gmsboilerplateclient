@@ -46,10 +46,10 @@
                             self.service.actions.push(obj.action);
                         }
                     });
-                    $rootScope.$broadcast(BROADCAST.component.toolbar.show)
+                    $rootScope.$broadcast(BROADCAST.component.toolbar.OPEN)
                 }
                 if (config === 'hide') {
-                    $rootScope.$broadcast(BROADCAST.component.toolbar.hide)
+                    $rootScope.$broadcast(BROADCAST.component.toolbar.CLOSE)
                 }
             }
             

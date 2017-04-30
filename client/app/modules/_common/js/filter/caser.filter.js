@@ -23,7 +23,7 @@ var f = function () {
                 l = a + l.slice(1);
                 r += l + " ";
             });
-            return r;
+            return r.substring(0, r.length - 1);
         }
     };
 };

@@ -19,11 +19,11 @@
                 doAction: fnDoAction
             };
 
-            $scope.$on(BROADCAST.component.toolbar.show, function () {
+            $scope.$on(BROADCAST.component.toolbar.OPEN, function () {
                 self.wizard.buttonsArr = toolBarSrv.buttonsArr;
                 self.show = true;
             });
-            $scope.$on(BROADCAST.component.toolbar.hide, function () {
+            $scope.$on(BROADCAST.component.toolbar.CLOSE, function () {
                 self.show = false;
             });
 

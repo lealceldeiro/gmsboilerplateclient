@@ -76,7 +76,7 @@ var paginationSrv = function ($rootScope, BROADCAST) {
     }
 
     function fnMoveTo(page) {
-        if (typeof page == 'undefined' || page < 1 || page == null) {
+        if (typeof page === 'undefined' || page < 1 || page === null) {
             page = 1;
             $rootScope.$broadcast(BROADCAST.pagination.RESET_PAGINATION);
         }

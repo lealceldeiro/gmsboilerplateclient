@@ -11,7 +11,10 @@
         var url = systemSrv.APIAbsoluteUrl + 'entity/';
 
         self.service = {
+            sessionData: {},
+
             search: fnSearch,
+            searchAll: fnSearchAll,
             show: fnShow,
             remove: fnRemove,
             save: fnSave,
@@ -22,8 +25,8 @@
         return self.service;
 
         /**
-         * Search for owned entities
-         * @param uid Logged user id
+         * Search for owned entities associated to a user
+         * @param uid User who owned entities are being searched for
          * @param offset offset for paging
          * @param max max for paging
          * @param criteria criteria for searching
@@ -33,6 +36,19 @@
             var params = baseSrv.getParams(offset, max, criteria);
 
             var def = $http.get(url + "user/" + uid + "/" + params);
+            return baseSrv.resolveDeferred(def);
+        }
+        /**
+         * Search for all owned entities registered on system
+         * @param offset offset for paging
+         * @param max max for paging
+         * @param criteria criteria for searching
+         * @returns {*} Promise
+         */
+        function fnSearchAll(offset, max, criteria) {
+            var params = baseSrv.getParams(offset, max, criteria);
+
+            var def = $http.get(url + params);
             return baseSrv.resolveDeferred(def);
         }
 
@@ -46,16 +62,15 @@
             return baseSrv.resolveDeferred(def);
         }
 
-        function fnSave(params, id, uid) {
+        function fnSave(params, id) {
             var mUrl = url;
 
-            if (typeof id !== 'undefined' && id != null && !isNaN(id)) {//update?
+            if (typeof id !== 'undefined' && id !== null && !isNaN(id)) {//update?
                 mUrl = url + id;
                 var def = $http.post(mUrl, params);
             }
-            else if (typeof uid !== 'undefined' && uid != null && !isNaN(uid)) {//create?
-                mUrl = url + uid;
-                def = $http.put(mUrl, params);
+            else {//create?
+                def = $http.put(url, params);
             }
             return baseSrv.resolveDeferred(def);
         }
@@ -66,7 +81,7 @@
                 params += params === "" ? "?max=" + max : "&max=" + max;
             }
 
-            var def = $http.get(url + id + '/users/' + params);
+            var def = $http.get(url +"users/" + id + params);
             return baseSrv.resolveDeferred(def);
         }
     };

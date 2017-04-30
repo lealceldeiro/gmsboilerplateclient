@@ -38,7 +38,6 @@
         function fnInit() {
             indexSrv.siteTile = 'Usuarios';
             paginationSrv.resetPagination();
-            vm.wizard.search();
         }
 
         function fnSearch(changeFlag) {

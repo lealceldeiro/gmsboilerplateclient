@@ -12,7 +12,7 @@
         .controller('toastCtrl', ['$scope', '$mdToast', 'toastSrv', 'BROADCAST',
 
             function($scope, $mdToast, toastSrv, BROADCAST) {
-                $scope.$on(BROADCAST.toast.OPEN, function () {
+                $scope.$on(BROADCAST.component.toast.OPEN, function () {
                     $scope.showCustomToast();
                 });
 
