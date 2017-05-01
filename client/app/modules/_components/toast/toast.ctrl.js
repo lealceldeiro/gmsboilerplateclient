@@ -21,7 +21,7 @@
                         hideDelay   : 3000,
                         position    : 'bottom left',
                         controller  : 'toastManagerCtrl',
-                        templateUrl : '_components/toast/toast.tmpl.html'
+                        templateUrl : 'client/app/modules/_components/toast/toast.tmpl.html'
                     });
                 };
             }])

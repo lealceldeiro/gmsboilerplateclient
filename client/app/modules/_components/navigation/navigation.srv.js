@@ -13,6 +13,7 @@ var navigationSrv = function ($location, $route, ROUTE, $window, stringSrv) {
     vm.service = {
         DEFAULT_PATH: ROUTE.MAIN,
         LOGIN_PATH: ROUTE.LOGIN,
+        CONFIG_ERROR_PATH: ROUTE.CONFIG_ERROR,
 
         goTo: fnGoTo,
         back: fnBack,

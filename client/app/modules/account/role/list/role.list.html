@@ -4,20 +4,20 @@
         <md-button aria-label="Ver mis roles solo en esta entidad" class="md-icon-button"
                    ng-show="vm.roles.allLoaded"
                    ng-click="vm.search(true)">
-            <md-icon md-svg-src="_common/img/action/ic_flip_to_back_24px.svg"></md-icon>
+            <md-icon md-svg-src="client/app/modules/_common/img/action/ic_flip_to_back_24px.svg"></md-icon>
             <md-tooltip>Ver mis roles en esta entidad</md-tooltip>
         </md-button>
         <md-button aria-label="Ver todos los roles" class="md-icon-button"
                    ng-hide="vm.roles.allLoaded"
                    ng-click="vm.searchAll(true)">
-            <md-icon md-svg-src="_common/img/action/ic_flip_to_front_24px.svg"></md-icon>
+            <md-icon md-svg-src="client/app/modules/_common/img/action/ic_flip_to_front_24px.svg"></md-icon>
             <md-tooltip>Ver todos los roles</md-tooltip>
         </md-button>
 
         <!--add new role-->
         <md-button aria-label="Nuevo rol" class="md-icon-button"
                    ng-click="vm.new()">
-            <md-icon md-svg-src="_common/img/content/ic_add_24px.svg"></md-icon>
+            <md-icon md-svg-src="client/app/modules/_common/img/content/ic_add_24px.svg"></md-icon>
             <md-tooltip>Nuevo rol</md-tooltip>
         </md-button>
 
@@ -31,7 +31,7 @@
                         <p data-ng-bind="item.enabled | humanReadable:'(':')'"></p>
                         <md-button class="md-secondary md-icon-button" aria-label="editar rol"
                                    ng-click="vm.edit(item.id)">
-                            <md-icon md-svg-src="_common/img/content/ic_create_24px.svg"></md-icon>
+                            <md-icon md-svg-src="client/app/modules/_common/img/content/ic_create_24px.svg"></md-icon>
                             <md-tooltip>Editar</md-tooltip>
                         </md-button>
 
@@ -45,7 +45,7 @@
 
                         <md-button class="md-secondary md-icon-button" aria-label="delete role"
                                    ng-click="vm.remove(item.id)">
-                            <md-icon md-svg-src="_common/img/action/ic_delete_24px.svg"></md-icon>
+                            <md-icon md-svg-src="client/app/modules/_common/img/action/ic_delete_24px.svg"></md-icon>
                             <md-tooltip>Eliminar</md-tooltip>
                         </md-button>
                     </div>

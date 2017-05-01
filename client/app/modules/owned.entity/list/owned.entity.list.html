@@ -5,20 +5,20 @@
         <md-button aria-label="Ver solo entidades asociadas a mi" class="md-icon-button"
                    ng-show="vm.entities.allLoaded"
                    ng-click="vm.search(true)">
-            <md-icon md-svg-src="_common/img/action/ic_flip_to_back_24px.svg"></md-icon>
+            <md-icon md-svg-src="client/app/modules/_common/img/action/ic_flip_to_back_24px.svg"></md-icon>
             <md-tooltip>Ver solo entidades asociadas a mi</md-tooltip>
         </md-button>
         <md-button aria-label="Ver todas las entidades" class="md-icon-button"
                    ng-hide="vm.entities.allLoaded"
                    ng-click="vm.searchAll(true)">
-            <md-icon md-svg-src="_common/img/action/ic_flip_to_front_24px.svg"></md-icon>
+            <md-icon md-svg-src="client/app/modules/_common/img/action/ic_flip_to_front_24px.svg"></md-icon>
             <md-tooltip>Ver todas las entidades</md-tooltip>
         </md-button>
 
         <!--add new oe-->
         <md-button aria-label="Nueva entidad" class="md-icon-button"
                    ng-click="vm.new()">
-            <md-icon md-svg-src="_common/img/content/ic_add_24px.svg"></md-icon>
+            <md-icon md-svg-src="client/app/modules/_common/img/content/ic_add_24px.svg"></md-icon>
             <md-tooltip>Nueva entidad</md-tooltip>
         </md-button>
 
@@ -36,13 +36,13 @@
 
                         <md-button class="md-secondary md-icon-button" aria-label="editar usuario"
                                    ng-click="vm.edit(item.id)">
-                            <md-icon md-svg-src="_common/img/content/ic_create_24px.svg"></md-icon>
+                            <md-icon md-svg-src="client/app/modules/_common/img/content/ic_create_24px.svg"></md-icon>
                             <md-tooltip>Editar</md-tooltip>
                         </md-button>
 
                         <md-button class="md-secondary md-icon-button" aria-label="delete role"
                                    ng-click="vm.remove(item.id)">
-                            <md-icon md-svg-src="_common/img/action/ic_delete_24px.svg"></md-icon>
+                            <md-icon md-svg-src="client/app/modules/_common/img/action/ic_delete_24px.svg"></md-icon>
                             <md-tooltip>Eliminar</md-tooltip>
                         </md-button>
 

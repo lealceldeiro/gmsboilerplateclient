@@ -5,17 +5,11 @@
 
     'use strict';
 
-    var f = function (__env, $location, ROUTE, sessionSrv, systemSrv, notificationSrv, $rootScope, BROADCAST) {
+    var f = function (sessionSrv, systemSrv, notificationSrv, $rootScope, BROADCAST) {
 
         var FORBIDDEN = 403;
 
         function request(req) {
-            //VALIDITY OF CONFIGURATIONS
-            if (!__env.varsFound) { //vars file not found
-                sessionSrv.clearSession(); //logout in case file is deleted or nor found
-                $location.path(ROUTE.CONFIG_ERROR);
-            }
-
             //AUTH
             var token = sessionSrv.securityToken();
             if (token) {
@@ -56,7 +50,7 @@
 
     angular
         .module('rrms')
-        .factory('envValidityChecker', ['__env', '$location', 'ROUTE', 'sessionSrv', 'systemSrv', 'notificationSrv', '$rootScope', 'BROADCAST', f])
+        .factory('envValidityChecker', ['sessionSrv', 'systemSrv', 'notificationSrv', '$rootScope', 'BROADCAST', f])
         .config(['$httpProvider', conf]);
 
 

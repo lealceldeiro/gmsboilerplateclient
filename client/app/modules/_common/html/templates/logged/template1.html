@@ -4,7 +4,7 @@
     <md-content>
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <md-icon md-svg-icon="_common/img/action/ic_home_24px.svg" aria-label="GMS Boilerplate"></md-icon>
+                <md-icon md-svg-icon="client/app/modules/_common/img/action/ic_home_24px.svg" aria-label="GMS Boilerplate"></md-icon>
 
                 <md-menu-bar>
                     <span>&boxv;</span>
@@ -97,7 +97,7 @@
                                 <md-tooltip md-direction="down">
                                     Opciones de sessi&oacute;n
                                 </md-tooltip>
-                                <md-icon md-svg-src="_common/img/navigation/ic_more_vert_24px.svg"></md-icon>
+                                <md-icon md-svg-src="client/app/modules/_common/img/navigation/ic_more_vert_24px.svg"></md-icon>
                             </md-button>
                         </md-fab-trigger>
 
@@ -105,7 +105,7 @@
 
                             <md-button aria-label="Cerrar" class="md-fab md-mini md-warn" ng-click="sCtrl.logout()">
                                 <md-tooltip md-direction="down">Cerrar</md-tooltip>
-                                <md-icon md-no-ink md-svg-src="_common/img/action/ic_exit_to_app_24px.svg" aria-label="Cerrar"></md-icon>
+                                <md-icon md-no-ink md-svg-src="client/app/modules/_common/img/action/ic_exit_to_app_24px.svg" aria-label="Cerrar"></md-icon>
                             </md-button>
 
                             <md-button aria-label="Mi perfil" class="md-fab md-mini md-accent" ng-click="sCtrl.viewProfile()">
@@ -113,14 +113,14 @@
                                     Mi perfil ({{sCtrl.user.username || sCtrl.user.email + (sCtrl.user.entities.length > 1 ?
                                     "en " + sCtrl.oEntity.name || sCtrl.oEntity.username : "")}})
                                 </md-tooltip>
-                                <md-icon md-no-ink md-svg-src="_common/img/social/ic_person_24px.svg" aria-label="Mi perfil"></md-icon>
+                                <md-icon md-no-ink md-svg-src="client/app/modules/_common/img/social/ic_person_24px.svg" aria-label="Mi perfil"></md-icon>
                             </md-button>
 
                             <md-button aria-label="Seleccionar Entidad" class="md-fab md-mini md-hue-1" ng-click="sCtrl.go('/main')"
                                        ng-if="sCtrl.user.entities.length > 1">
                                 <md-tooltip md-direction="down">Cambiar de entidad ("{{sCtrl.oEntity.name || sCtrl.oEntity.username}}"
                                 </md-tooltip>
-                                <md-icon md-no-ink md-svg-src="_common/img/action/ic_compare_arrows_24px.svg" aria-label="Seleccionar Entidad"></md-icon>
+                                <md-icon md-no-ink md-svg-src="client/app/modules/_common/img/action/ic_compare_arrows_24px.svg" aria-label="Seleccionar Entidad"></md-icon>
                             </md-button>
 
                         </md-fab-actions>
@@ -138,7 +138,7 @@
                             md-direction="{{tbc.direction}}">
                 <md-fab-trigger class="align-with-text">
                     <md-button aria-label="menu" class="md-fab md-primary">
-                        <md-icon md-svg-src="_common/img/navigation/ic_menu_24px.svg"></md-icon>
+                        <md-icon md-svg-src="client/app/modules/_common/img/navigation/ic_menu_24px.svg"></md-icon>
                     </md-button>
                 </md-fab-trigger>
 

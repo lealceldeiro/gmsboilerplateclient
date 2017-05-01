@@ -6,26 +6,35 @@
 
     'use strict';
 
-    var routing = function ($routeProvider, ROUTE) {
+    var routing = function ($routeProvider, ROUTE, $locationProvider, __env) {
+
+        if (window.history && history.pushState) {
+            $locationProvider.html5Mode(true);
+        }
+        else {
+            __env.supportHtml5 = false;
+        }
 
         $routeProvider
 
             //region error
             .when(ROUTE.CONFIG_ERROR,{
-                    templateUrl: '_common/html/views/envConfigError.html'
+                    templateUrl: 'client/app/modules/_error/envConfigError.html',
+                    controller: 'errorCtrl',
+                    controllerAs: 'vm'
                 }
             )
             //endregion
 
             //region login
             .when(ROUTE.LOGIN,{
-                    templateUrl: 'account/_login/login.html',
+                    templateUrl: 'client/app/modules/account/_login/login.html',
                     controller: 'loginCtrl',
                     controllerAs: 'vm'
                 }
             )
             .when(ROUTE.MAIN,{
-                    templateUrl: 'main/main.html',
+                    templateUrl: 'client/app/modules/main/main.html',
                     controller: 'mainCtrl',
                     controllerAs: 'vm'
                 }
@@ -34,25 +43,25 @@
 
             //region roles
             .when(ROUTE.ROLES,{
-                    templateUrl: 'account/role/list/role.list.html',
+                    templateUrl: 'client/app/modules/account/role/list/role.list.html',
                     controller: 'roleListCtrl',
                     controllerAs: 'vm'
                 }
             )
             .when(ROUTE.ROLE_EDIT,{
-                    templateUrl: 'account/role/edit/role.edit.html',
+                    templateUrl: 'client/app/modules/account/role/edit/role.edit.html',
                     controller: 'roleEditCtrl',
                     controllerAs: 'vm'
                 }
             )
             .when(ROUTE.ROLE_NEW,{
-                    templateUrl: 'account/role/edit/role.edit.html',
+                    templateUrl: 'client/app/modules/account/role/edit/role.edit.html',
                     controller: 'roleEditCtrl',
                     controllerAs: 'vm'
                 }
             )
             .when(ROUTE.ROLE_VIEW,{
-                    templateUrl: 'account/role/view/role.view.html',
+                    templateUrl: 'client/app/modules/account/role/view/role.view.html',
                     controller: 'roleViewCtrl',
                     controllerAs: 'vm'
                 }
@@ -61,25 +70,25 @@
 
             //region users
             .when(ROUTE.USERS,{
-                    templateUrl: 'account/user/list/user.list.html',
+                    templateUrl: 'client/app/modules/account/user/list/user.list.html',
                     controller: 'userListCtrl',
                     controllerAs: 'vm'
                 }
             )
             .when(ROUTE.USER_EDIT,{
-                    templateUrl: 'account/user/edit/user.edit.html',
+                    templateUrl: 'client/app/modules/account/user/edit/user.edit.html',
                     controller: 'userEditCtrl',
                     controllerAs: 'vm'
                 }
             )
             .when(ROUTE.USER_NEW,{
-                    templateUrl: 'account/user/edit/user.edit.html',
+                    templateUrl: 'client/app/modules/account/user/edit/user.edit.html',
                     controller: 'userEditCtrl',
                     controllerAs: 'vm'
                 }
             )
             .when(ROUTE.USER_VIEW,{
-                    templateUrl: 'account/user/view/user.view.html',
+                    templateUrl: 'client/app/modules/account/user/view/user.view.html',
                     controller: 'userViewCtrl',
                     controllerAs: 'vm'
                 }
@@ -88,25 +97,25 @@
 
             //region owned-entity
             .when(ROUTE.OWNED_ENTITY,{
-                    templateUrl: 'owned.entity/list/owned.entity.list.html',
+                    templateUrl: 'client/app/modules/owned.entity/list/owned.entity.list.html',
                     controller: 'ownedEntityListCtrl',
                     controllerAs: 'vm'
                 }
             )
             .when(ROUTE.OWNED_ENTITY_EDIT,{
-                    templateUrl: 'owned.entity/edit/owned.entity.edit.html',
+                    templateUrl: 'client/app/modules/owned.entity/edit/owned.entity.edit.html',
                     controller: 'ownedEntityEditCtrl',
                     controllerAs: 'vm'
                 }
             )
             .when(ROUTE.OWNED_ENTITY_NEW,{
-                    templateUrl: 'owned.entity/edit/owned.entity.edit.html',
+                    templateUrl: 'client/app/modules/owned.entity/edit/owned.entity.edit.html',
                     controller: 'ownedEntityEditCtrl',
                     controllerAs: 'vm'
                 }
             )
             .when(ROUTE.OWNED_ENTITY_VIEW,{
-                    templateUrl: 'owned.entity/view/owned.entity.view.html',
+                    templateUrl: 'client/app/modules/owned.entity/view/owned.entity.view.html',
                     controller: 'ownedEntityViewCtrl',
                     controllerAs: 'vm'
                 }
@@ -115,7 +124,7 @@
 
             //region permissions
             .when(ROUTE.PERMISSIONS,{
-                    templateUrl: 'account/permission/list/permission.list.html',
+                    templateUrl: 'client/app/modules/account/permission/list/permission.list.html',
                     controller: 'permissionCtrl',
                     controllerAs: 'vm'
                 }
@@ -130,9 +139,7 @@
             )
     };
 
-    routing.$inject = ['$routeProvider', 'ROUTE'];
-
     angular.module('rrms')
-        .config(['$routeProvider', 'ROUTE', routing]);
+        .config(['$routeProvider', 'ROUTE', '$locationProvider', '__env', routing]);
 
 })();

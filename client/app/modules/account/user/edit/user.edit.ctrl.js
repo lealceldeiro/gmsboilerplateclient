@@ -40,7 +40,7 @@
             save: fnSave,
 
             checkPasswordMatch: fnCheckPasswordMatch,
-            arePasswordsRequired: fnArePasswordsRequired
+            isPasswordRequired: fnIsPasswordRequired
         };
 
         vm.wizard.init();
@@ -182,7 +182,7 @@
             }
         }
 
-        function fnArePasswordsRequired() {
+        function fnIsPasswordRequired() {
             return typeof vm.id === 'undefined' || vm.id === null;
         }
 

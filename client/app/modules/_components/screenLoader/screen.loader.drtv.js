@@ -8,7 +8,7 @@
 
 var f = function () {
     return {
-        templateUrl: '_components/screenLoader/screen.loader.tpl.html',
+        templateUrl: 'client/app/modules/_components/screenLoader/screen.loader.tpl.html',
         transclude: true,
         restrict: 'EAC',
         scope: {screenType: '@'}

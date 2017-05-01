@@ -8,7 +8,8 @@
 
     var env = {
         api: {},
-        permissions: {}
+        permissions: {},
+        supportHtml5: true
     };
 
     // Import variables if present (from vars.js)
