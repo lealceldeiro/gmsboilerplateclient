@@ -6,12 +6,14 @@
     'use strict';
 
     angular.module('rrms').controller('configParamsCtrl', ['configSrv', '$timeout', 'systemSrv', 'blockSrv', 'ROUTE',
-        'navigationSrv', 'sessionSrv',
+        'navigationSrv', 'sessionSrv', '$window',
 
-        function (configSrv, $timeout, systemSrv, blockSrv, ROUTE, navigationSrv, sessionSrv) {
+        function (configSrv, $timeout, systemSrv, blockSrv, ROUTE, navigationSrv, sessionSrv, $window) {
             var vm = this;
             var keyP = "CONFIG_PARAMS";
             var retries = 0, MAX_RETRY = 3;
+
+            vm.cached = {};
 
             vm.wizard = {
                 entity: null,
@@ -30,6 +32,7 @@
             function fnInit() {
                 if (typeof configSrv.config.multiEntity !== 'undefined' && configSrv.config.multiEntity !== null) {
                     vm.wizard.entity = {multiEntity: configSrv.config.multiEntity};
+                    Object.assign(vm.cached, configSrv.config);
                 }
                 else {
                     _isMultiEntityApp();
@@ -45,6 +48,7 @@
                         if (e) {
                             configSrv.config = systemSrv.getItems(fnKey);
                             vm.wizard.entity= {multiEntity: configSrv.config.multiEntity};
+                            Object.assign(vm.cached, configSrv.config);
                             blockSrv.setIsLoading(vm.wizard.entityData, false);
                         }
                         else {
@@ -74,7 +78,10 @@
                     configSrv.save(params, sessionSrv.currentUser().id).then(
                         function (data) {
                             if (systemSrv.eval(data, fnKey, true, true)) {
-                                fnCancel();
+                                if (vm.cached.multiEntity !== vm.wizard.entity.multiEntity) {
+                                    $window.location.reload();
+                                }
+                                else { fnCancel(); }
                             }
                         }
                     )
