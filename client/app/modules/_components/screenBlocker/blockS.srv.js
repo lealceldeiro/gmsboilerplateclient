@@ -49,7 +49,7 @@
             }
 
             /**
-             * Marks as loading or unloading an object element byb setting a property in it as "loading"
+             * Marks as loading or unloading an object element by setting a property in it as "loading"
              * <code>false</code> or <code>true</code>
              * @param varToBeSet Var to be set as loading or not
              * @param isLoading Whether the var should be blocked or unblocked

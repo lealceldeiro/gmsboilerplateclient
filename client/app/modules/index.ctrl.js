@@ -6,8 +6,10 @@
 
     'use strict';
 
-    var f = function ($scope, indexSrv, sessionSrv) {
+    var f = function ($scope, indexSrv, sessionSrv, $timeout, systemSrv, configSrv) {
         var vm = this;
+        var keyP = "__index__";
+        var MAX_RETRY = 3, retries = 0;
 
         vm.wizard = {
             init: fnInit,
@@ -28,6 +30,7 @@
 
         //fn
         function fnInit() {
+            _loadConfig();
             indexSrv.siteTile = 'Index';
             vm.wizard.logged = sessionSrv.isLogged();
         }
@@ -36,9 +39,27 @@
             return indexSrv.siteTile;
         }
 
+        function _loadConfig() {
+            var fnKey = keyP + "_isSingleEntityApp";
+            configSrv.loadConfig().then(
+                function (data) {
+                    var e = systemSrv.eval(data, fnKey, false, false);
+                    if (e) {
+                        configSrv.config = systemSrv.getItems(fnKey);
+                    }
+                    else {
+                        if (retries++ < MAX_RETRY) {
+                            $timeout(function () {
+                                _loadConfig();
+                            }, 3000)
+                        }
+                    }
+                }
+            );
+        }
     };
 
     angular.module('rrms')
-        .controller('indexCtrl', ['$scope', 'indexSrv', 'sessionSrv', f]);
+        .controller('indexCtrl', ['$scope', 'indexSrv', 'sessionSrv', '$timeout', 'systemSrv', 'configSrv', f]);
 
 })();

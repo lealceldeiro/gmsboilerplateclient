@@ -9,9 +9,8 @@
                 <md-menu-bar>
                     <span>&boxv;</span>
 
-
                     <!--owned entities-->
-                    <md-menu>
+                    <md-menu ng-if="sCtrl.isMultiEntityApp">
                         <button class="md-primary" ng-click="$mdMenu.open()">
                             Entidades
                         </button>
@@ -79,6 +78,20 @@
                             <md-menu-item>
                                 <md-button ng-click="sCtrl.go('/permissions')">
                                     Ver listado de permisos
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+
+                    <!--Configuration-->
+                    <md-menu>
+                        <button class="md-primary" ng-click="$mdMenu.open()">
+                            Configuraci&oacute;n
+                        </button>
+                        <md-menu-content>
+                            <md-menu-item>
+                                <md-button ng-click="sCtrl.go('/config/params')">
+                                    Par&aacute;metros
                                 </md-button>
                             </md-menu-item>
                         </md-menu-content>

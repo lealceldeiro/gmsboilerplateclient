@@ -6,10 +6,14 @@
 
     'use strict';
 
-    var sessionCtrl = function (sessionSrv, navigationSrv, ROUTE, systemSrv) {
+    var sessionCtrl = function (sessionSrv, navigationSrv, ROUTE, systemSrv, configSrv, $timeout) {
         var vm = this;
+        var keyP = "__SESSIONCTRL__";
+        var MAX_RETRY = 3, retries = 0;
 
         vm.wizard = {
+            isMultiEntityApp: false,
+
             init: fnInit,
 
             logout: fnLogout,
@@ -31,6 +35,12 @@
                     && p.indexOf(up.READ_PERMISSION) === -1
                 )
             },
+
+            manageOwnedEntity: function () { return p.indexOf(up.MANAGE_OWNED_ENTITY) !== -1; },
+            readOwnedEntity:   function () { return p.indexOf(up.READ_OWNED_ENTITY) !== -1; },
+            createOwnedEntity: function () { return p.indexOf(up.CREATE_OWNED_ENTITY) !== -1;},
+            updateOwnedEntity: function () { return p.indexOf(up.UPDATE_OWNED_ENTITY) !== -1;},
+            deleteOwnedEntity:  function () { return p.indexOf(up.DELETE_OWNED_ENTITY) !== -1;},
 
             manageUser: function () { return p.indexOf(up.MANAGE_USER) !== -1; },
             readUser:   function () { return p.indexOf(up.READ_USER) !== -1; },
@@ -56,6 +66,10 @@
 
         //fn
         function fnInit() {
+            if (angular.isDefined(configSrv.config.multiEntity)) {
+                vm.wizard.isMultiEntityApp = configSrv.multiEntity;
+            }
+            else { _loadConfig(); }
             if (sessionSrv.isLogged()) {
                 vm.wizard.user = sessionSrv.currentUser();
                 vm.wizard.oEntity = sessionSrv.loginEntity();
@@ -81,9 +95,29 @@
             navigationSrv.goTo(ROUTE.USER_VIEW, ROUTE.USER_VIEW_PL, sessionSrv.currentUser().id);
         }
 
+        function _loadConfig() {
+            var fnKey = keyP + "_isSingleEntityApp";
+            configSrv.loadConfig().then(
+                function (data) {
+                    var e = systemSrv.eval(data, fnKey, false, false);
+                    if (e) {
+                        configSrv.config = systemSrv.getItems(fnKey);
+                        vm.wizard.isMultiEntityApp = configSrv.config.multiEntity;
+                    }
+                    else {
+                        if (retries++ < MAX_RETRY) {
+                            $timeout(function () {
+                                _loadConfig();
+                            }, 3000)
+                        }
+                    }
+                }
+            );
+        }
+
     };
 
     angular.module('rrms')
-        .controller('sessionCtrl', ['sessionSrv', 'navigationSrv', 'ROUTE', 'systemSrv', sessionCtrl]);
+        .controller('sessionCtrl', ['sessionSrv', 'navigationSrv', 'ROUTE', 'systemSrv', 'configSrv', '$timeout', sessionCtrl]);
 
 })();

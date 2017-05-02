@@ -28,7 +28,9 @@
                 OWNED_ENTITY_NEW: '/owned-entities/new',
                 OWNED_ENTITY_VIEW: '/owned-entities/:id/view', OWNED_ENTITY_VIEW_PL: ':id',
 
-                PERMISSIONS: '/permissions'
+                PERMISSIONS: '/permissions',
+
+                CONFIG_PARAMS: '/config/params'
             }
         )
         .constant(

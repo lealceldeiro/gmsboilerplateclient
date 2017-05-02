@@ -131,6 +131,14 @@
             )
             //endregion
 
+            //region config
+            .when(ROUTE.CONFIG_PARAMS,{
+                templateUrl: 'client/app/modules/config/params.html',
+                controller: 'configParamsCtrl',
+                controllerAs: 'vm'
+            })
+            //endregion
+
             //otherwise
             .otherwise(
                 {
