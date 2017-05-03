@@ -1,7 +1,7 @@
 <div data-ng-cloak>
 
     <form data-ng-show="vm.entity" role="form" name="editUserForm">
-        <div layout="row" layout-padding layout-wrap>
+        <div layout="row" layout-padding layout-wrap class="p-b-0">
             <div flex="50">
                 <md-content class="md-no-momentum">
                     <!--name-->
@@ -134,18 +134,60 @@
         </div>
 
         <!--todo: Roles when more than one entity-->
-        <div data-ng-if="vm.entities.length > 1 || !vm.entities" layout="row" layout-padding layout-wrap>
+        <div data-ng-if="vm.entities.length > 1 || !vm.entities" layout="row" layout-padding layout-wrap
+             class="p-t-0">
             <!--OwnedEntity-->
-            <div flex="30">
+            <div flex="50">
                 <md-virtual-repeat-container>
-                    <div md-virtual-repeat="item in sCtrl.user.entities" flex>
-                        {{item.name}}
+                    <div md-virtual-repeat="item in vm.entities"
+                         class="repeated-item background-warn hand-pointer"
+                         data-ng-class-even="'even-class'"
+                         data-ng-class="{'selected-item': item.id === vm.selectedEntity.id}"
+                         data-ng-click="vm.saveRolesAndSelectEntity(item)"
+                         layout="row"
+                    >
+                        <span data-ng-bind="item.name + ' (' + item.username + ')'"></span>
+                        <span flex></span>
+                        <small class="m-right-6px">
+                            <span data-ng-if="item.id === vm.selectedEntity.id" class="text-italic">(seleccionada)
+                            </span>
+                        </small>
                     </div>
                 </md-virtual-repeat-container>
             </div>
-
-            <div flex="70">
-
+            <!--Roles-->
+            <div flex="50">
+                <div class="m-left-m-10px" flex="100" layout="row" data-ng-controller="chipCtrl as chipCtrl"
+                     data-ng-if="vm.roles.all.length && vm.entities.length > 1">
+                    <div flex="5" layout="center start">
+                        <md-icon md-svg-src="client/app/modules/_common/img/social/ic_group_24px.svg"></md-icon>
+                    </div>
+                    <div flex="95">
+                        <md-chips ng-model="vm.roles.selected" md-autocomplete-snap
+                                  md-transform-chip="chipCtrl.transformChip($chip)"
+                                  md-require-match="true"
+                                  md-separator-keys="chipCtrl.separatorKeys">
+                            <md-autocomplete
+                                    md-min-length="0"
+                                    md-selected-item="chipCtrl.selectedChip"
+                                    md-search-text="vm.pSearchText"
+                                    md-items="item in vm.roles.all"
+                                    md-item-text="item.label"
+                                    placeholder="Seleccione los roles">
+                                <span md-highlight-text="vm.pSearchText">{{item.label}}</span>
+                            </md-autocomplete>
+                            <md-chip-template>
+                                <span>
+                                  <strong>{{$chip.label}}</strong>
+                                </span>
+                            </md-chip-template>
+                        </md-chips>
+                    </div>
+                </div>
+                <!--todo: show validation errors when no role is selected-->
+                <!--for controlling when no role is selected, make form invalid-->
+                <input type="hidden" data-ng-if="vm.roles.all.length && !vm.roles.selected.length" required
+                       data-ng-model="vm.controlRquired" name="controlRquired"/>
             </div>
         </div>
 

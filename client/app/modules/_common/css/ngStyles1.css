@@ -14,3 +14,20 @@ md-menu-bar button:focus{
 md-menu-bar md-menu.md-open>button {
     color: buttontext;
 }
+
+md-virtual-repeat-container {
+    height: 200px;
+    border: 1px solid lightgray;
+}
+
+div.repeated-item {
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    height: 40px;
+    padding-top: 10px;
+}
+
+.hand-pointer {
+    cursor: hand;
+    cursor: pointer;
+}

@@ -7,7 +7,7 @@
     'use strict';
 
     var f = function (indexSrv, userSrv, navigationSrv, ROUTE, systemSrv, notificationSrv, roleSrv, blockSrv, sessionSrv,
-                      $timeout, ownedEntitySrv, dialogSrv) {
+                      $timeout, ownedEntitySrv, dialogSrv, searchSrv) {
         var vm = this;
         const keyP = 'USER_EDIT';
 
@@ -31,6 +31,8 @@
                 selected: null
             },
 
+            rolesToSave: [],
+
             passwordMatch:{},
 
             loadRoles: fnLoadRoles,
@@ -40,7 +42,10 @@
             save: fnSave,
 
             checkPasswordMatch: fnCheckPasswordMatch,
-            isPasswordRequired: fnIsPasswordRequired
+            isPasswordRequired: fnIsPasswordRequired,
+
+            selectedEntity: null,
+            saveRolesAndSelectEntity: fnSaveRolesAndSelectEntity
         };
 
         vm.wizard.init();
@@ -54,7 +59,7 @@
 
             if (navigationSrv.currentPath() === ROUTE.USER_NEW) {
                 indexSrv.siteTile = 'Nuevo Usuario';
-                _loadAllEntities();
+                _loadAllEntitiesForCurrentUser();
                 vm.wizard.entity = {enabled: true};
             }
             else {
@@ -89,7 +94,7 @@
             var fnKey2 = keyP + "fnLoadData-entitiesByUser";
             var def;
             if (sessionSrv.currentUser().id == id) {
-                def = ownedEntitySrv.searchAll(0, 0);
+                def = ownedEntitySrv.searchAll(0, 0); //todo: not search all, change for the actio with the right permission
             }
             else {
                 def = userSrv.entitiesByUser(id, 0, 0);
@@ -106,7 +111,7 @@
                         fnLoadAssignedRoles(id, vm.wizard.entities[0]['id']);
                     }
                     else {
-                        //todo
+                        fnSaveRolesAndSelectEntity(vm.wizard.entities[0]);
                     }
                 }
             });
@@ -130,31 +135,28 @@
         }
 
         function _doSave(notCurrentUser) {
-            if (vm.wizard.entities.length > 1) {
-                //todo
-            }
-            else {
-                var le = vm.wizard.entities[0];
-            }
-
-            blockSrv.block();
             var params = {
                 username : vm.wizard.entity.username,
                 name : vm.wizard.entity.name,
                 email : vm.wizard.entity.email,
                 password : vm.wizard.entity.password,
-
-                //todo: refactor for multi entity
-                roles: [],
-                entity: le ? le.id : 0,
-                //end todo
-
                 enabled: vm.wizard.entity.enabled
             };
+
+            if (vm.wizard.entities.length > 1) {
+                fnSaveRolesAndSelectEntity(); //save data for last entity clicked
+                params.roles = vm.wizard.rolesToSave;
+            }
+            else {
+                params.roles = [{entity: vm.wizard.entity[0]['id'], roles: []}];
+                angular.forEach(vm.wizard.roles.selected, function (element) {
+                    params.roles.roles.push(element.id)
+                });
+            }
+
+            blockSrv.block();
+
             var fnKey = keyP + "fnSave";
-            angular.forEach(vm.wizard.roles.selected, function (element) {
-                params.roles.push(element.id)
-            });
 
             userSrv.save(params, vm.id).then(
                 function (data) {
@@ -217,17 +219,19 @@
                         if (e) {
                             vm.wizard.roles.selected = systemSrv.getItems(fnKey);
                         }
+
+                        return data;
                     }
                 )
             }
             else if(vm.priv.tryLoadRoles++ < vm.priv.MAX_TRY) {
                 $timeout(function () {
-                    fnLoadAssignedRoles(uid, eid);
+                    return fnLoadAssignedRoles(uid, eid);
                 }, 500)
             }
         }
 
-        function _loadAllEntities() {
+        function _loadAllEntitiesForCurrentUser() {
             blockSrv.block();
             var fnKey = keyP + "_loadAllEntities";
             vm.wizard.entities = [];
@@ -242,10 +246,38 @@
 
         }
 
+        //region entities-handling
+        function fnSaveRolesAndSelectEntity(eParam) {
+            if (vm.wizard.selectedEntity) {
+                //save previously selected or removed roles
+                var prevEntity = searchSrv.find(vm.wizard.rolesToSave, 'entity', vm.wizard.selectedEntity.id);
+                var tempRoles = [];
+                angular.forEach(vm.wizard.roles.selected, function (r) {
+                    tempRoles.push(r.id)
+                });
+                if (prevEntity) {
+                    prevEntity.roles = tempRoles;
+                }
+                else {
+                    vm.wizard.rolesToSave.push({entity: vm.wizard.selectedEntity.id, roles: tempRoles})
+                }
+            }
+            if (eParam) {
+                vm.wizard.selectedEntity = Object.assign(eParam);
+                var currentEntity = searchSrv.find(vm.wizard.rolesToSave, 'entity', eParam.id);
+                if (currentEntity) {
+                    vm.wizard.roles.selected = searchSrv.findCollection(vm.wizard.roles.all, 'id', currentEntity.roles);
+                } else {
+                    return fnLoadAssignedRoles(vm.id, vm.wizard.selectedEntity.id);
+                }
+            }
+        }
+        //endregion
+
     };
 
     angular.module('rrms')
         .controller('userEditCtrl', ['indexSrv', 'userSrv', 'navigationSrv', 'ROUTE', 'systemSrv', 'notificationSrv', 'roleSrv',
-            'blockSrv', 'sessionSrv', '$timeout', 'ownedEntitySrv', 'dialogSrv', f]);
+            'blockSrv', 'sessionSrv', '$timeout', 'ownedEntitySrv', 'dialogSrv', 'searchSrv', f]);
 
 })();

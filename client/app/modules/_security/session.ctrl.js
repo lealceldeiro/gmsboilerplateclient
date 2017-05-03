@@ -67,7 +67,7 @@
         //fn
         function fnInit() {
             if (angular.isDefined(configSrv.config.multiEntity)) {
-                vm.wizard.isMultiEntityApp = configSrv.multiEntity;
+                vm.wizard.isMultiEntityApp = configSrv.config.multiEntity;
             }
             else { _loadConfig(); }
             if (sessionSrv.isLogged()) {

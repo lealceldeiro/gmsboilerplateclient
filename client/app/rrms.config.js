@@ -8,7 +8,7 @@
 
     var runConfig = function ($rootScope, sessionSrv, navigationSrv, __env, errorSrv) {
 
-        var prevRoute;
+        var prevRoute, params;
 
         $rootScope.$on('$routeChangeStart', function (event, next, data) {
             if (!__env.supportHtml5 || !__env.varsFound) {
@@ -32,6 +32,7 @@
             if (current && current.$$route && current.$$route.originalPath) {
                 var route = current.$$route.originalPath;
                 prevRoute = route;
+                params = current.params;
 
                 /****************************AUTHENTICATION CHECK******************************************************/
                 //routes excluded from login check
@@ -59,7 +60,18 @@
         //triggered when a new token was retrieved since the old one expired, so we need to refresh the last requested
         //view, since it wasn't resolved due to the forbidden backend response
         $rootScope.$on('UNAUTHORIZED_BACKWARD', function () {
-            navigationSrv.goTo(prevRoute || navigationSrv.DEFAULT_PATH);
+            if (prevRoute) {
+                if (params && typeof params['id']  !== 'undefined' && params['id'] !== null
+                    && prevRoute.indexOf(':id') !== -1) {
+                    navigationSrv.goTo(prevRoute, ':id', params['id']);
+                }
+                else {
+                    navigationSrv.goTo(prevRoute);
+                }
+            }
+            else {
+                navigationSrv.goTo(navigationSrv.DEFAULT_PATH);
+            }
         });
 
     };

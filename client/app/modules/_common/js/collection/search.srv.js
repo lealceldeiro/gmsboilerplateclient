@@ -20,6 +20,7 @@ var searchSrv = function () {
 
     self.service = {
         find: fnFind,
+        findCollection: fnFindCollection,
         findConditionally: fnFindConditionally,
         indexOf: fnIndexOf,
         indexOfConditionally: fnIndexOfConditionally
@@ -60,6 +61,44 @@ var searchSrv = function () {
                         return collection[i];
                     }
                 }
+        }
+
+        return R_OBJ_BASED.NOT_FOUND;
+    }
+
+    /**
+     * Finds an elements in a collection of objects. It must be provided a key-value pair or an object to match
+     * against every object in the collection.
+     * @param collection Collection of object where the object will be searched in.
+     * @param key [Optional] Object's key to search for.
+     * @param values [Optional] Key value to match against.
+     * @param objects [Optional] If not key-value are provided, then you can pass and entire object to match against.
+     * @returns {*} Object in the collection or null If not found.
+     */
+    function fnFindCollection(collection, key, values, objects) {
+        //asserts
+        //check for key value
+
+        var isKeyValue = (typeof key !== 'undefined' && key !== null) && (typeof values !== 'undefined' && values !== null);
+        //check for entire object
+        var isObject = (typeof objects !== 'undefined' && objects !== null);
+        //check for collection
+        var isCollection = (typeof collection !== 'undefined' && collection !== null) && angular.isArray(collection);
+
+        if (isCollection && (isKeyValue || isObject)) {
+            var r = [];
+                var l = collection.length;
+                for (var i = 0; i < l; i++){
+                    if (isKeyValue) {
+                        if (values.indexOf(collection[i][key]) !== -1) {
+                            r.push(collection[i]);
+                        }
+                    }
+                    else if (objects.indexOf(collection[i]) !== -1){
+                        r.push(collection[i]);
+                    }
+                }
+                return r;
         }
 
         return R_OBJ_BASED.NOT_FOUND;
