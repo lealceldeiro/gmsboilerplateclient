@@ -93,8 +93,9 @@
 
             var fnKey2 = keyP + "fnLoadData-entitiesByUser";
             var def;
-            if (sessionSrv.currentUser().id == id) {
-                def = ownedEntitySrv.searchAll(0, 0); //todo: not search all, change for the actio with the right permission
+            var cPerm = sessionSrv.getPermissions();
+            if (cPerm.indexOf(systemSrv.grant.READ_ALL_OWNED_ENTITY) !== -1) {
+                def = ownedEntitySrv.searchAll(0, 0);
             }
             else {
                 def = userSrv.entitiesByUser(id, 0, 0);
@@ -105,12 +106,11 @@
                 if (e) {
                     vm.wizard.entities = systemSrv.getItems(fnKey2);
 
-
                     //user is associated to only one entity
                     if (vm.wizard.entities.length === 1) {
                         fnLoadAssignedRoles(id, vm.wizard.entities[0]['id']);
                     }
-                    else {
+                    else { //save data for the first entity, so the form is valid
                         fnSaveRolesAndSelectEntity(vm.wizard.entities[0]);
                     }
                 }
@@ -118,6 +118,10 @@
         }
 
         function fnSave(form) {
+            if (vm.wizard.entities.length > 1) {
+                fnSaveRolesAndSelectEntity(); //save data for last entity clicked
+            }
+
             if (form && form.$valid && !vm.wizard.passwordMatch.notMatch) {
                 if (typeof vm.id !== 'undefined' && vm.id !== null && !vm.wizard.entity.enabled) {
                     var u = sessionSrv.currentUser();
@@ -144,13 +148,12 @@
             };
 
             if (vm.wizard.entities.length > 1) {
-                fnSaveRolesAndSelectEntity(); //save data for last entity clicked
                 params.roles = vm.wizard.rolesToSave;
             }
             else {
                 params.roles = [{entity: vm.wizard.entity[0]['id'], roles: []}];
                 angular.forEach(vm.wizard.roles.selected, function (element) {
-                    params.roles.roles.push(element.id)
+                    params.roles[0].roles.push(element.id)
                 });
             }
 
@@ -193,7 +196,7 @@
             vm.wizard.roles.all = [];
             vm.wizard.roles.selected = [];
 
-            var fnKey = keyP + "_loadRoles";
+            var fnKey = keyP + "fnLoadRoles";
 
             roleSrv.searchAll(0, 0).then( //off: 0, max: 0
                 function (data) {
@@ -243,7 +246,6 @@
                 }
                 blockSrv.unBlock();
             })
-
         }
 
         //region entities-handling

@@ -6,7 +6,7 @@
 
     'use strict';
 
-    var loginCtrl = function (indexSrv, sessionSrv, navigationSrv, systemSrv, loginSrv, ROUTE, blockSrv, userSrv, $rootScope) {
+    var loginCtrl = function (indexSrv, sessionSrv, navigationSrv, systemSrv, loginSrv, ROUTE, blockSrv, userSrv, $rootScope, notificationSrv) {
         var vm = this;
         const keyP = 'LOGIN__';
 
@@ -77,7 +77,11 @@
                                         );
                                         sessionSrv.setCurrentUser(systemSrv.getItem(key));
                                     }
-                                    else { blockSrv.unBlock(); }
+                                    else {
+                                        sessionSrv.logOut();
+                                        blockSrv.unBlock();
+                                        notificationSrv.showNotification(notificationSrv.utilText.unauthorized.es);
+                                    }
                                 }
                             );
 
@@ -95,6 +99,6 @@
 
     angular.module('rrms')
         .controller('loginCtrl', ['indexSrv', 'sessionSrv', 'navigationSrv', 'systemSrv', 'loginSrv',
-            'ROUTE', 'blockSrv', 'userSrv', '$rootScope', loginCtrl]);
+            'ROUTE', 'blockSrv', 'userSrv', '$rootScope', 'notificationSrv', loginCtrl]);
 
 })();

@@ -89,13 +89,13 @@ var sessionSrv = function (baseSrv, systemSrv, localStorageService, $rootScope) 
     }
 
     function fnClearSession() {
-        logged = false;
         localStorageService.remove(tokenKey);
         localStorageService.remove(refreshTKey);
         localStorageService.remove(currentUKey);
         localStorageService.remove(permissionsKey);
         localStorageService.remove(oEntityKey);
 
+        logged = false;
         sToken = null;
         rToken = null;
         currentUser = null;

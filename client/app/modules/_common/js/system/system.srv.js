@@ -37,7 +37,7 @@
                     CREATE_USER:            __env.permissions.CREATE_USER           || "CREATE__USER",
                     READ_USER:              __env.permissions.READ_USER             || "READ__USER",
                     READ_ALL_USER:          __env.permissions.READ_ALL_USER         || "READ__USER",
-                    READ_ASSOCIATED_USER:   __env.permissions.READ_ALL_USER         || "READ__ASSOCIATED_USER",
+                    READ_ASSOCIATED_USER:   __env.permissions.READ_ASSOCIATED_USER  || "READ_ASSOCIATED__USER",
                     UPDATE_USER:            __env.permissions.UPDATE_USER           || "UPDATE__USER",
                     DELETE_USER:            __env.permissions.DELETE_USER           || "DELETE__USER",
 

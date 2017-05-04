@@ -102,18 +102,19 @@
                 }
                 else { blockSrv.setIsLoading(vm.wizard.entities); }
 
-                def.then(
-                    function (data) {
-                        var r = systemSrv.eval(data, fnKey, false, true);
-                        if (r) {
-                            paginationSrv.setTotalItems(systemSrv.getTotal(fnKey));
-                            vm.wizard.entities.all = systemSrv.getItems(fnKey);
-                            vm.wizard.entities.allLoaded = true;
+                if (def) {
+                    def.then(
+                        function (data) {
+                            var r = systemSrv.eval(data, fnKey, false, true);
+                            if (r) {
+                                paginationSrv.setTotalItems(systemSrv.getTotal(fnKey));
+                                vm.wizard.entities.all = systemSrv.getItems(fnKey);
+                                vm.wizard.entities.allLoaded = true;
+                            }
+                            blockSrv.setIsLoading(vm.wizard.entities);
                         }
-                        blockSrv.setIsLoading(vm.wizard.entities);
-                    }
-                );
-
+                    );
+                }
             }
         }
 

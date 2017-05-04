@@ -128,13 +128,14 @@
             </div>
             <!--todo: show validation errors when no role is selected-->
             <!--for controlling when no role is selected, make form invalid-->
-            <input type="hidden" data-ng-if="vm.roles.all.length && !vm.roles.selected.length
+            <input type="hidden" data-ng-if="vm.roles.all.length > 0 && vm.roles.selected.length < 1
             && vm.entities.length <= 1" required
                    data-ng-model="vm.controlRquired" name="controlRquired"/>
 
         </div>
 
-        <div data-ng-if="vm.entities.length > 1 || !vm.entities" layout="row" layout-padding layout-wrap
+        <!--vm.entities.length > 1: select roles form many entities at the time-->
+        <div data-ng-if="vm.entities.length > 1" layout="row" layout-padding layout-wrap
              class="p-t-0">
             <!--OwnedEntity-->
             <div flex="50">
@@ -186,7 +187,7 @@
                 </div>
                 <!--todo: show validation errors when no role is selected-->
                 <!--for controlling when no role is selected, make form invalid-->
-                <input type="hidden" data-ng-if="vm.roles.all.length && vm.rolesToSave.length <= 0" required
+                <input type="hidden" data-ng-if="vm.roles.all.length > 0 && vm.rolesToSave.length <= 0" required
                        data-ng-model="vm.controlRquired" name="controlRquired"/>
             </div>
         </div>
