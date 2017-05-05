@@ -98,9 +98,20 @@
                 </md-content>
             </div>
 
+            <div layout="row" flex="100" class="m-left-12px">
+                <md-checkbox aria-label="Solo en esta entidad"
+                             ng-change="vm.toggleEMode()"
+                             ng-disabled="!vm.canToogleSingleEntityMode"
+                             ng-model="vm.singleEntityMode" >
+                    <span data-ng-class="{'opacity-05 ': !vm.singleEntityMode}">
+                        Tendr&aacute; permisos solo en esta entidad ({{sCtrl.oEntity.name || sCtrl.oEntity.username}})
+                    </span>
+                </md-checkbox>
+            </div>
+
             <!--Roles when single Entity-->
             <div class="m-left-m-10px" flex="100" layout="row" data-ng-controller="chipCtrl as chipCtrl"
-                 data-ng-if="vm.roles.all.length && vm.entities.length === 1">
+                 data-ng-if="vm.roles.all.length && vm.entities.length === 1 || vm.singleEntityMode">
                 <div flex="5" layout="center start">
                     <md-icon md-svg-src="client/app/modules/_common/img/social/ic_group_24px.svg"></md-icon>
                 </div>
@@ -126,16 +137,11 @@
                     </md-chips>
                 </div>
             </div>
-            <!--todo: show validation errors when no role is selected-->
-            <!--for controlling when no role is selected, make form invalid-->
-            <input type="hidden" data-ng-if="vm.roles.all.length > 0 && vm.roles.selected.length < 1
-            && vm.entities.length <= 1" required
-                   data-ng-model="vm.controlRquired" name="controlRquired"/>
 
         </div>
 
-        <!--vm.entities.length > 1: select roles form many entities at the time-->
-        <div data-ng-if="vm.entities.length > 1" layout="row" layout-padding layout-wrap
+        <!--vm.entities.length > 1: select roles for many entities at the time-->
+        <div data-ng-if="vm.entities.length > 1 && !vm.singleEntityMode" layout="row" layout-padding layout-wrap
              class="p-t-0">
             <!--OwnedEntity-->
             <div flex="50">
@@ -185,10 +191,6 @@
                         </md-chips>
                     </div>
                 </div>
-                <!--todo: show validation errors when no role is selected-->
-                <!--for controlling when no role is selected, make form invalid-->
-                <input type="hidden" data-ng-if="vm.roles.all.length > 0 && vm.rolesToSave.length <= 0" required
-                       data-ng-model="vm.controlRquired" name="controlRquired"/>
             </div>
         </div>
 

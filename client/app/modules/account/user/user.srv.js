@@ -20,7 +20,6 @@ var f = function (systemSrv, $http, valueSrv, baseSrv, ownedEntitySrv) {
         save: fnSave,
         activate: fnActivate,
 
-        rolesByUserAndEntity: fnRolesByUserAndEntity,
         entitiesByUser: fnEntitiesByUser
     };
 
@@ -87,15 +86,6 @@ var f = function (systemSrv, $http, valueSrv, baseSrv, ownedEntitySrv) {
         return baseSrv.resolveDeferred($http.post(url + id + "/activate/" + activate))
     }
 
-    function fnRolesByUserAndEntity(id, eid, offset, max) {
-        var params = valueSrv.nNnN(offset) ? "?offset=" + offset : "";
-        if (valueSrv.nNnN(max)) {
-            params += params === ""? "?max=" + max : "&max=" + max;
-        }
-
-        var def = $http.get(url + id + "/" + eid + "/roles/" + params);
-        return baseSrv.resolveDeferred(def);
-    }
 
     function fnEntitiesByUser(id, offset, max) {
         return ownedEntitySrv.search(id, offset, max);

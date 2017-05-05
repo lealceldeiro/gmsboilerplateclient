@@ -7,7 +7,7 @@
     'use strict';
 
     var f = function (ROUTE, indexSrv, userSrv, navigationSrv, notificationSrv, systemSrv, blockSrv, sessionSrv,
-                      dialogSrv) {
+                      dialogSrv, searchSrv, roleSrv) {
         var vm = this;
         const keyP = 'USER_VIEW';
 
@@ -22,10 +22,15 @@
                 offset: 0
             },
 
+            rolesToShow: [],
+
             init: fnInit,
             cancel: fnCancel,
             edit: fnEdit,
-            remove: fnRemove
+            remove: fnRemove,
+
+            selectedEntity: null,
+            selectEntity: fnSelectEntity
         };
 
         vm.wizard.init();
@@ -72,7 +77,7 @@
                         _loadRoles(id, vm.wizard.entities[0]['id']);
                     }
                     else {
-                        //todo
+                        fnSelectEntity(vm.wizard.entities[0]);
                     }
                 }
             });
@@ -116,13 +121,13 @@
             navigationSrv.goTo(ROUTE.USER_EDIT, ROUTE.USER_EDIT_PL, vm.id);
         }
 
-        function _loadRoles(id, eid) {
-            blockSrv.setIsLoading(vm.wizard.roles, true);
+        function _loadRoles(id, eid, doNotBlockUI) {
+            if (!doNotBlockUI) { blockSrv.setIsLoading(vm.wizard.roles, true); }
             vm.wizard.roles.all = [];
             vm.wizard.roles.total = 0;
             var fnKey2 = keyP + "_loadRoles";
 
-            userSrv.rolesByUserAndEntity(id, eid, 0, 0).then(
+            roleSrv.search(id, eid, 0, 0).then(
                 function (data) {
                     var e = systemSrv.eval(data, fnKey2, false, true);
                     if (e) {
@@ -132,15 +137,43 @@
                         }
                         vm.wizard.roles.total = systemSrv.getTotal(fnKey2);
                     }
-                    blockSrv.setIsLoading(vm.wizard.roles);
+                    if (!doNotBlockUI) { blockSrv.setIsLoading(vm.wizard.roles); }
                 }
             )
         }
+
+        //region entities-handling
+        function fnSelectEntity(eParam) {
+            if (vm.wizard.selectedEntity) {
+                //save previously selected or removed roles
+                var prevEntity = searchSrv.find(vm.wizard.rolesToShow, 'entity', vm.wizard.selectedEntity.id);
+                var tempRoles = [];
+                angular.forEach(vm.wizard.roles.selected, function (r) {
+                    tempRoles.push(r.id)
+                });
+                if (prevEntity) {
+                    prevEntity.roles = tempRoles;
+                }
+                else {
+                    vm.wizard.rolesToShow.push({entity: vm.wizard.selectedEntity.id, roles: tempRoles})
+                }
+            }
+            if (eParam) {
+                vm.wizard.selectedEntity = Object.assign(eParam);
+                var currentEntity = searchSrv.find(vm.wizard.rolesToShow, 'entity', eParam.id);
+                if (currentEntity) {
+                    vm.wizard.roles.selected = searchSrv.findCollection(vm.wizard.roles.all, 'id', currentEntity.roles);
+                } else {
+                    return _loadRoles(vm.id, vm.wizard.selectedEntity.id, false);
+                }
+            }
+        }
+        //endregion
 
     };
 
     angular.module('rrms')
         .controller('userViewCtrl', ['ROUTE', 'indexSrv', 'userSrv', 'navigationSrv', 'notificationSrv', 'systemSrv',
-            'blockSrv', 'sessionSrv', 'dialogSrv', f]);
+            'blockSrv', 'sessionSrv', 'dialogSrv', 'searchSrv', 'roleSrv', f]);
 
 })();

@@ -2,6 +2,9 @@
 .m-left-20px {
     margin-left: 20px;
 }
+.m-left-12px {
+    margin-left: 12px;
+}
 .m-left-m-10px {
     margin-left: -10px !important;
 }
@@ -16,7 +19,6 @@
 .m-right-6px {
     margin-right: 6px;
 }
-
 .m-right-20px {
     margin-right: 20px;
 }

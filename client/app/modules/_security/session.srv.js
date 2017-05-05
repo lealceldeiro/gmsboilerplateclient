@@ -44,8 +44,6 @@ var sessionSrv = function (baseSrv, systemSrv, localStorageService, $rootScope) 
         getPermissions: fnGetPermissions,
 
         clearSession: fnClearSession
-
-
     };
 
     return self.service;

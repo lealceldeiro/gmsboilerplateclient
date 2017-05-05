@@ -14,7 +14,7 @@
         var permissionsTabContents = null;
 
         vm.wizard = {
-            role: {},
+            role: {enabled: true},
 
             roleData: null,
 
@@ -45,7 +45,6 @@
         function fnInit() {
             if (navigationSrv.currentPath() === ROUTE.ROLE_NEW) {
                 indexSrv.siteTile = 'Nuevo Rol';
-
                 _loadPermissions();
             }
             else {

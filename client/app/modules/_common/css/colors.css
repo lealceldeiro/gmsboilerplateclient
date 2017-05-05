@@ -7,3 +7,7 @@
     color: black;
     border: 1px #696666 solid !important;
 }
+
+.opacity-05 {
+    opacity: 0.5;
+}
