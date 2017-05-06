@@ -10,11 +10,11 @@ var notificationSrv = function (toastSrv) {
     self.service = {
         htmlContent: null,
         type: {
-            INFO: 'Información: ',
-            CONF: 'Confirmación: ',
-            ERROR: 'Error: ',
-            SUCCESS: 'Éxito: ',
-            WARNING: 'Advertencia: '
+            INFO: "INFO",
+            WARNING: "WARNING",
+            ERROR: "ERROR",
+            QUESTION: "QUESTION",
+            SUCCESS: "SUCCESS"
         },
 
         utilText: {
@@ -56,45 +56,36 @@ var notificationSrv = function (toastSrv) {
     /**
      * Shows a notification
      * @param message Notification message
-     * @param title (optional) Title for this notification
-     * @param type (optional) Notification type. It must be one of the following: notificationSrv.type.INFO, notificationSrv.type.CONF,
-     * notificationSrv.type.ERROR, notificationSrv.type.SUCCESS or notificationSrv.type.WARNING. If not type is provided,
-     * notificationSrv.type.INFO will be used
+     * @param type (optional) Notification type: "INFO" (default), "WARNING", "ERROR", "QUESTION", "SUCCESS"
      * @param actions (optional) Functions to be executed as action presented by a Text
      * @param actionNames (optional) Texts which names the actions
+     * @param primaryActionName name of the action marked as primary (highlighted by default). It must be exactly one of
+     * the strings in the array "actionNames"
      */
-    function fnShow(message, actions, actionNames) {
+    function fnShow(type, message, actions, actionNames, primaryActionName) {
         var buttons = [];
-
         //wrap buttons info
         if (angular.isDefined(actions) && angular.isDefined(actionNames)) {
             if (angular.isArray(actions) && angular.isArray(actionNames)) {
                 if (actions.length === actionNames.length) {
+                    var act;
                     angular.forEach(actions,function (obj, idx) {
                         if (angular.isDefined(obj) && angular.isFunction(obj)) {
-                            buttons.push(
-                                {action: obj, text: actionNames[idx]}
-                            )
+                            act = {function: obj, text: actionNames[idx]};
+                            if (actionNames[idx] === primaryActionName) {
+                                act.primary = true;
+                            }
+                            buttons.push(act);
                         }
-                        else{
-                            console.warn('Action for text ' + actionNames[idx] + ' must be a function');
-                        }
+                        else{ console.warn('Action for text ' + actionNames[idx] + ' must be a function'); }
                     })
-                }
-                else {
-                    console.warn('Action and actions names must be the same length');
-                }
-            }
-            else {
-                console.warn('Action and actions names must be arrays');
-            }
+                } else { console.warn('Action and actions names must be the same length'); }
+            } else { console.warn('Action and actions names must be arrays'); }
         }
-
+        toastSrv.messageType = type;
         toastSrv.show(message, buttons);
     }
 };
 
-notificationSrv.$inject = ['toastSrv'];
-
 angular.module('rrms')
-    .service('notificationSrv', notificationSrv);
+    .service('notificationSrv', ['toastSrv', notificationSrv]);

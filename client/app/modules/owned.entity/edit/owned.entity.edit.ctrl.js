@@ -38,7 +38,7 @@
                     indexSrv.siteTile = 'Editar Entidad';
                 }
                 else{
-                    notificationSrv.showNotification(notificationSrv.utilText.mustSelectElement.es);
+                    notificationSrv.showNotification(notificationSrv.type.WARNING, notificationSrv.utilText.mustSelectElement.es);
                     navigationSrv.goTo(ROUTE.OWNED_ENTITY);
                 }
             }

@@ -11,6 +11,13 @@
             var self = this;
 
             self.service = {
+                type: {
+                    INFO: "INFO",
+                    WARNING: "WARNING",
+                    ERROR: "ERROR",
+                    QUESTION: "QUESTION",
+                    SUCCESS: "SUCCESS"
+                },
                 buttons: [],
                 text: null,
 

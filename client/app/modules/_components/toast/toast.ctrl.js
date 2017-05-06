@@ -28,6 +28,26 @@
         .controller('toastManagerCtrl', ['$scope', '$mdToast', 'toastSrv',
 
             function($scope, $mdToast, toastSrv) {
+
+                $scope.typeClass = '';
+                switch (toastSrv.messageType) {
+                    case toastSrv.type.INFO:
+                        $scope.typeClass = '';
+                        break;
+                    case toastSrv.type.WARNING:
+                        $scope.typeClass = 'md-warn';
+                        break;
+                    case toastSrv.type.ERROR:
+                        $scope.typeClass = '';
+                        break;
+                    case toastSrv.type.QUESTION:
+                        $scope.typeClass = '';
+                        break;
+                    case toastSrv.type.SUCCESS:
+                        $scope.typeClass = '';
+                        break;
+                }
+
                 $scope.closeToast = function() {
 
                     if (isDlgOpen) return;

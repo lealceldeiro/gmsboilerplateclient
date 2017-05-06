@@ -34,7 +34,7 @@
             //fn
             /**
              * Sets a tabbed modal components and shows it
-             * @param messageType modal type: "INFO", "WARNING", "ERROR", "QUESTION", "SUCCESS"
+             * @param messageType modal type: "INFO" (default), "WARNING", "ERROR", "QUESTION", "SUCCESS"
              * @param title modal title
              * @param tabsHeaders modal tabs titles
              * @param tabsTitles header for each tab content

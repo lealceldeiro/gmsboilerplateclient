@@ -80,7 +80,7 @@
                                     else {
                                         sessionSrv.logOut();
                                         blockSrv.unBlock();
-                                        notificationSrv.showNotification(notificationSrv.utilText.unauthorized.es);
+                                        notificationSrv.showNotification(notificationSrv.type.ERROR, notificationSrv.utilText.unauthorized.es);
                                     }
                                 }
                             );

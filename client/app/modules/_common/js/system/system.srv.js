@@ -127,10 +127,18 @@
              * @param storeKey key under which the data will be store
              * @param notifyOnSuccess Whether a notification should be shown or not on success result
              * @param notifyOnUnSuccess Whether a notification should be shown or not on non-success result
-             * @param callback A callback to be shown in the notification as an action to be taken by the user
+             * @param successCallback A callback to be shown in the notification as an action to be taken by the user if
+             * the result is successful
+             * @param successCallbackText A text for callback to be shown in the notification as an action to be taken
+             * by the user if the result is successful
+             * @param unSuccessCallback A callback to be shown in the notification as an action to be taken by the user if
+             * the result is unsuccessful
+             * @param unSuccessCallbackText A text for callback to be shown in the notification as an action to be taken
+             * by the user if the result is unsuccessful
              * @returns {boolean} true if success, false otherwise
              */
-            function fnEvaluateResponseData(data, storeKey, notifyOnSuccess, notifyOnUnSuccess, callback) {
+            function fnEvaluateResponseData(data, storeKey, notifyOnSuccess, notifyOnUnSuccess, successCallback,
+                                            successCallbackText, unSuccessCallback, unSuccessCallbackText) {
                 validate(storeKey);
                 if (data) {
                     if (data[self.service.success_resp]) {
@@ -140,8 +148,8 @@
                         self.service.apiItems[storeKey] = data[self.service.items_resp];
                         self.service.apiItem[storeKey] = data[self.service.item_resp];
                         if (notifyOnSuccess) {
-                            notificationSrv.showNotification(self.service.apiMessage[storeKey],
-                                notificationSrv.utilText.titleSuccess.es);
+                            notificationSrv.showNotification(notificationSrv.type.SUCCESS, notificationSrv.utilText.titleSuccess.es + ": " +
+                                self.service.apiMessage[storeKey], [successCallback], [successCallbackText]);
                         }
 
                         return true
@@ -151,8 +159,8 @@
                             notificationSrv.utilText.unSuccessfulOperation.es;
 
                         if (notifyOnUnSuccess) {
-                            notificationSrv.showNotification(self.service.apiMessage[storeKey],
-                                notificationSrv.utilText.titleError.es);
+                            notificationSrv.showNotification(notificationSrv.type.ERROR, notificationSrv.utilText.titleError.es + ": " +
+                                self.service.apiMessage[storeKey], [successCallback], [successCallbackText]);
                         }
 
                         return false
@@ -160,7 +168,8 @@
                 }
                 self.service.apiMessage[storeKey] = 'There was not data provided for request with key "' + storeKey + '"';
                 if (notifyOnUnSuccess) {
-                    notificationSrv.showNotification(self.service.apiMessage[storeKey], notificationSrv.utilText.titleError.es);
+                    notificationSrv.showNotification(notificationSrv.type.ERROR, notificationSrv.utilText.titleError.es + ": " +
+                        self.service.apiMessage[storeKey], [unSuccessCallback], [unSuccessCallbackText]);
                 }
                 return false
             }
@@ -247,12 +256,9 @@
                     throw Error('A Key must be provided in order to store the server response')
                 }
             }
-
         };
 
-        systemSrv.$inject = ['__env', 'notificationSrv'];
-
         angular.module('rrms')
-            .service('systemSrv', systemSrv);
+            .service('systemSrv', ['__env', 'notificationSrv', systemSrv]);
     }
 )();

@@ -1,7 +1,11 @@
 <md-toast>
     <span class="md-toast-text" flex data-ng-bind="text"></span>
-    <md-button class="md-highlight" ng-repeat="b in buttons" ng-click="b[$index]['action']($event)">
-        b.text
+    <md-button class="md-highlight"
+            ng-repeat="b in buttons"
+            ng-click="b['function']($event); closeToast()"
+            ng-class="typeClass"
+    >
+        {{b.text}}
     </md-button>
     <md-button ng-click="closeToast()">
         <md-icon aria-label="Cerrar" md-svg-src="client/app/modules/_common/img/navigation/ic_close_24px.svg"></md-icon>
