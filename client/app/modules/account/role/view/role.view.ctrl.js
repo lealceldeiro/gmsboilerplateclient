@@ -64,7 +64,7 @@
 
         function fnRemove() {
             var buttons = [{text:"Borrar", function: _doRemove, primary: true}];
-            dialogSrv.showDialog("Confirmación", "Seguro desea eliminar este rol?", buttons);
+            dialogSrv.showDialog(dialogSrv.type.QUESTION, "Confirmación", "Seguro desea eliminar este rol?", buttons);
 
         }
 

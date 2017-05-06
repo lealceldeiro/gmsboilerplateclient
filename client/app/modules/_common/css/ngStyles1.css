@@ -31,3 +31,16 @@ div.repeated-item {
     cursor: hand;
     cursor: pointer;
 }
+
+md-toolbar.md-error {
+    background-color: rgb(226, 61, 61);
+}
+md-toolbar.md-question {
+    background-color: rgb(208, 163, 82);
+}
+button.md-error {
+    color: rgb(226, 61, 61);
+}
+button.md-question {
+    color: rgb(204, 146, 43);
+}

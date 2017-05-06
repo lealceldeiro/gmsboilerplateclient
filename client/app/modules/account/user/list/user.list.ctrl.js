@@ -128,7 +128,7 @@
                 var us = sessionSrv.currentUser();
                 if (us && us.id === item.id && !item.enabled) { //deactivate current user?
                     var buttons = [{text:"Desactivar", function: _doActivateDeactivate, primary: true}];
-                    dialogSrv.showDialog("Confirmación", "Va a desactivar su usuario. Seguro desea continuar?", buttons,
+                    dialogSrv.showDialog(dialogSrv.type.WARNING, "Confirmación", "Va a desactivar su usuario. Seguro desea continuar?", buttons,
                         function(){
                             item.enabled = !item.enabled;
                         });
@@ -175,7 +175,7 @@
             if (typeof id !== 'undefined' && id !== null) {
                 vm.idToRemove = id;
                 var buttons = [{text:"Borrar", function: _doRemove, primary: true}];
-                dialogSrv.showDialog("Confirmación", "Seguro desea eliminar este usuario?", buttons);
+                dialogSrv.showDialog(dialogSrv.type.QUESTION, "Confirmación", "Seguro desea eliminar este usuario?", buttons);
             }
         }
 

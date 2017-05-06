@@ -149,7 +149,7 @@
                     if (u) {
                         if (u.id == vm.id) {
                             var buttons = [{text:"Guardar", function: _doSave, primary: true}];
-                            dialogSrv.showDialog("Confirmación", "Va a guardar sus datos con la propiedad 'activo' sin" +
+                            dialogSrv.showDialog(dialogSrv.type.WARNING, "Confirmación", "Va a guardar sus datos con la propiedad 'activo' sin" +
                                 " marcar. Esto hará que no pueda acceder al sistema. Seguro desea continuar?", buttons);
                         }
                         else { _doSave(true); }
@@ -199,7 +199,7 @@
                         } else {
                             if (sessionSrv.currentUser().id == vm.id) {
                                 var buttons = [{text:"Cerrar sesión ahora", function: _doLogout, primary: true}];
-                                dialogSrv.showDialog("Información", "Debe cerrar sessión e iniciarla de nuevo para que" +
+                                dialogSrv.showDialog(dialogSrv.type.SUCCESS, "Información", "Debe cerrar sessión e iniciarla de nuevo para que" +
                                     " los posibles cambios tengan efecto. Desea cerrar sessión ahora?", buttons);
                             }
                             else {fnCancel();}

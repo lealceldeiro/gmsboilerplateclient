@@ -11,6 +11,16 @@
             var self = this;
 
             self.service = {
+
+                messageType: "INFO",
+                type: {
+                    INFO: "INFO",
+                    WARNING: "WARNING",
+                    ERROR: "ERROR",
+                    QUESTION: "QUESTION",
+                    SUCCESS: "SUCCESS"
+                },
+
                 data: {},
                 showTabDialog: fnShowTabDialog,
                 showDialog: fnShowSimpleDialog
@@ -21,6 +31,7 @@
             //fn
             /**
              * Sets a tabbed modal components and shows it
+             * @param messageType modal type: "INFO", "WARNING", "ERROR", "QUESTION", "SUCCESS"
              * @param title modal title
              * @param tabsHeaders modal tabs titles
              * @param tabsTitles header for each tab content
@@ -29,7 +40,12 @@
              * @param cancelAction Action to be taken if action canceled
              * @param ev Event which fired the modal
              */
-            function fnShowTabDialog(title, tabsTitles, tabsContent, tabsHeaders, buttons, cancelAction, ev) {
+            function fnShowTabDialog(messageType, title, tabsTitles, tabsContent, tabsHeaders, buttons, cancelAction, ev) {
+                if (self.service.type.hasOwnProperty(messageType)) {
+                    self.service.messageType = messageType;
+                } else {
+                    console.log("Wrong message (" + messageType + ") type provided for dialog service. Default value was used instead.");
+                }
                 self.service.title = title;
                 self.service.tabsHeaders = tabsHeaders;
                 self.service.tabsTitles = tabsTitles;
@@ -42,13 +58,19 @@
 
             /**
              * Sets a simple modal components and shows it
+             * @param messageType modal type: "INFO", "WARNING", "ERROR", "QUESTION", "SUCCESS"
              * @param title modal title
              * @param text Content of the modal
              * @param buttons Buttons of the modal
              * @param cancelAction Action to be taken if action canceled
              * @param ev Event which fired the modal
              */
-            function fnShowSimpleDialog(title, text, buttons, cancelAction, ev) {
+            function fnShowSimpleDialog(messageType, title, text, buttons, cancelAction, ev) {
+                if (self.service.type.hasOwnProperty(messageType)) {
+                    self.service.messageType = messageType;
+                } else {
+                    console.log("Wrong message (" + messageType + ") type provided for dialog service. Default value was used instead.");
+                }
                 self.service.title = title;
                 self.service.text = text;
                 self.service.buttons = buttons;

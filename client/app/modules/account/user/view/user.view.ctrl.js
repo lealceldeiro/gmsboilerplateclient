@@ -86,12 +86,14 @@
         function fnRemove() {
             var u = sessionSrv.currentUser();
             var msg = "Seguro desea eliminar este usuario?";
+            var t = dialogSrv.type.QUESTION;
             if (u && u.id == vm.id) {
+                t = dialogSrv.type.WARNING;
                 msg = "Seguro deseas eliminar tu cuenta";
                 vm.toRemoveProfile = true;
             }
             var buttons = [{text:"Borrar", function: _doRemove, primary: true}];
-            dialogSrv.showDialog("Confirmación", msg, buttons);
+            dialogSrv.showDialog(t, "Confirmación", msg, buttons);
 
         }
 

@@ -21,7 +21,8 @@
                 showDialog();
             });
 
-            function showDialog (title, tabsHeaders, tabsTitles, simpleDialogText, tabsContent, buttons, cancelAction, ev) {
+            function showDialog (messageType, title, tabsHeaders, tabsTitles, simpleDialogText, tabsContent, buttons, cancelAction, ev) {
+                dialogSrv.messageType = messageType || dialogSrv.messageType;
                 dialogSrv.title = title || dialogSrv.title;
                 dialogSrv.tabsHeaders = tabsHeaders || dialogSrv.tabsHeaders;
                 dialogSrv.tabsTitles = tabsTitles || dialogSrv.tabsTitles;
@@ -48,7 +49,7 @@
                         templateUrl: 'client/app/modules/_components/dialog/' + template,
                         parent: angular.element(document.body),
                         targetEvent: ev,
-                        clickOutsideToClose:true
+                        clickOutsideToClose:true //todo
                     })
                         .then(function(answer) {
                             //something selected
@@ -58,9 +59,7 @@
                             }
                         });
                 }
-                else{
-                    console.warn('There was no data provided for dialog')
-                }
+                else{ console.warn('There was no data provided for dialog') }
 
             }
 
@@ -75,17 +74,30 @@
                 $scope.buttons = dialogSrv.buttons;
                 $scope.ev = dialogSrv.ev;
 
-                $scope.hide = function() {
-                    $mdDialog.hide();
-                };
+                $scope.typeClass = '';
+                switch (dialogSrv.messageType) {
+                    case dialogSrv.type.INFO:
+                        $scope.typeClass = '';
+                        break;
+                    case dialogSrv.type.WARNING:
+                        $scope.typeClass = 'md-warn';
+                        break;
+                    case dialogSrv.type.ERROR:
+                        $scope.typeClass = 'md-error';
+                        break;
+                    case dialogSrv.type.QUESTION:
+                        $scope.typeClass = 'md-question';
+                        break;
+                    case dialogSrv.type.SUCCESS:
+                        $scope.typeClass = 'md-accent';
+                        break;
+                }
 
-                $scope.cancel = function() {
-                    $mdDialog.cancel();
-                };
+                $scope.hide = function() { $mdDialog.hide(); };
 
-                $scope.answer = function(answer) {
-                    $mdDialog.hide(answer);
-                };
+                $scope.cancel = function() { $mdDialog.cancel(); };
+
+                $scope.answer = function(answer) { $mdDialog.hide(answer); };
             }
         }]);
 })();
