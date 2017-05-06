@@ -21,7 +21,8 @@
                 showDialog();
             });
 
-            function showDialog (messageType, title, tabsHeaders, tabsTitles, simpleDialogText, tabsContent, buttons, cancelAction, ev) {
+            function showDialog (messageType, title, tabsHeaders, tabsTitles, simpleDialogText, tabsContent, buttons,
+                                 cancelAction, ev, isStatic) {
                 dialogSrv.messageType = messageType || dialogSrv.messageType;
                 dialogSrv.title = title || dialogSrv.title;
                 dialogSrv.tabsHeaders = tabsHeaders || dialogSrv.tabsHeaders;
@@ -31,6 +32,7 @@
                 dialogSrv.buttons = buttons ||  dialogSrv.buttons;
                 dialogSrv.cancelAction = cancelAction ||  dialogSrv.cancelAction;
                 dialogSrv.ev = ev || dialogSrv.ev;
+                dialogSrv.static = isStatic || dialogSrv.static;
 
                 if (dialogSrv.title || dialogSrv.tabs || dialogSrv.tabsTitles || dialogSrv.tabsContent
                     || dialogSrv.buttons || dialogSrv.cancelAction || dialogSrv.ev || dialogSrv.text) {
@@ -49,7 +51,7 @@
                         templateUrl: 'client/app/modules/_components/dialog/' + template,
                         parent: angular.element(document.body),
                         targetEvent: ev,
-                        clickOutsideToClose:true //todo
+                        clickOutsideToClose: dialogSrv.static !== true
                     })
                         .then(function(answer) {
                             //something selected
@@ -73,6 +75,7 @@
                 $scope.tabsContent = dialogSrv.tabsContent;
                 $scope.buttons = dialogSrv.buttons;
                 $scope.ev = dialogSrv.ev;
+                $scope.isStatic = dialogSrv.static;
 
                 $scope.typeClass = '';
                 switch (dialogSrv.messageType) {
