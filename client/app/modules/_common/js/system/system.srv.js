@@ -149,7 +149,8 @@
                         self.service.apiItem[storeKey] = data[self.service.item_resp];
                         if (notifyOnSuccess) {
                             notificationSrv.showNotification(notificationSrv.type.SUCCESS, notificationSrv.utilText.titleSuccess.es + ": " +
-                                self.service.apiMessage[storeKey], [successCallback], [successCallbackText]);
+                                self.service.apiMessage[storeKey], successCallback ? [successCallback] : [],
+                                successCallbackText ? [successCallbackText] : []);
                         }
 
                         return true
@@ -160,7 +161,8 @@
 
                         if (notifyOnUnSuccess && !notificationSrv.mutedNotifications) {
                             notificationSrv.showNotification(notificationSrv.type.ERROR, notificationSrv.utilText.titleError.es + ": " +
-                                self.service.apiMessage[storeKey], [successCallback], [successCallbackText]);
+                                self.service.apiMessage[storeKey], unSuccessCallback ? [unSuccessCallback] : [],
+                                unSuccessCallbackText ? [unSuccessCallbackText] : []);
                         }
 
                         return false
@@ -169,7 +171,8 @@
                 self.service.apiMessage[storeKey] = 'There was not data provided for request with key "' + storeKey + '"';
                 if (notifyOnUnSuccess && !notificationSrv.mutedNotifications) {
                     notificationSrv.showNotification(notificationSrv.type.ERROR, notificationSrv.utilText.titleError.es + ": " +
-                        self.service.apiMessage[storeKey], [unSuccessCallback], [unSuccessCallbackText]);
+                        self.service.apiMessage[storeKey], unSuccessCallback ? [unSuccessCallback] : [],
+                        unSuccessCallbackText ? [unSuccessCallbackText] : []);
                 }
                 return false
             }
