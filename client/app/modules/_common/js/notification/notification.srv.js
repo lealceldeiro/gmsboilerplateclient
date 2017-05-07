@@ -8,7 +8,7 @@ var notificationSrv = function (toastSrv) {
     var self = this;
 
     self.service = {
-        htmlContent: null,
+        mutedNotifications: false,
         type: {
             INFO: "INFO",
             WARNING: "WARNING",

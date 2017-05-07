@@ -6,7 +6,7 @@
 
     'use strict';
 
-    var loginSrv = function ($http, systemSrv, baseSrv, sessionSrv, $rootScope, BROADCAST) {
+    var loginSrv = function ($http, systemSrv, baseSrv, sessionSrv, $rootScope, BROADCAST, notificationSrv) {
         var vm = this;
 
         var url = systemSrv.APIAbsoluteUrl;
@@ -25,6 +25,7 @@
         $rootScope.$on(BROADCAST.auth.REFRESH_TOKEN, function () {
             _doRefreshToken().then(
                 function (data) {
+                    notificationSrv.mutedNotifications = false;
                     var e = systemSrv.evalAuth(data, false, false);
                     if (e) {
                         sessionSrv.setSecurityToken(systemSrv.getAuthToken());
@@ -76,9 +77,8 @@
 
     };
 
-    loginSrv.$inject = ['$http', 'systemSrv', 'baseSrv', 'sessionSrv', '$rootScope', 'BROADCAST'];
-
     angular.module('rrms')
-        .service('loginSrv', loginSrv);
+        .service('loginSrv', ['$http', 'systemSrv', 'baseSrv', 'sessionSrv', '$rootScope', 'BROADCAST', 'notificationSrv',
+            loginSrv]);
 
 })();

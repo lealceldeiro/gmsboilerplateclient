@@ -158,7 +158,7 @@
                         self.service.apiMessage[storeKey] = data[self.service.error_message_resp] ||
                             notificationSrv.utilText.unSuccessfulOperation.es;
 
-                        if (notifyOnUnSuccess) {
+                        if (notifyOnUnSuccess && !notificationSrv.mutedNotifications) {
                             notificationSrv.showNotification(notificationSrv.type.ERROR, notificationSrv.utilText.titleError.es + ": " +
                                 self.service.apiMessage[storeKey], [successCallback], [successCallbackText]);
                         }
@@ -167,7 +167,7 @@
                     }
                 }
                 self.service.apiMessage[storeKey] = 'There was not data provided for request with key "' + storeKey + '"';
-                if (notifyOnUnSuccess) {
+                if (notifyOnUnSuccess && !notificationSrv.mutedNotifications) {
                     notificationSrv.showNotification(notificationSrv.type.ERROR, notificationSrv.utilText.titleError.es + ": " +
                         self.service.apiMessage[storeKey], [unSuccessCallback], [unSuccessCallbackText]);
                 }

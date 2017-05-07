@@ -28,6 +28,8 @@
         function responseError(rejection) {
             if(rejection.status === systemSrv.unauthorized_code_resp){
                 if (sessionSrv.isLogged()) {
+                    // do not show messages when a 401 for token expired occurred and user is logged in, since a new one is going to be retrieved
+                    notificationSrv.mutedNotifications = true;
                     $rootScope.$broadcast(BROADCAST.auth.REFRESH_TOKEN);
                 }
                 else {
