@@ -79,29 +79,32 @@
         }
 
         function fnSave(form) {
-            if (form && form.$valid) {
-                blockSrv.block();
-                var params = {
-                    label : vm.wizard.role.label,
-                    description : vm.wizard.role.description,
-                    enabled : vm.wizard.role.enabled,
-                    permissions: []
-                };
-                angular.forEach(vm.wizard.permissions.selected, function (element) {
-                    params.permissions.push(element.id)
-                });
+            if (form) {
+                form.$setSubmitted();
+                if (form.$valid) {
+                    blockSrv.block();
+                    var params = {
+                        label: vm.wizard.role.label,
+                        description: vm.wizard.role.description,
+                        enabled: vm.wizard.role.enabled,
+                        permissions: []
+                    };
+                    angular.forEach(vm.wizard.permissions.selected, function (element) {
+                        params.permissions.push(element.id)
+                    });
 
-                var fnKey = keyP + "fnSave";
-                roleSrv.save(params, vm.id).then(
-                    function (data) {
-                        blockSrv.unBlock();
-                        var e = systemSrv.eval(data, fnKey, true, true);
-                        if (e) {
-                            //success, go back to list
-                            fnCancel();
+                    var fnKey = keyP + "fnSave";
+                    roleSrv.save(params, vm.id).then(
+                        function (data) {
+                            blockSrv.unBlock();
+                            var e = systemSrv.eval(data, fnKey, true, true);
+                            if (e) {
+                                //success, go back to list
+                                fnCancel();
+                            }
                         }
-                    }
-                )
+                    )
+                }
             }
         }
 

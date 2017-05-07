@@ -143,19 +143,28 @@
                 fnSaveRolesAndSelectEntity(); //save data for last entity clicked
             }
 
-            if (form && form.$valid && !vm.wizard.passwordMatch.notMatch) {
-                if (typeof vm.id !== 'undefined' && vm.id !== null && !vm.wizard.entity.enabled) {
-                    var u = sessionSrv.currentUser();
-                    if (u) {
-                        if (u.id == vm.id) {
-                            var buttons = [{text:"Guardar", function: _doSave, primary: true}];
-                            dialogSrv.showDialog(dialogSrv.type.WARNING, "Confirmación", "Va a guardar sus datos con la propiedad 'activo' sin" +
-                                " marcar. Esto hará que no pueda acceder al sistema. Seguro desea continuar?", buttons);
+            if (form) {
+                form.$setSubmitted();
+                if (form.$valid && !vm.wizard.passwordMatch.notMatch) {
+                    if (typeof vm.id !== 'undefined' && vm.id !== null && !vm.wizard.entity.enabled) {
+                        var u = sessionSrv.currentUser();
+                        if (u) {
+                            if (u.id == vm.id) {
+                                var buttons = [{text: "Guardar", function: _doSave, primary: true}];
+                                dialogSrv.showDialog(dialogSrv.type.WARNING, "Confirmación", "Va a guardar sus datos con la propiedad 'activo' sin" +
+                                    " marcar. Esto hará que no pueda acceder al sistema. Seguro desea continuar?", buttons);
+                            }
+                            else {
+                                _doSave(true);
+                            }
+                        } else {
+                            _doSave(true);
                         }
-                        else { _doSave(true); }
-                    } else { _doSave(true); }
+                    }
+                    else {
+                        _doSave(true);
+                    }
                 }
-                else { _doSave(true); }
             }
         }
 

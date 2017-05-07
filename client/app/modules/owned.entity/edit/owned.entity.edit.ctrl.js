@@ -60,24 +60,27 @@
         }
 
         function fnSave(form) {
-            if (form && form.$valid) {
-                blockSrv.block();
-                var params = {
-                    username : vm.wizard.entity.username,
-                    name : vm.wizard.entity.name,
-                    description : vm.wizard.entity.description
-                };
-                var fnKey = keyP + "fnSave";
-                ownedEntitySrv.save(params, vm.id).then(
-                    function (data) {
-                        blockSrv.unBlock();
-                        var e = systemSrv.eval(data, fnKey, true, true);
-                        if (e) {
-                            //success, go back to list
-                            fnCancel();
+            if (form) {
+                form.$setSubmitted();
+                if (form.$valid) {
+                    blockSrv.block();
+                    var params = {
+                        username: vm.wizard.entity.username,
+                        name: vm.wizard.entity.name,
+                        description: vm.wizard.entity.description
+                    };
+                    var fnKey = keyP + "fnSave";
+                    ownedEntitySrv.save(params, vm.id).then(
+                        function (data) {
+                            blockSrv.unBlock();
+                            var e = systemSrv.eval(data, fnKey, true, true);
+                            if (e) {
+                                //success, go back to list
+                                fnCancel();
+                            }
                         }
-                    }
-                )
+                    )
+                }
             }
         }
 

@@ -39,11 +39,11 @@ var notificationSrv = function (toastSrv) {
                 es: "Usted debe seleccionar un elemento para continuar"
             },
             "unauthorized":{
-                en: "You either aren't authorized to do this or you session expired :(",
-                es: "No estás autorizado a hacer esto o tu sessión expiró:("
+                en: "You either aren't authorized to do this or your session expired :(",
+                es: "No estás autorizado a hacer esto o tu sesión expiró:("
             },
             "userAndPasswordIncorrect":{
-                en: "The user or password provided by you are incorrect :(",
+                en: "The user or password provided are incorrect :(",
                 es: "El usuario o la contraseña proporcionados son incorrectos :("
             }
         },
