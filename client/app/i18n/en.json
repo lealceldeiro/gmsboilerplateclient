@@ -7,19 +7,23 @@
   "unauthorized": "You either are not authorized to do this or your session expired :(",
   "user_and_password_incorrect": "The user or password provided are incorrect :(",
 
-  "USER": {
-    "LIST": {
+  "ENTITY.entities": "Entities",
+  "ENTITY.new": "New entity",
+  "ENTITY.list": "View entities list",
 
-    },
-    "VIEW": {
+  "USER.users": "Users",
+  "USER.new": "New user",
+  "USER.list": "View users list",
 
-    },
-    "EDIT": {
 
-    },
-    "NEW": {
+  "ROLE.roles": "Roles",
+  "ROLE.new": "New role",
+  "ROLE.list": "View roles list",
 
-    }
-  }
+  "PERMISSIONS.permissions": "Permissions",
+  "PERMISSIONS.new": "New permission",
+  "PERMISSIONS.list": "View permissions list",
 
+  "CONFIGURATION.configuration": "Configuration",
+  "CONFIGURATION.parameters": "Parameters"
 }

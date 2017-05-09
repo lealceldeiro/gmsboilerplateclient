@@ -7,19 +7,23 @@
   "unauthorized": "No estás autorizado para hacer esto o tu sesión expiró :(",
   "user_and_password_incorrect": "El usuario o contraseña proporcionados no son correctos :(",
 
-  "USER": {
-    "LIST": {
+  "ENTITY.entities": "Entidades",
+  "ENTITY.new": "Nueva entidad",
+  "ENTITY.list": "Ver listado de entidades",
 
-    },
-    "VIEW": {
+  "USER.users": "Usuarios",
+  "USER.new": "Nuevo usuario",
+  "USER.list": "Ver listado de usuarios",
 
-    },
-    "EDIT": {
+  "ROLE.roles": "Roles",
+  "ROLE.new": "Nuevo rol",
+  "ROLE.list": "Ver listado de roles",
 
-    },
-    "NEW": {
+  "PERMISSIONS.permissions": "Permisos",
+  "PERMISSIONS.new": "Nuevo permiso",
+  "PERMISSIONS.list": "Ver listado de permisos",
 
-    }
-  }
+  "CONFIGURATION.configuration": "Configuración",
+  "CONFIGURATION.parameters": "Parámetros"
 
 }

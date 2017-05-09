@@ -12,18 +12,18 @@
                     <!--owned entities-->
                     <md-menu ng-if="sCtrl.isMultiEntityApp">
                         <button class="md-primary" ng-click="$mdMenu.open()">
-                            Entidades
+                        {{'ENTITY.entities' | translate}}
                         </button>
                         <md-menu-content>
                             <md-menu-item>
                                 <md-button ng-click="sCtrl.go('/owned-entities/new')">
-                                    Nueva entidad
+                                    {{'ENTITY.new' | translate}}
                                 </md-button>
                             </md-menu-item>
                             <md-menu-divider></md-menu-divider>
                             <md-menu-item>
                                 <md-button ng-click="sCtrl.go('/owned-entities')">
-                                    Ver listado de entidades
+                                    {{'ENTITY.list' | translate}}
                                 </md-button>
                             </md-menu-item>
                         </md-menu-content>
@@ -32,18 +32,18 @@
                     <!--User-->
                     <md-menu>
                         <button class="md-raised md-primary" ng-click="$mdMenu.open()">
-                            Usuarios
+                            {{'USER.users' | translate}}
                         </button>
                         <md-menu-content>
                             <md-menu-item>
                                 <md-button ng-click="sCtrl.go('/users/new')">
-                                    Nuevo usuario
+                                    {{'USER.new' | translate}}
                                 </md-button>
                             </md-menu-item>
                             <md-menu-divider></md-menu-divider>
                             <md-menu-item>
                                 <md-button ng-click="sCtrl.go('/users')">
-                                    Ver listado de usuarios
+                                    {{'USER.list' | translate}}
                                 </md-button>
                             </md-menu-item>
                         </md-menu-content>
@@ -52,18 +52,18 @@
                     <!--Roles-->
                     <md-menu>
                         <button class="md-primary" ng-click="$mdMenu.open()">
-                            Roles
+                            {{'ROLE.roles' | translate}}
                         </button>
                         <md-menu-content>
                             <md-menu-item>
                                 <md-button ng-click="sCtrl.go('/roles/new')">
-                                    Nuevo rol
+                                    {{'ROLE.new' | translate}}
                                 </md-button>
                             </md-menu-item>
                             <md-menu-divider></md-menu-divider>
                             <md-menu-item>
                                 <md-button ng-click="sCtrl.go('/roles')">
-                                    Ver listado de roles
+                                    {{'ROLE.list' | translate}}
                                 </md-button>
                             </md-menu-item>
                         </md-menu-content>
@@ -72,12 +72,12 @@
                     <!--Permissions-->
                     <md-menu>
                         <button class="md-primary" ng-click="$mdMenu.open()">
-                            Permisos
+                            {{'PERMISSIONS.permissions' | translate}}
                         </button>
                         <md-menu-content>
                             <md-menu-item>
                                 <md-button ng-click="sCtrl.go('/permissions')">
-                                    Ver listado de permisos
+                                    {{'PERMISSIONS.list' | translate}}
                                 </md-button>
                             </md-menu-item>
                         </md-menu-content>
@@ -86,12 +86,12 @@
                     <!--Configuration-->
                     <md-menu>
                         <button class="md-primary" ng-click="$mdMenu.open()">
-                            Configuraci&oacute;n
+                            {{'CONFIGURATION.configuration' | translate}}
                         </button>
                         <md-menu-content>
                             <md-menu-item>
                                 <md-button ng-click="sCtrl.go('/config/params')">
-                                    Par&aacute;metros
+                                    {{'CONFIGURATION.parameters' | translate}}
                                 </md-button>
                             </md-menu-item>
                         </md-menu-content>
