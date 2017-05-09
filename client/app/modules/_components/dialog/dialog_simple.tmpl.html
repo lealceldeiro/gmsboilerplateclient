@@ -5,7 +5,7 @@
                 <h2>{{title}}</h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="cancel()">
-                    <md-icon md-svg-src="client/app/modules/_common/img/navigation/ic_close_24px.svg" aria-label="Cerrar"></md-icon>
+                    <md-icon md-svg-src="client/app/modules/_common/img/navigation/ic_close_24px.svg" aria-label="{{'button.close' | translate}}"></md-icon>
                 </md-button>
             </div>
         </md-toolbar>
@@ -22,7 +22,7 @@
                 {{b.text}}
             </md-button>
             <md-button ng-click="cancel()">
-                Cerrar
+                {{'button.close' | translate}}
             </md-button>
         </md-dialog-actions>
     </form>

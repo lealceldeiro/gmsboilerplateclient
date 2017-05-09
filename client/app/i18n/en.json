@@ -7,6 +7,8 @@
   "unauthorized": "You either are not authorized to do this or your session expired :(",
   "user_and_password_incorrect": "The user or password provided are incorrect :(",
 
+  "button.close": "Close",
+
   "ENTITY.entities": "Entities",
   "ENTITY.new": "New entity",
   "ENTITY.list": "View entities list",
