@@ -7,7 +7,7 @@
     'use strict';
 
     var f = function (ROUTE, indexSrv, userSrv, navigationSrv, notificationSrv, systemSrv, blockSrv, sessionSrv,
-                      dialogSrv, searchSrv, roleSrv) {
+                      dialogSrv, searchSrv, roleSrv, translatorSrv, $timeout) {
         var vm = this;
         const keyP = 'USER_VIEW';
 
@@ -43,7 +43,7 @@
             if (p && null !== p.id && typeof p.id !== 'undefined' && p.id !== 'undefined'&& p.id !== 'null') {
                 vm.id = p.id;
                 fnLoadData(p.id);
-                indexSrv.siteTile = 'Ver Usuario';
+                translatorSrv.setText('USER.view', indexSrv, 'siteTile');
             }
             else{
                 notificationSrv.showNotification(notificationSrv.type.WARNING, notificationSrv.utilText.select_element_required);
@@ -85,16 +85,33 @@
 
         function fnRemove() {
             var u = sessionSrv.currentUser();
-            var msg = "Seguro desea eliminar este usuario?";
-            var t = dialogSrv.type.QUESTION;
-            if (u && u.id == vm.id) {
-                t = dialogSrv.type.WARNING;
-                msg = "Seguro deseas eliminar tu cuenta";
-                vm.toRemoveProfile = true;
-            }
-            var buttons = [{text:"Borrar", function: _doRemove, primary: true}];
-            dialogSrv.showDialog(t, "Confirmación", msg, buttons);
+            var aux = {};
+            var isThis = u && u.id == vm.id;
 
+            translatorSrv.setText('button.delete', aux, 'btnText');
+            translatorSrv.setText('string.headline.confirmation', aux, 'headline');
+            if (!isThis) {
+                translatorSrv.setText('string.user_lc', aux, 'thisEntity').then(
+                    function () {
+                        translatorSrv.setText('string.message.delete', aux, 'messageText',
+                            {element: aux['thisEntity'], GENDER: 'male'});
+                        $timeout(function () {
+                            _showRequesForDeleting(dialogSrv.type.QUESTION, aux['btnText'], aux['headline'], aux['messageText'])
+                        });
+                    }
+                );
+            }
+            else {
+                translatorSrv.setText('USER.delete_account', aux, 'messageText');
+                $timeout(function () {
+                    _showRequesForDeleting(dialogSrv.type.WARNING, aux['btnText'], aux['headline'], aux['messageText'])
+                });
+            }
+        }
+
+        function _showRequesForDeleting(qType, removeBtnText, headline, message){
+            var buttons = [{text: removeBtnText, function: _doRemove, primary: true}];
+            dialogSrv.showDialog(qType, headline, message, buttons);
         }
 
         function _doRemove() {
@@ -176,6 +193,6 @@
 
     angular.module('rrms')
         .controller('userViewCtrl', ['ROUTE', 'indexSrv', 'userSrv', 'navigationSrv', 'notificationSrv', 'systemSrv',
-            'blockSrv', 'sessionSrv', 'dialogSrv', 'searchSrv', 'roleSrv', f]);
+            'blockSrv', 'sessionSrv', 'dialogSrv', 'searchSrv', 'roleSrv', 'translatorSrv', '$timeout', f]);
 
 })();

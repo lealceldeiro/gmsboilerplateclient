@@ -7,21 +7,21 @@
                 <md-content class="md-no-momentum">
                     <!--name-->
                     <md-input-container class="md-icon-float md-block">
-                        <label>Nombre</label>
+                        <label>{{'string.name' | translate}}</label>
                         <md-icon md-svg-src="client/app/modules/_common/img/social/ic_person_outline_24px.svg"></md-icon>
                         <input ng-model="vm.entity.name" type="text" readonly/>
                     </md-input-container>
 
                     <!--username-->
                     <md-input-container class="md-icon-float md-block">
-                        <label>Usuario</label>
+                        <label>{{'string.user' | translate}}</label>
                         <md-icon md-svg-src="client/app/modules/_common/img/social/ic_person_24px.svg"></md-icon>
                         <input ng-model="vm.entity.username" type="text" readonly/>
                     </md-input-container>
 
                     <!--email-->
                     <md-input-container class="md-icon-float md-block">
-                        <label>Email</label>
+                        <label>{{'string.email' | translate}}</label>
                         <md-icon md-svg-src="client/app/modules/_common/img/communication/ic_email_24px.svg"></md-icon>
                         <input ng-model="vm.entity.email" type="text" readonly/>
                     </md-input-container>
@@ -33,7 +33,7 @@
                     <div layout="row" layout-padding>
                         <div flex="50">
                             <md-checkbox class="m-left-m-10px" ng-model="vm.entity.enabled" aria-label="Activo" disabled>
-                                Activo
+                                {{'string.active' | translate}}
                             </md-checkbox>
                         </div>
                         <div flex="50">
@@ -109,13 +109,13 @@
     <br/>
 
     <md-button class="md-primary md-raised" ng-click="vm.cancel()">
-        Volver
+        {{'button.back' | translate}}
     </md-button>
     <md-button class="md-accent md-raised" ng-click="vm.edit()">
-        Editar
+        {{'button.edit' | translate}}
     </md-button>
     <md-button class="md-warn md-raised" ng-click="vm.remove()">
-        Eliminar
+        {{'button.delete' | translate}}
     </md-button>
 
 </div>

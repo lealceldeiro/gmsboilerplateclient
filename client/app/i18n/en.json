@@ -58,6 +58,7 @@
   "USER.new": "New user",
   "USER.edit": "Edit user",
   "USER.list": "View users list",
+  "USER.delete_account": "Are you sure you want to delete your own account?",
   "USER.view_user_on_entity": "View only users who are associate to the current entity",
   "USER.view_all": "View all users",
   "USER.save_deactivate": "You are about to save your data with the property '{property}' unchecked. After this, you will not longer be able to access the system again. Are your sure you want to continue?",

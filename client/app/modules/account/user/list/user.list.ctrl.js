@@ -177,21 +177,35 @@
             if (typeof id !== 'undefined' && id !== null) {
                 vm.idToRemove = id;
 
+                var u = sessionSrv.currentUser();
                 var aux = {};
-                translatorSrv.setText('string.user_lc', aux, 'thisEntity').then(
-                    function () {
-                        translatorSrv.setText('button.delete', aux, 'btnText');
-                        translatorSrv.setText('string.headline.confirmation', aux, 'headline');
-                        translatorSrv.setText('string.message.delete', aux, 'textMessage',
-                            {'element': aux['thisEntity'], 'GENDER': 'male'});
+                var isThis = u && u.id == id;
 
-                        $timeout(function () {
-                            var buttons = [{text:aux['btnText'], function: _doRemove, primary: true}];
-                            dialogSrv.showDialog(dialogSrv.type.QUESTION, aux['headline'], aux['textMessage'], buttons);
-                        })
-                    }
-                );
+                translatorSrv.setText('button.delete', aux, 'btnText');
+                translatorSrv.setText('string.headline.confirmation', aux, 'headline');
+                if (!isThis) {
+                    translatorSrv.setText('string.user_lc', aux, 'thisEntity').then(
+                        function () {
+                            translatorSrv.setText('string.message.delete', aux, 'messageText',
+                                {element: aux['thisEntity'], GENDER: 'male'});
+                            $timeout(function () {
+                                _showRequestForDeleting(dialogSrv.type.QUESTION, aux['btnText'], aux['headline'], aux['messageText'])
+                            });
+                        }
+                    );
+                }
+                else {
+                    translatorSrv.setText('USER.delete_account', aux, 'messageText');
+                    $timeout(function () {
+                        _showRequestForDeleting(dialogSrv.type.WARNING, aux['btnText'], aux['headline'], aux['messageText'])
+                    });
+                }
             }
+        }
+
+        function _showRequestForDeleting(qType, removeBtnText, headline, message){
+            var buttons = [{text: removeBtnText, function: _doRemove, primary: true}];
+            dialogSrv.showDialog(qType, headline, message, buttons);
         }
 
         function _doRemove() {
