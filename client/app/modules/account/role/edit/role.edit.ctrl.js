@@ -7,7 +7,7 @@
     'use strict';
 
     var roleEditCtrl = function (indexSrv, roleSrv, navigationSrv, ROUTE, systemSrv, notificationSrv, blockSrv,
-                                 permissionSrv, dialogSrv, $filter) {
+                                 permissionSrv, dialogSrv, $filter, translatorSrv, $timeout) {
         var vm = this;
         const keyP = 'ROLE_EDIT';
         var permissionsTabTitles = null;
@@ -44,7 +44,7 @@
         //fn
         function fnInit() {
             if (navigationSrv.currentPath() === ROUTE.ROLE_NEW) {
-                indexSrv.siteTile = 'Nuevo Rol';
+                translatorSrv.setText('ROLE.new', indexSrv, 'siteTile');
                 _loadPermissions();
             }
             else {
@@ -53,7 +53,7 @@
                 if (p && null !== p.id && typeof p.id !== 'undefined' && p.id != 'undefined'&& p.id != 'null') {
                     vm.id = p.id;
                     fnLoadData(p.id);
-                    indexSrv.siteTile = 'Editar Rol';
+                    translatorSrv.setText('ROLE.edit', indexSrv, 'siteTile');
                 }
                 else{
                     notificationSrv.showNotification(notificationSrv.type.WARNING, notificationSrv.utilText.select_element_required);
@@ -156,7 +156,7 @@
 
 
         function fnSearchPermissions(criteria) {
-                _loadPermissions(criteria);
+            _loadPermissions(criteria);
         }
 
         function fnShowRoleListDialog() {
@@ -177,7 +177,7 @@
                                 if (name.length > 1) {
                                     idx = permissionsTabTitles.indexOf(name);
                                     label = $filter('caser')(aux[i].label);
-                                    if (idx == -1) {
+                                    if (idx === -1) {
                                         permissionsTabTitles.push(name);
                                         permissionsTabContents[permissionsTabTitles.length - 1] = label;
                                     }
@@ -186,25 +186,26 @@
                                     }
                                 }
                             }
-
                             __show();
                         }
                     }
                 )
-            }else{
-                __show();
-            }
+            } else{ __show(); }
         }
 
         function __show() {
-            dialogSrv.showTabDialog(dialogSrv.type.INFO, "Permisos (" + vm.wizard.permissions.all.length + ")",
-                permissionsTabTitles, permissionsTabContents);
+            var aux = {};
+            translatorSrv.setText('PERMISSIONS.permissions', aux, 'permissionsText');
+            $timeout(function () {
+                dialogSrv.showTabDialog(dialogSrv.type.INFO, aux['permissionsText'] + " (" + vm.wizard.permissions.all.length + ")",
+                    permissionsTabTitles, permissionsTabContents);
+            });
         }
 
     };
 
     angular.module('rrms')
         .controller('roleEditCtrl', ['indexSrv', 'roleSrv', 'navigationSrv', 'ROUTE', 'systemSrv', 'notificationSrv', 'blockSrv',
-            'permissionSrv', 'dialogSrv', '$filter', roleEditCtrl]);
+            'permissionSrv', 'dialogSrv', '$filter', 'translatorSrv', '$timeout', roleEditCtrl]);
 
 })();

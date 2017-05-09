@@ -9,8 +9,15 @@
 
   "button.close": "Cerrar",
   "button.accept": "Aceptar",
+  "button.save": "Guardar",
+  "button.cancel": "Cancelar",
 
+  "string.active": "Activo",
   "string.label": "Etiqueta",
+  "string.name": "Nombre",
+  "string.name_required": "El nombre es obligatorio",
+  "string.description": "Descripción",
+  "string.description_required": "La descripción es obligatoria",
 
   "ENTITY.entities": "Entidades",
   "ENTITY.new": "Nueva entidad",
@@ -22,11 +29,14 @@
 
   "ROLE.roles": "Roles",
   "ROLE.new": "Nuevo rol",
+  "ROLE.edit": "Editar rol",
   "ROLE.list": "Ver listado de roles",
 
   "PERMISSIONS.permissions": "Permisos",
   "PERMISSIONS.new": "Nuevo permiso",
   "PERMISSIONS.list": "Ver listado de permisos",
+  "PERMISSIONS.view_all_available": "Ver todos los permisos disponibles",
+  "PERMISSIONS.select_permissions": "Seleccione los permisos",
 
   "CONFIGURATION.configuration": "Configuración",
   "CONFIGURATION.parameters": "Parámetros",

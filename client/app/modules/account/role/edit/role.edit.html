@@ -6,24 +6,24 @@
 
                 <!--name-->
                 <md-input-container class="md-icon-float md-block">
-                    <label>Nombre</label>
+                    <label>{{'string.name' | translate}}</label>
                     <md-icon md-svg-src="client/app/modules/_common/img/social/ic_group_24px.svg"></md-icon>
                     <input ng-model="vm.role.label" type="text" required name="label" />
                     <div ng-messages="editRoleForm.label.$error" md-auto-hide="false">
                         <div ng-message="required">
-                            El nombre es obligatorio
+                            {{'string.name_required' | translate}}
                         </div>
                     </div>
                 </md-input-container>
 
                 <!--description-->
                 <md-input-container class="md-icon-float md-block">
-                    <label>Descripci&oacute;n</label>
+                    <label>{{'string.description' | translate}}</label>
                     <md-icon md-svg-src="client/app/modules/_common/img/action/ic_description_24px.svg"></md-icon>
                     <textarea ng-model="vm.role.description" required name="description"></textarea>
                     <div ng-messages="editRoleForm.description.$error" md-auto-hide="false">
                         <div ng-message="required">
-                            La descripci&oacute;n es obligatoria
+                            {{'string.description_required' | translate}}
                         </div>
                     </div>
                 </md-input-container>
@@ -46,7 +46,7 @@
                                     md-search-text="vm.pSearchText"
                                     md-items="item in vm.permissions.all"
                                     md-item-text="item.label"
-                                    placeholder="Seleccione los permisos">
+                                    placeholder="{{'PERMISSIONS.select_permissions' | translate}}">
                                 <span md-highlight-text="vm.pSearchText">{{item.label | caser}}</span>
                             </md-autocomplete>
                             <md-chip-template>
@@ -58,21 +58,17 @@
                     </div>
                 </div>
 
-                <!--todo: show validation errors when no permission is selected-->
-                <!--for controlling when no permission is selected, make form invalid-->
-                <input type="hidden" data-ng-if="!vm.permissions.selected.length" required data-ng-model="vm.controlRquired" />
-
                 <br/>
                 <div class="row" data-ng-show="vm.permissions.all.length">
                     <md-button md-no-ink class="md-accent" ng-click="vm.showRoleListDialog()" >
-                        Ver todos los permisos disponibles&nbsp;({{vm.permissions.all.length}})
+                        {{'PERMISSIONS.view_all_available' | translate}}&nbsp;({{vm.permissions.all.length}})
                     </md-button>
                 </div>
 
                 <!--enabled-->
                 <md-input-container class="md-block">
                     <md-switch class="md-primary" ng-model="vm.role.enabled">
-                        Activo
+                        {{'string.active' | translate}}
                     </md-switch>
                 </md-input-container>
 
@@ -90,10 +86,10 @@
 
     <md-button class="md-primary md-raised"
                ng-click="vm.save(editRoleForm)">
-        Guardar
+        {{'button.save' | translate}}
     </md-button>
     <md-button class="md-active md-raised"
                ng-click="vm.cancel()">
-        Cancelar
+        {{'button.cancel' | translate}}
     </md-button>
 </div>
