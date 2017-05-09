@@ -25,6 +25,7 @@
 
   "string.role_lc": "role",
   "string.user_lc": "user",
+  "string.entity_lc": "entity",
 
   "string.selected": "selected",
   "string.activate_deactivate": "Activate/Deactivate",
@@ -53,6 +54,7 @@
   "ENTITY.entities": "Entities",
   "ENTITY.new": "New entity",
   "ENTITY.edit": "Edit entity",
+  "ENTITY.view": "View entity",
   "ENTITY.list": "View entities list",
 
   "USER.users": "Users",

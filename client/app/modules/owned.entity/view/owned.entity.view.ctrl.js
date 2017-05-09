@@ -7,7 +7,7 @@
     'use strict';
 
     var f = function (ROUTE, indexSrv, ownedEntitySrv, navigationSrv, notificationSrv, systemSrv, blockSrv, sessionSrv,
-                      dialogSrv) {
+                      dialogSrv, translatorSrv, $timeout) {
         var vm = this;
         const keyP = 'OWNED_ENTITY_VIEW';
 
@@ -33,7 +33,7 @@
             if (p && null !== p.id && typeof p.id !== 'undefined' && p.id !== 'undefined'&& p.id !== 'null') {
                 vm.id = p.id;
                 fnLoadData(p.id);
-                indexSrv.siteTile = 'Ver Entidad';
+                translatorSrv.setText('ENTITY.view', indexSrv, 'siteTile');
             }
             else{
                 notificationSrv.showNotification(notificationSrv.type.WARNING, notificationSrv.utilText.select_element_required);
@@ -57,9 +57,17 @@
         }
 
         function fnRemove() {
-            var buttons = [{text:"Borrar", function: _doRemove, primary: true}];
-            dialogSrv.showDialog(dialogSrv.type.QUESTION, "Confirmación", "Seguro desea eliminar esta entidad?", buttons);
-
+            var aux = {};
+            translatorSrv.setText('string.entity_lc', aux, 'thisEntity').then(function () {
+               translatorSrv.setText('button.delete', aux, 'btnText');
+               translatorSrv.setText('string.headline.confirmation', aux, 'headline');
+               translatorSrv.setText('string.message.delete', aux, 'messageText',
+                   {GENDER: 'female', element: aux['thisEntity']});
+               $timeout(function () {
+                   var buttons = [{text: aux['btnText'], function: _doRemove, primary: true}];
+                   dialogSrv.showDialog(dialogSrv.type.QUESTION, aux['headline'], aux['messageText'], buttons);
+               })
+            });
         }
 
         function _doRemove() {
@@ -88,6 +96,6 @@
 
     angular.module('rrms')
         .controller('ownedEntityViewCtrl', ['ROUTE', 'indexSrv', 'ownedEntitySrv', 'navigationSrv', 'notificationSrv', 'systemSrv',
-            'blockSrv', 'sessionSrv', 'dialogSrv', f]);
+            'blockSrv', 'sessionSrv', 'dialogSrv', 'translatorSrv', '$timeout', f]);
 
 })();
