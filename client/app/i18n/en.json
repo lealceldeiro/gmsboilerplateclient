@@ -56,6 +56,8 @@
   "ENTITY.edit": "Edit entity",
   "ENTITY.view": "View entity",
   "ENTITY.list": "View entities list",
+  "ENTITY.view_mine": "View only entities linked to my profile",
+  "ENTITY.view_all": "View all entities",
 
   "USER.users": "Users",
   "USER.new": "New user",

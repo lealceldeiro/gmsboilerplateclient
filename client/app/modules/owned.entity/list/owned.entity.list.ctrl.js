@@ -7,7 +7,7 @@
     'use strict';
 
     var f = function (indexSrv, systemSrv, ownedEntitySrv, navigationSrv, paginationSrv, ROUTE, searchSrv, blockSrv,
-                      sessionSrv, dialogSrv) {
+                      sessionSrv, dialogSrv, translatorSrv, $timeout) {
         var vm = this;
         const keyP = 'OWNED_ENTITY_LIST';
 
@@ -34,7 +34,7 @@
 
         //fn
         function fnInit() {
-            indexSrv.siteTile = 'Owned Entity';
+            translatorSrv.setText('ENTITY.entities', indexSrv, 'siteTitle');
             paginationSrv.resetPagination();
         }
 
@@ -118,8 +118,21 @@
         function fnRemove(id) {
             if (typeof id !== 'undefined' && id !== null) {
                 vm.idToRemove = id;
-                var buttons = [{text:"Borrar", function: _doRemove, primary: true}];
-                dialogSrv.showDialog(dialogSrv.type.QUESTION, "Confirmación", "Seguro desea eliminar esta entidad?", buttons);
+
+                var aux = {};
+                translatorSrv.setText('string.entity_lc', aux, 'thisEntity').then(
+                    function () {
+                        translatorSrv.setText('button.delete', aux, 'btnText');
+                        translatorSrv.setText('string.headline.confirmation', aux, 'headline');
+                        translatorSrv.setText('string.message.delete', aux, 'textMessage',
+                            {'element': aux['thisEntity'], 'GENDER': 'female'});
+
+                        $timeout(function () {
+                            var buttons = [{text:aux['btnText'], function: _doRemove, primary: true}];
+                            dialogSrv.showDialog(dialogSrv.type.QUESTION, aux['headline'], aux['textMessage'], buttons);
+                        })
+                    }
+                );
             }
         }
 
@@ -158,6 +171,6 @@
 
     angular.module('rrms')
         .controller('ownedEntityListCtrl', ['indexSrv', 'systemSrv', 'ownedEntitySrv', 'navigationSrv', 'paginationSrv',
-            'ROUTE', 'searchSrv', 'blockSrv', 'sessionSrv', 'dialogSrv', f]);
+            'ROUTE', 'searchSrv', 'blockSrv', 'sessionSrv', 'dialogSrv', 'translatorSrv', '$timeout', f]);
 
 })();

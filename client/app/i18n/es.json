@@ -18,7 +18,7 @@
   "button.save": "Guardar",
   "button.cancel": "Cancelar",
   "button.edit": "Editar",
-  "button.delete": "Eliminar",
+  "button.delete": "Borrar",
   "button.back": "Volver",
   "button.continue": "Continuar",
   "button.close_session_now": "Cerrar sesión ahora",
@@ -56,6 +56,8 @@
   "ENTITY.edit": "Editar entidad",
   "ENTITY.view": "Ver entidad",
   "ENTITY.list": "Ver listado de entidades",
+  "ENTITY.view_mine": "Ver solo entidades asociadas a mi perfil",
+  "ENTITY.view_all": "Ver todas las entidades",
 
   "USER.users": "Usuarios",
   "USER.new": "Nuevo usuario",
