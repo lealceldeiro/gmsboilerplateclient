@@ -33,7 +33,7 @@
                     $rootScope.$broadcast(BROADCAST.auth.REFRESH_TOKEN);
                 }
                 else {
-                    notificationSrv.showNotification(notificationSrv.type.ERROR, notificationSrv.utilText.unauthorized.es);
+                    notificationSrv.showNotification(notificationSrv.type.ERROR, notificationSrv.utilText.unauthorized);
                     $rootScope.$broadcast(BROADCAST.auth.UNAUTHORIZED_BACKWARD);
                 }
 

@@ -26,7 +26,7 @@
             _doRefreshToken().then(
                 function (data) {
                     notificationSrv.mutedNotifications = false;
-                    var e = systemSrv.evalAuth(data, false, false);
+                    var e = systemSrv.evalAuth(data, "_LOGIN_SRV_", false, false);
                     if (e) {
                         sessionSrv.setSecurityToken(systemSrv.getAuthToken());
                         sessionSrv.setSecurityRefreshToken(systemSrv.getAuthRefreshToken());

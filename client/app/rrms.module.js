@@ -11,6 +11,7 @@
         permissions: {},
         supportHtml5: true
     };
+    var lan = {};
 
     // Import variables if present (from vars.js)
     $.getJSON("/vars.json", function(json) {
@@ -26,6 +27,17 @@
         }
     });
 
+    //region language-loading...
+    var languages = ['en', 'es'];
+    for(var lp = 0; lp < languages.length; lp++){
+        (function (idx) {
+            $.getJSON("/client/app/i18n/" + languages[idx] + ".json", function(translations) {
+                lan[languages[idx]] = translations;
+            });
+        })(lp);
+    }
+    //endregion
+
     var config = function ($logProvider) {
         $logProvider.debugEnabled(true);
     };
@@ -38,11 +50,13 @@
             'cl.paging',                                        //pagination
             'LocalStorageModule',                               //local storage module, used for instance for storing auth token
             'ngMaterial',
-            'ngMessages'
+            'ngMessages',
+            'pascalprecht.translate'                            //angular-translate
 
         ]
     )
         .constant('__env', env)         // Register environment in AngularJS as constant
+        .constant('lan', lan)           // Register languages strings as constant object
         .config(['$logProvider', config]);
 
 })();

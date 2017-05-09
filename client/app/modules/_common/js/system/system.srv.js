@@ -143,26 +143,24 @@
                 if (data) {
                     if (data[self.service.success_resp]) {
                         self.service.apiMessage[storeKey] = data[self.service.success_message_resp]
-                            || notificationSrv.utilText.successfulOperation.es;
+                            || notificationSrv.utilText.successful_operation;
                         self.service.apiTotalCount[storeKey] = data[self.service.total_count_resp];
                         self.service.apiItems[storeKey] = data[self.service.items_resp];
                         self.service.apiItem[storeKey] = data[self.service.item_resp];
                         if (notifyOnSuccess) {
-                            notificationSrv.showNotification(notificationSrv.type.SUCCESS, notificationSrv.utilText.titleSuccess.es + ": " +
-                                self.service.apiMessage[storeKey], successCallback ? [successCallback] : [],
-                                successCallbackText ? [successCallbackText] : []);
+                            notificationSrv.showNotification(notificationSrv.type.SUCCESS, self.service.apiMessage[storeKey],
+                                successCallback ? [successCallback] : [], successCallbackText ? [successCallbackText] : []);
                         }
 
                         return true
                     }
                     else {
                         self.service.apiMessage[storeKey] = data[self.service.error_message_resp] ||
-                            notificationSrv.utilText.unSuccessfulOperation.es;
+                            notificationSrv.utilText.unsuccessful_operation;
 
                         if (notifyOnUnSuccess && !notificationSrv.mutedNotifications) {
-                            notificationSrv.showNotification(notificationSrv.type.ERROR, notificationSrv.utilText.titleError.es + ": " +
-                                self.service.apiMessage[storeKey], unSuccessCallback ? [unSuccessCallback] : [],
-                                unSuccessCallbackText ? [unSuccessCallbackText] : []);
+                            notificationSrv.showNotification(notificationSrv.type.ERROR, self.service.apiMessage[storeKey],
+                                unSuccessCallback ? [unSuccessCallback] : [], unSuccessCallbackText ? [unSuccessCallbackText] : []);
                         }
 
                         return false
@@ -170,9 +168,8 @@
                 }
                 self.service.apiMessage[storeKey] = 'There was not data provided for request with key "' + storeKey + '"';
                 if (notifyOnUnSuccess && !notificationSrv.mutedNotifications) {
-                    notificationSrv.showNotification(notificationSrv.type.ERROR, notificationSrv.utilText.titleError.es + ": " +
-                        self.service.apiMessage[storeKey], unSuccessCallback ? [unSuccessCallback] : [],
-                        unSuccessCallbackText ? [unSuccessCallbackText] : []);
+                    notificationSrv.showNotification(notificationSrv.type.ERROR, self.service.apiMessage[storeKey],
+                        unSuccessCallback ? [unSuccessCallback] : [], unSuccessCallbackText ? [unSuccessCallbackText] : []);
                 }
                 return false
             }
@@ -184,12 +181,21 @@
              * successful or not it is said if, for instance, there was not business rules violated and the operations
              * finished properly.
              * @param data data to be evaluated
+             * @param storeKey key under which the data will be store
              * @param notifyOnSuccess Whether a notification should be shown or not on success result
              * @param notifyOnUnSuccess Whether a notification should be shown or not on non-success result
-             * @param callback A callback to be shown in the notification as an action to be taken by the user
+             * @param successCallback A callback to be shown in the notification as an action to be taken by the user if
+             * the result is successful
+             * @param successCallbackText A text for callback to be shown in the notification as an action to be taken
+             * by the user if the result is successful
+             * @param unSuccessCallback A callback to be shown in the notification as an action to be taken by the user if
+             * the result is unsuccessful
+             * @param unSuccessCallbackText A text for callback to be shown in the notification as an action to be taken
+             * by the user if the result is unsuccessful
              * @returns {boolean} true if success, false otherwise
              */
-            function fnEvaluateAuthenticationData(data, notifyOnSuccess, notifyOnUnSuccess, callback) {
+            function fnEvaluateAuthenticationData(data, storeKey, notifyOnSuccess, notifyOnUnSuccess, successCallback, successCallbackText,
+                                                  unSuccessCallback, unSuccessCallbackText) {
                 if (data) {
                     if (data[self.service.item_token_resp]) {
                         self.service.userAuthResponse = data[self.service.auth_user_resp];
@@ -197,21 +203,30 @@
                         self.service.itemRefreshToken = data[self.service.item_refresh_token_req_resp];
                         self.service.authPermissions = data[self.service.auth_permissions_resp];
                         if (notifyOnSuccess) {
-                            //todo
+                            notificationSrv.showNotification(notificationSrv.type.SUCCESS, notificationSrv.utilText.success_label + ": " +
+                                self.service.apiMessage[storeKey], successCallback ? [successCallback] : [],
+                                successCallbackText ? [successCallbackText] : []);
                         }
 
                         return true
                     }
                     else {
+                        self.service.apiMessage[storeKey] = data[self.service.error_message_resp] ||
+                            notificationSrv.getText(notificationSrv.utilText.unsuccessful_operation);
+
                         if (notifyOnUnSuccess) {
-                            //todo
+                            notificationSrv.showNotification(notificationSrv.type.ERROR, notificationSrv.utilText.error_label + ": " +
+                                self.service.apiMessage[storeKey], unSuccessCallback ? [unSuccessCallback] : [],
+                                unSuccessCallbackText ? [unSuccessCallbackText] : []);
                         }
 
                         return false
                     }
                 }
-                if (notifyOnUnSuccess) {
-                    //todo
+                self.service.apiMessage[storeKey] = 'There was not data provided for request with key "' + storeKey + '"';
+                if (notifyOnUnSuccess && !notificationSrv.mutedNotifications) {
+                    notificationSrv.showNotification(notificationSrv.type.ERROR, self.service.apiMessage[storeKey],
+                        unSuccessCallback ? [unSuccessCallback] : [], unSuccessCallbackText ? [unSuccessCallbackText] : []);
                 }
                 return false
             }

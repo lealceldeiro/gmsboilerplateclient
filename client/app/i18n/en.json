@@ -1,0 +1,25 @@
+{
+  "error_label": "Error",
+  "success_label": "Success",
+  "successful_operation": "Operation done successfully",
+  "unsuccessful_operation": "Operation done unsuccessfully",
+  "select_element_required": "You must select an element in order to proceed",
+  "unauthorized": "You either are not authorized to do this or your session expired :(",
+  "user_and_password_incorrect": "The user or password provided are incorrect :(",
+
+  "USER": {
+    "LIST": {
+
+    },
+    "VIEW": {
+
+    },
+    "EDIT": {
+
+    },
+    "NEW": {
+
+    }
+  }
+
+}

@@ -39,7 +39,7 @@
                     //do login
                     loginSrv.login(vm.wizard.emailOrUsername, vm.wizard.password).then(
                         function (data) {
-                            var e = systemSrv.evalAuth(data, false, false);
+                            var e = systemSrv.evalAuth(data, '_LOGIN_', false, false);
                             if (e) {
                                 var key = "fnLogin-getByUsername" + keyP;
 
@@ -84,7 +84,7 @@
                                         else {
                                             sessionSrv.logOut();
                                             blockSrv.unBlock();
-                                            notificationSrv.showNotification(notificationSrv.type.ERROR, notificationSrv.utilText.unauthorized.es);
+                                            notificationSrv.showNotification(notificationSrv.type.ERROR, notificationSrv.utilText.unauthorized);
                                         }
                                     }
                                 );

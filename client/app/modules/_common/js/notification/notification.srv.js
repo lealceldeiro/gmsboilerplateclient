@@ -4,7 +4,7 @@
 
 'use strict';
 
-var notificationSrv = function (toastSrv) {
+var notificationSrv = function (toastSrv, $translate) {
     var self = this;
 
     self.service = {
@@ -18,34 +18,13 @@ var notificationSrv = function (toastSrv) {
         },
 
         utilText: {
-            "titleError": {
-                en: "Error",
-                es: "Error"
-            },
-            "titleSuccess": {
-                en: "Success: ",
-                es: "Éxito"
-            },
-            "successfulOperation": {
-                en: "Operation done successfully",
-                es: "Operación terminada correctamente"
-            },
-            "unSuccessfulOperation": {
-                en: "Operation done unsuccessfully",
-                es: "Operación terminada incorrectamente"
-            },
-            "mustSelectElement": {
-                en: "You must select an element in order to proceed",
-                es: "Usted debe seleccionar un elemento para continuar"
-            },
-            "unauthorized":{
-                en: "You either aren't authorized to do this or your session expired :(",
-                es: "No estás autorizado a hacer esto o tu sesión expiró:("
-            },
-            "userAndPasswordIncorrect":{
-                en: "The user or password provided are incorrect :(",
-                es: "El usuario o la contraseña proporcionados son incorrectos :("
-            }
+            "error_label": "error_label",
+            "success_label": "success_label",
+            "successful_operation": "successful_operation",
+            "unsuccessful_operation": "unsuccessful_operation",
+            "select_element_required": "select_element_required",
+            "unauthorized": "unauthorized",
+            "user_and_password_incorrect": "user_and_password_incorrect"
         },
 
         showNotification: fnShow
@@ -63,6 +42,19 @@ var notificationSrv = function (toastSrv) {
      * the strings in the array "actionNames"
      */
     function fnShow(type, message, actions, actionNames, primaryActionName) {
+        if (self.service.utilText.hasOwnProperty(message)) {
+            $translate(message).then(function (text) {
+                _showMsg(type, text, actions, actionNames, primaryActionName)
+            }, function (textID) {
+                _showMsg(type, textID, actions, actionNames, primaryActionName)
+            });
+        }
+        else {
+            _showMsg(type, message, actions, actionNames, primaryActionName)
+        }
+    }
+
+    function _showMsg(type, message, actions, actionNames, primaryActionName){
         var buttons = [];
         //wrap buttons info
         if (angular.isDefined(actions) && angular.isDefined(actionNames)) {
@@ -88,4 +80,4 @@ var notificationSrv = function (toastSrv) {
 };
 
 angular.module('rrms')
-    .service('notificationSrv', ['toastSrv', notificationSrv]);
+    .service('notificationSrv', ['toastSrv', '$translate', notificationSrv]);
