@@ -11,7 +11,10 @@
   "button.accept": "Accept",
   "button.save": "Save",
   "button.cancel": "Cancel",
+  "button.edit": "Edit",
+  "button.delete": "Delete",
 
+  "string.activate_deactivate": "Activate/Deactivate",
   "string.active": "Active",
   "string.label": "Label",
   "string.name": "Name",
@@ -32,6 +35,8 @@
   "ROLE.new": "New role",
   "ROLE.edit": "Edit role",
   "ROLE.list": "View roles list",
+  "ROLE.view_my_roles_on_entity": "View my roles only for the current entity",
+  "ROLE.view_all": "View all roles",
 
   "PERMISSIONS.permissions": "Permissions",
   "PERMISSIONS.new": "New permission",

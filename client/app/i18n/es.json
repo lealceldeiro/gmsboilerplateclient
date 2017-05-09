@@ -11,7 +11,10 @@
   "button.accept": "Aceptar",
   "button.save": "Guardar",
   "button.cancel": "Cancelar",
+  "button.edit": "Editar",
+  "button.delete": "Eliminar",
 
+  "string.activate_deactivate": "Activar/Desactivar",
   "string.active": "Activo",
   "string.label": "Etiqueta",
   "string.name": "Nombre",
@@ -31,6 +34,8 @@
   "ROLE.new": "Nuevo rol",
   "ROLE.edit": "Editar rol",
   "ROLE.list": "Ver listado de roles",
+  "ROLE.view_my_roles_on_entity": "Ver mis roles solo en la entidad actual",
+  "ROLE.view_all": "Ver todos los roles",
 
   "PERMISSIONS.permissions": "Permisos",
   "PERMISSIONS.new": "Nuevo permiso",
