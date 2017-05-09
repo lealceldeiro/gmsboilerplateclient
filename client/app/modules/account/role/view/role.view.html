@@ -6,14 +6,14 @@
 
                 <!--name-->
                 <md-input-container class="md-icon-float md-block">
-                    <label>Nombre</label>
+                    <label>{{'string.name' | translate}}</label>
                     <md-icon md-svg-src="client/app/modules/_common/img/social/ic_group_24px.svg"></md-icon>
                     <input ng-model="vm.role.label" type="text" readonly/>
                 </md-input-container>
 
                 <!--description-->
                 <md-input-container class="md-icon-float md-block">
-                    <label>Descripci&oacute;n</label>
+                    <label>{{'string.description' | translate}}</label>
                     <md-icon md-svg-src="client/app/modules/_common/img/action/ic_description_24px.svg"></md-icon>
                     <textarea ng-model="vm.role.description" readonly></textarea>
                 </md-input-container>
@@ -34,7 +34,7 @@
                 <!--enabled-->
                 <md-input-container class="md-block">
                     <md-switch class="md-primary" ng-model="vm.role.enabled" disabled>
-                        Activo
+                        {{'string.active' | translate}}
                     </md-switch>
                 </md-input-container>
 
@@ -51,12 +51,12 @@
     <br/>
 
     <md-button class="md-primary md-raised" ng-click="vm.cancel()">
-        Volver
+        {{'button.back' | translate}}
     </md-button>
     <md-button class="md-accent md-raised" ng-click="vm.edit()">
-        Editar
+        {{'button.edit' | translate}}
     </md-button>
     <md-button class="md-warn md-raised" ng-click="vm.remove()">
-        Eliminar
+        {{'button.delete' | translate}}
     </md-button>
 </div>

@@ -6,7 +6,8 @@
 
     'use strict';
 
-    var roleViewCtrl = function (ROUTE, indexSrv, roleSrv, navigationSrv, notificationSrv, systemSrv, blockSrv, dialogSrv) {
+    var roleViewCtrl = function (ROUTE, indexSrv, roleSrv, navigationSrv, notificationSrv, systemSrv, blockSrv, dialogSrv,
+                                 translatorSrv, $timeout) {
         var vm = this;
         const keyP = 'ROLE_VIEW';
 
@@ -37,7 +38,7 @@
             if (p && null !== p.id && typeof p.id !== 'undefined' && p.id !== 'undefined'&& p.id !== 'null') {
                 vm.id = p.id;
                 fnLoadData(p.id);
-                indexSrv.siteTile = 'Ver Rol';
+                translatorSrv.setText('ROLE.view', indexSrv, 'siteTile');
             }
             else{
                 notificationSrv.showNotification(notificationSrv.type.WARNING, notificationSrv.utilText.select_element_required);
@@ -63,9 +64,20 @@
         }
 
         function fnRemove() {
-            var buttons = [{text:"Borrar", function: _doRemove, primary: true}];
-            dialogSrv.showDialog(dialogSrv.type.QUESTION, "Confirmación", "Seguro desea eliminar este rol?", buttons);
+            var aux = {};
+            translatorSrv.setText('string.role_lc', aux, 'thisEntity').then(
+                function () {
+                    translatorSrv.setText('button.delete', aux, 'deleteButtonText');
+                    translatorSrv.setText('string.headline.confirmation', aux, 'headline');
+                    translatorSrv.setText('string.message.delete', aux, 'deleteTextMessage',
+                        {'element': aux['thisEntity'], 'GENDER': 'male'});
 
+                    $timeout(function () {
+                        var buttons = [{text:aux['deleteButtonText'], function: _doRemove, primary: true}];
+                        dialogSrv.showDialog(dialogSrv.type.QUESTION, aux['headline'], aux['deleteTextMessage'], buttons);
+                    })
+                }
+            );
         }
 
         function _doRemove() {
@@ -116,6 +128,6 @@
 
     angular.module('rrms')
         .controller('roleViewCtrl', ['ROUTE', 'indexSrv', 'roleSrv', 'navigationSrv', 'notificationSrv', 'systemSrv', 'blockSrv',
-            'dialogSrv', roleViewCtrl]);
+            'dialogSrv', 'translatorSrv', '$timeout', roleViewCtrl]);
 
 })();

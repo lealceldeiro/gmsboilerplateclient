@@ -6,7 +6,7 @@
 
     'use strict';
 
-    var f = function (indexSrv, systemSrv, permissionSrv, paginationSrv, blockSrv) {
+    var f = function (indexSrv, systemSrv, permissionSrv, paginationSrv, blockSrv, translatorSrv) {
         var vm = this;
         const keyP = 'PERMISSIONS_LIST';
 
@@ -28,7 +28,7 @@
 
         //fn
         function fnInit() {
-            indexSrv.siteTile = 'Permisos';
+            translatorSrv.setText('PERMISSIONS.permissions', indexSrv, 'siteTile');
             paginationSrv.resetPagination();
         }
 
@@ -65,6 +65,6 @@
 
     angular.module('rrms')
         .controller('permissionCtrl', ['indexSrv', 'systemSrv', 'permissionSrv', 'paginationSrv',
-            'blockSrv', f]);
+            'blockSrv', 'translatorSrv', f]);
 
 })();

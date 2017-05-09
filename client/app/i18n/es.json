@@ -13,6 +13,7 @@
   "button.cancel": "Cancelar",
   "button.edit": "Editar",
   "button.delete": "Eliminar",
+  "button.back": "Volver",
 
   "string.role_lc": "rol",
 
@@ -39,6 +40,7 @@
   "ROLE.roles": "Roles",
   "ROLE.new": "Nuevo rol",
   "ROLE.edit": "Editar rol",
+  "ROLE.view": "Ver rol",
   "ROLE.list": "Ver listado de roles",
   "ROLE.view_my_roles_on_entity": "Ver mis roles solo en la entidad actual",
   "ROLE.view_all": "Ver todos los roles",
