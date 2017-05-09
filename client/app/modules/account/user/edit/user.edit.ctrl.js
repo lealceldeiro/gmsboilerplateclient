@@ -7,7 +7,7 @@
     'use strict';
 
     var f = function (indexSrv, userSrv, navigationSrv, ROUTE, systemSrv, notificationSrv, roleSrv, blockSrv, sessionSrv,
-                      $timeout, ownedEntitySrv, dialogSrv, searchSrv, configSrv) {
+                      $timeout, ownedEntitySrv, dialogSrv, searchSrv, configSrv, translatorSrv) {
         var vm = this;
         const keyP = 'USER_EDIT';
 
@@ -58,7 +58,7 @@
             _loadRoles();
             _loadEntitiesInfo();
             if (navigationSrv.currentPath() === ROUTE.USER_NEW) {
-                indexSrv.siteTile = 'Nuevo Usuario';
+                translatorSrv.setText('USER.new', indexSrv, 'siteTile');
             }
             else {
                 vm.wizard.entity = null;
@@ -66,7 +66,7 @@
                 if (p && null !== p.id && typeof p.id !== 'undefined' && p.id !== 'undefined'&& p.id !== 'null') {
                     vm.id = p.id;
                     _loadData(p.id);
-                    indexSrv.siteTile = 'Editar Usuario';
+                    translatorSrv.setText('USER.new', indexSrv, 'siteTile');
                 }
                 else{
                     notificationSrv.showNotification(notificationSrv.type.WARNING, notificationSrv.utilText.select_element_required);
@@ -150,20 +150,23 @@
                         var u = sessionSrv.currentUser();
                         if (u) {
                             if (u.id == vm.id) {
-                                var buttons = [{text: "Guardar", function: _doSave, primary: true}];
-                                dialogSrv.showDialog(dialogSrv.type.WARNING, "Confirmación", "Va a guardar sus datos con la propiedad 'activo' sin" +
-                                    " marcar. Esto hará que no pueda acceder al sistema. Seguro desea continuar?", buttons);
+                                var aux = {};
+                                translatorSrv.setText('string.active', aux, 'thisProperty').then(
+                                    function () {
+                                        translatorSrv.setText('button.continue', aux, 'saveButtonText');
+                                        translatorSrv.setText('string.headline.confirmation', aux, 'headline');
+                                        translatorSrv.setText('USER.save_deactivate', aux, 'messageText', {'property': aux['thisProperty']});
+                                        $timeout(function () {
+                                            var buttons = [{text: aux['saveButtonText'], function: _doSave, primary: true}];
+                                            dialogSrv.showDialog(dialogSrv.type.WARNING, aux['headline'], aux['messageText'], buttons);
+                                        });
+                                    }
+                                );
                             }
-                            else {
-                                _doSave(true);
-                            }
-                        } else {
-                            _doSave(true);
-                        }
+                            else { _doSave(true); }
+                        } else { _doSave(true); }
                     }
-                    else {
-                        _doSave(true);
-                    }
+                    else { _doSave(true); }
                 }
             }
         }
@@ -207,9 +210,14 @@
                             _doLogout();
                         } else {
                             if (sessionSrv.currentUser().id == vm.id) {
-                                var buttons = [{text:"Cerrar sesión ahora", function: _doLogout, primary: true}];
-                                dialogSrv.showDialog(dialogSrv.type.SUCCESS, "Información", "Debe cerrar sessión e iniciarla de nuevo para que" +
-                                    " los posibles cambios tengan efecto. Desea cerrar sessión ahora?", buttons);
+                                var aux = {};
+                                translatorSrv.setText('button.close_session_now', aux, 'closeButtonText');
+                                translatorSrv.setText('string.headline.information', aux, 'headline');
+                                translatorSrv.setText('USER.close_session_now', aux, 'messageText');
+                                $timeout(function () {
+                                    var buttons = [{text: aux['closeButtonText'], function: _doSave, primary: true}];
+                                    dialogSrv.showDialog(dialogSrv.type.SUCCESS, aux['headline'], aux['messageText'], buttons);
+                                });
                             }
                             else {fnCancel();}
                         }
@@ -333,6 +341,6 @@
 
     angular.module('rrms')
         .controller('userEditCtrl', ['indexSrv', 'userSrv', 'navigationSrv', 'ROUTE', 'systemSrv', 'notificationSrv', 'roleSrv',
-            'blockSrv', 'sessionSrv', '$timeout', 'ownedEntitySrv', 'dialogSrv', 'searchSrv', 'configSrv', f]);
+            'blockSrv', 'sessionSrv', '$timeout', 'ownedEntitySrv', 'dialogSrv', 'searchSrv', 'configSrv', 'translatorSrv', f]);
 
 })();
