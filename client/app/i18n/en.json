@@ -79,13 +79,13 @@
   "ROLE.list": "View roles list",
   "ROLE.view_my_roles_on_entity": "View my roles only for the current entity",
   "ROLE.view_all": "View all roles",
-  "ROLE.select_roles": "Select the roles",
+  "ROLE.select_roles": "Select roles",
 
   "PERMISSIONS.permissions": "Permissions",
   "PERMISSIONS.new": "New permission",
   "PERMISSIONS.list": "View permissions list",
   "PERMISSIONS.view_all_available": "View all available permissions",
-  "PERMISSIONS.select_permissions": "Select the permissions",
+  "PERMISSIONS.select_permissions": "Select permissions",
 
   "CONFIGURATION.configuration": "Configuration",
   "CONFIGURATION.parameters": "Parameters",
