@@ -10,6 +10,8 @@
   "button.close": "Cerrar",
   "button.accept": "Aceptar",
 
+  "string.label": "Etiqueta",
+
   "ENTITY.entities": "Entidades",
   "ENTITY.new": "Nueva entidad",
   "ENTITY.list": "Ver listado de entidades",

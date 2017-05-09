@@ -10,6 +10,8 @@
   "button.close": "Close",
   "button.accept": "Accept",
 
+  "string.label": "Label",
+
   "ENTITY.entities": "Entities",
   "ENTITY.new": "New entity",
   "ENTITY.list": "View entities list",
