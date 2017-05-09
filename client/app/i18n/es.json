@@ -7,6 +7,12 @@
   "unauthorized": "No estás autorizado para hacer esto o tu sesión expiró :(",
   "user_and_password_incorrect": "El usuario o contraseña proporcionados no son correctos :(",
 
+  "SESSION.options": "Opciones de sesión",
+  "SESSION.my_profile": "Mi perfil",
+  "SESSION.select_entity": "Seleccionar entidad",
+  "SESSION.close": "Salir",
+
+  "button.deactivate": "Desactivar",
   "button.close": "Cerrar",
   "button.accept": "Aceptar",
   "button.save": "Guardar",
@@ -18,6 +24,7 @@
   "button.close_session_now": "Cerrar sesión ahora",
 
   "string.role_lc": "rol",
+  "string.user_lc": "usuario",
 
   "string.selected": "seleccionada",
   "string.activate_deactivate": "Activar/Desactivar",
@@ -51,9 +58,12 @@
   "USER.new": "Nuevo usuario",
   "USER.edit": "Editar usuario",
   "USER.list": "Ver listado de usuarios",
+  "USER.view_user_on_entity": "Ver solo usuarios asociados a la entidad actual",
+  "USER.view_all": "Ver todos los usuarios",
   "USER.save_deactivate": "Va a guardar sus datos con la propiedad '{property}' sin marcar. Esto hará que no pueda acceder al sistema. ¿Seguro desea continuar?",
   "USER.close_session_now": "Debe cerrar la sesión e iniciarla de nuevo para que los posibles cambios tengan efecto. ¿Desea cerrar sesión ahora?",
   "USER.permissions_only_in_this_entity": "Tendrá permisos solo en esta entidad",
+  "USER.deactivate_current_user": "Va a desactivar su usuario. ¿Está seguro que desea continuar?",
 
   "ROLE.roles": "Roles",
   "ROLE.new": "Nuevo rol",

@@ -98,7 +98,7 @@
                 def = ownedEntitySrv.searchAll(0, 0);
             }
             else {
-                def = userSrv.entitiesByUser(id, 0, 0);
+                def = userSrv.entitiesByUser(vm.id, 0, 0);
             }
             def.then(function (data) {
                 vm.wizard.entities = [];
@@ -109,7 +109,7 @@
                     vm.wizard.canToogleSingleEntityMode = configSrv.config.multiEntity && vm.wizard.entities.length > 1;
                     //user is associated to only one entity
                     if (vm.wizard.entities.length === 1) {
-                        _loadAssignedRoles(id, vm.wizard.entities[0]['id']);
+                        _loadAssignedRoles(vm.id, vm.wizard.entities[0]['id']);
                         vm.priv.tempEntity = vm.wizard.entities[0];
                     }
                     else { //save data for the login entity

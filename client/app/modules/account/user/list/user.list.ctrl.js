@@ -7,7 +7,7 @@
     'use strict';
 
     var f = function (indexSrv, systemSrv, userSrv, navigationSrv, paginationSrv, ROUTE, searchSrv, blockSrv, sessionSrv,
-                      dialogSrv) {
+                      dialogSrv, translatorSrv, $timeout) {
         var vm = this;
         const keyP = 'USER_LIST';
 
@@ -36,7 +36,7 @@
 
         //fn
         function fnInit() {
-            indexSrv.siteTile = 'Usuarios';
+            translatorSrv.setText('USER.users', indexSrv, 'siteTile');
             paginationSrv.resetPagination();
         }
 
@@ -127,20 +127,22 @@
                 vm.itemToDeActivate = item;
                 var us = sessionSrv.currentUser();
                 if (us && us.id === item.id && !item.enabled) { //deactivate current user?
-                    var buttons = [{text:"Desactivar", function: _doActivateDeactivate, primary: true}];
-                    dialogSrv.showDialog(dialogSrv.type.WARNING, "Confirmación", "Va a desactivar su usuario. Seguro desea continuar?", buttons,
-                        function(){
-                            item.enabled = !item.enabled;
-                        });
-                }
-                else {
-                    _doActivateDeactivate(true);
-                }
+                    var aux = {};
+                    translatorSrv.setText('button.deactivate', aux, 'btnText');
+                    translatorSrv.setText('string.headline.confirmation', aux, 'headline');
+                    translatorSrv.setText('USER.deactivate_current_user', aux, 'messageText');
+                    $timeout(function () {
+                        var buttons = [{text: aux['btnText'], function: _doActivateDeactivate, primary: true}];
+                        dialogSrv.showDialog(dialogSrv.type.WARNING, aux['headline'], aux['messageText'], buttons,
+                            function(){
+                                item.enabled = !item.enabled;
+                            });
+                    });
 
-            }
-            else{
-                console.warn("There is no user for that index");
-            }
+                }
+                else { _doActivateDeactivate(true); }
+
+            } else { console.warn("There is no user for that index"); }
         }
 
         function _doActivateDeactivate(notCurrentUser) {
@@ -174,8 +176,21 @@
         function fnRemove(id) {
             if (typeof id !== 'undefined' && id !== null) {
                 vm.idToRemove = id;
-                var buttons = [{text:"Borrar", function: _doRemove, primary: true}];
-                dialogSrv.showDialog(dialogSrv.type.QUESTION, "Confirmación", "Seguro desea eliminar este usuario?", buttons);
+
+                var aux = {};
+                translatorSrv.setText('string.user_lc', aux, 'thisEntity').then(
+                    function () {
+                        translatorSrv.setText('button.delete', aux, 'btnText');
+                        translatorSrv.setText('string.headline.confirmation', aux, 'headline');
+                        translatorSrv.setText('string.message.delete', aux, 'textMessage',
+                            {'element': aux['thisEntity'], 'GENDER': 'male'});
+
+                        $timeout(function () {
+                            var buttons = [{text:aux['btnText'], function: _doRemove, primary: true}];
+                            dialogSrv.showDialog(dialogSrv.type.QUESTION, aux['headline'], aux['textMessage'], buttons);
+                        })
+                    }
+                );
             }
         }
 
@@ -225,6 +240,6 @@
 
     angular.module('rrms')
         .controller('userListCtrl', ['indexSrv', 'systemSrv', 'userSrv', 'navigationSrv', 'paginationSrv', 'ROUTE',
-            'searchSrv', 'blockSrv', 'sessionSrv', 'dialogSrv', f]);
+            'searchSrv', 'blockSrv', 'sessionSrv', 'dialogSrv', 'translatorSrv', '$timeout', f]);
 
 })();

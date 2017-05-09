@@ -1,24 +1,24 @@
 <div ng-cloak layout-gt-sm="row" layout="column" >
     <div flex-gt-sm="99" flex>
         <!--change role view-->
-        <md-button aria-label="Ver usuarios solo en esta entidad" class="md-icon-button"
+        <md-button aria-label="{{'view_user_on_entity' | translate}}" class="md-icon-button"
                    ng-show="vm.entities.allLoaded"
                    ng-click="vm.search(true)">
             <md-icon md-svg-src="client/app/modules/_common/img/action/ic_flip_to_back_24px.svg"></md-icon>
-            <md-tooltip>Ver usuarios solo en esta entidad</md-tooltip>
+            <md-tooltip>{{'USER.view_user_on_entity' | translate}}</md-tooltip>
         </md-button>
-        <md-button aria-label="Ver todos los usuarios" class="md-icon-button"
+        <md-button aria-label="{{'view_all' | translate}}" class="md-icon-button"
                    ng-hide="vm.entities.allLoaded"
                    ng-click="vm.searchAll(true)">
             <md-icon md-svg-src="client/app/modules/_common/img/action/ic_flip_to_front_24px.svg"></md-icon>
-            <md-tooltip>Ver todos los usuarios</md-tooltip>
+            <md-tooltip>{{'USER.view_all' | translate}}</md-tooltip>
         </md-button>
 
         <!--add new user-->
-        <md-button aria-label="Nuevo usuario" class="md-icon-button"
+        <md-button aria-label="{{'USER.new' | translate}}" class="md-icon-button"
                    ng-click="vm.new()">
             <md-icon md-svg-src="client/app/modules/_common/img/content/ic_add_24px.svg"></md-icon>
-            <md-tooltip>Nuevo usuario</md-tooltip>
+            <md-tooltip>{{'USER.new' | translate}}</md-tooltip>
         </md-button>
 
         <md-content>
@@ -29,24 +29,24 @@
                         <h3 data-ng-bind="item.name + ' (' + item.username + ')'"></h3>
                         <p style="font-style: italic;" data-ng-bind="item.email"></p>
                         <p data-ng-bind="item.enabled | humanReadable:'(':')'"></p>
-                        <md-button class="md-secondary md-icon-button" aria-label="editar usuario"
+                        <md-button class="md-secondary md-icon-button" aria-label="{{'button.edit' | translate}}"
                                    ng-click="vm.edit(item.id)">
                             <md-icon md-svg-src="client/app/modules/_common/img/content/ic_create_24px.svg"></md-icon>
-                            <md-tooltip>Editar</md-tooltip>
+                            <md-tooltip>{{'button.edit' | translate}}</md-tooltip>
                         </md-button>
 
                         <md-checkbox
                                 class="m-top-4px md-secondary"
-                                aria-label="Activar/Desactivar"
+                                aria-label="{{'string.activate_deactivate' | translate}}"
                                 ng-model="item.enabled"
                                 ng-click="vm.activateDeactivate(item)"
                         >
                         </md-checkbox>
 
-                        <md-button class="md-secondary md-icon-button" aria-label="delete role"
+                        <md-button class="md-secondary md-icon-button" aria-label="{{'button.delete' | translate}}"
                                    ng-click="vm.remove(item.id)">
                             <md-icon md-svg-src="client/app/modules/_common/img/action/ic_delete_24px.svg"></md-icon>
-                            <md-tooltip>Eliminar</md-tooltip>
+                            <md-tooltip>{{'button.delete' | translate}}</md-tooltip>
                         </md-button>
                     </div>
                     <md-divider></md-divider>
