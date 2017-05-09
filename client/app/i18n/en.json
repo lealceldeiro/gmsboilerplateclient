@@ -8,6 +8,7 @@
   "user_and_password_incorrect": "The user or password provided are incorrect :(",
 
   "button.close": "Close",
+  "button.accept": "Accept",
 
   "ENTITY.entities": "Entities",
   "ENTITY.new": "New entity",
@@ -27,5 +28,11 @@
   "PERMISSIONS.list": "View permissions list",
 
   "CONFIGURATION.configuration": "Configuration",
-  "CONFIGURATION.parameters": "Parameters"
+  "CONFIGURATION.parameters": "Parameters",
+
+  "LOGIN.authentication": "Authentication",
+  "LOGIN.user_email": "User or email address",
+  "LOGIN.user_email_required": "Either the user or email address is required",
+  "LOGIN.password": "Password",
+  "LOGIN.password_required": "The password is required"
 }

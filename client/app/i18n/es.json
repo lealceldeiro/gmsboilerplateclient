@@ -8,6 +8,7 @@
   "user_and_password_incorrect": "El usuario o contraseña proporcionados no son correctos :(",
 
   "button.close": "Cerrar",
+  "button.accept": "Aceptar",
 
   "ENTITY.entities": "Entidades",
   "ENTITY.new": "Nueva entidad",
@@ -26,6 +27,12 @@
   "PERMISSIONS.list": "Ver listado de permisos",
 
   "CONFIGURATION.configuration": "Configuración",
-  "CONFIGURATION.parameters": "Parámetros"
+  "CONFIGURATION.parameters": "Parámetros",
+
+  "LOGIN.authentication": "Autenticación",
+  "LOGIN.user_email": "Usuario o dirección email",
+  "LOGIN.user_email_required": "El usuario o email es obligtorio",
+  "LOGIN.password": "Contraseña",
+  "LOGIN.password_required": "La contraseña es obligtoria"
 
 }

@@ -6,8 +6,8 @@
                 <div layout-align="center center">
                     <div layout="row" layout-align="center center" flex="100">
                         <md-icon md-svg-src="client/app/modules/_common/img/hardware/ic_security_24px.svg"></md-icon>
-                        &nbsp;
-                        <h2>Autenticaci&oacute;n</h2>
+                        &nbsp;{{ 'LOGIN.authentication' | translate}}
+                        <h2></h2>
                     </div>
                 </div>
             </div>
@@ -19,35 +19,35 @@
 
             <!--username or email-->
             <md-input-container class="md-icon-float md-block">
-                <label>Usuario o dirección email</label>
+                <label>{{ 'LOGIN.user_email' | translate}}</label>
                 <md-icon md-svg-src="client/app/modules/_common/img/social/ic_person_24px.svg"></md-icon>
                 <input ng-model="vm.emailOrUsername" type="text" required name="emailOrUsername"/>
 
                 <div ng-messages="loginForm.emailOrUsername.$error" md-auto-hide="false">
                     <div ng-message="required">
-                        El usuario o correo electr&oacute;nico es obligtorio
+                        {{ 'LOGIN.user_email_required' | translate}}
                     </div>
                 </div>
             </md-input-container>
 
             <!--password-->
             <md-input-container class="md-icon-float md-block">
-                <label>Contrase&ntilde;a</label>
+                <label>{{ 'LOGIN.password' | translate}}</label>
                 <md-icon md-svg-src="client/app/modules/_common/img/action/ic_lock_24px.svg"></md-icon>
                 <input ng-model="vm.password" type="password" required name="password"/>
                 <div ng-messages="loginForm.password.$error" md-auto-hide="false">
                     <div ng-message="required">
-                        La contrase&ntilde;a es obligtoria
+                        {{ 'LOGIN.password_required' | translate}}
                     </div>
                 </div>
             </md-input-container>
 
             <div layout-align="center center">
-                <md-button class="md-primary md-raised bl" aria-label="Aceptar" layout-fill
+                <md-button class="md-primary md-raised bl" aria-label="{{'button.accept' | translate}}" layout-fill
                            ng-click="vm.login(loginForm)">
                     <md-icon md-svg-src="client/app/modules/_common/img/action/ic_done_24px.svg"></md-icon>
                     &nbsp;
-                    Aceptar
+                    {{'button.accept' | translate}}
                 </md-button>
             </div>
 
