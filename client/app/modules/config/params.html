@@ -5,7 +5,7 @@
             <div flex="99">
                 <md-content class="md-no-momentum">
                     <md-checkbox ng-model="vm.entity.multiEntity" aria-label="Multi-entidad">
-                        Es una applicaci&oacute;n multi-entidad
+                        {{'CONFIGURATION.is_multi_entity_app' | translate}}
                     </md-checkbox>
                 </md-content>
             </div>
@@ -21,11 +21,11 @@
 
     <md-button class="md-primary md-raised"
                ng-click="vm.save(configForm)">
-        Guardar
+        {{'button.save' | translate}}
     </md-button>
     <md-button class="md-active md-raised"
                ng-click="vm.cancel()">
-        Cancelar
+        {{'button.cancel' | translate}}
     </md-button>
 
 </div>

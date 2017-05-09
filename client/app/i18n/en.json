@@ -84,6 +84,7 @@
 
   "CONFIGURATION.configuration": "Configuration",
   "CONFIGURATION.parameters": "Parameters",
+  "CONFIGURATION.is_multi_entity_app": "It is a multi-entity app",
 
   "LOGIN.authentication": "Authentication",
   "LOGIN.user_email": "User or email address",
