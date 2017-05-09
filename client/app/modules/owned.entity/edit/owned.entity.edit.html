@@ -5,39 +5,39 @@
 
                 <!--name-->
                 <md-input-container class="md-icon-float md-block">
-                    <label>Nombre</label>
+                    <label>{{'string.name' | translate}}</label>
                     <md-icon md-svg-src="client/app/modules/_common/img/action/ic_home_24px.svg"></md-icon>
                     <input ng-model="vm.entity.name" type="text" name="name" required/>
 
                     <div ng-messages="editEntityForm.name.$error" md-auto-hide="false">
                         <div ng-message="required">
-                            El nombre es obligtorio
+                            {{'string.name_required' | translate}}
                         </div>
                     </div>
                 </md-input-container>
 
                 <!--username-->
                 <md-input-container class="md-icon-float md-block">
-                    <label>Usuario</label>
+                    <label>{{'string.user' | translate}}</label>
                     <md-icon md-svg-src="client/app/modules/_common/img/social/ic_person_24px.svg"></md-icon>
                     <input data-ng-model="vm.entity.username" name="username" required/>
 
                     <div ng-messages="editEntityForm.username.$error" md-auto-hide="false">
                         <div ng-message="required">
-                            El usuario es obligtorio
+                            {{'string.user_required' | translate}}
                         </div>
                     </div>
                 </md-input-container>
 
                 <!--description-->
                 <md-input-container class="md-icon-float md-block">
-                    <label>Descripci&oacute;n</label>
+                    <label>{{'string.description' | translate}}</label>
                     <md-icon md-svg-src="client/app/modules/_common/img/action/ic_description_24px.svg"></md-icon>
                     <textarea ng-model="vm.entity.description" name="description" required></textarea>
 
                     <div ng-messages="editEntityForm.description.$error" md-auto-hide="false">
                         <div ng-message="required">
-                            La descripci&oacute;n es obligtoria
+                            {{'string.description_required' | translate}}
                         </div>
                     </div>
                 </md-input-container>
@@ -56,10 +56,10 @@
 
     <md-button class="md-primary md-raised"
                ng-click="vm.save(editEntityForm)">
-        Guardar
+        {{'button.save' | translate}}
     </md-button>
     <md-button class="md-active md-raised"
                ng-click="vm.cancel()">
-        Cancelar
+        {{'button.cancel' | translate}}
     </md-button>
 </div>

@@ -6,7 +6,7 @@
 
     'use strict';
 
-    var f = function (indexSrv, ownedEntitySrv, navigationSrv, ROUTE, systemSrv, notificationSrv, blockSrv, sessionSrv) {
+    var f = function (indexSrv, ownedEntitySrv, navigationSrv, ROUTE, systemSrv, notificationSrv, blockSrv, translatorSrv) {
         var vm = this;
         const keyP = 'OWNED_ENTITY_EDIT';
 
@@ -27,7 +27,7 @@
         //fn
         function fnInit() {
             if (navigationSrv.currentPath() === ROUTE.OWNED_ENTITY_NEW) {
-                indexSrv.siteTile = 'Nueva Entidad';
+                translatorSrv.setText('ENTITY.new', indexSrv, 'siteTitle');
             }
             else {
                 vm.wizard.entity = null;
@@ -35,7 +35,7 @@
                 if (p && null !== p.id && typeof p.id !== 'undefined' && p.id !== 'undefined'&& p.id !== 'null') {
                     vm.id = p.id;
                     fnLoadData(p.id);
-                    indexSrv.siteTile = 'Editar Entidad';
+                    translatorSrv.setText('ENTITY.edit', indexSrv, 'siteTitle');
                 }
                 else{
                     notificationSrv.showNotification(notificationSrv.type.WARNING, notificationSrv.utilText.select_element_required);
@@ -92,6 +92,6 @@
 
     angular.module('rrms')
         .controller('ownedEntityEditCtrl', ['indexSrv', 'ownedEntitySrv', 'navigationSrv', 'ROUTE', 'systemSrv', 'notificationSrv',
-            'blockSrv', 'sessionSrv', f]);
+            'blockSrv', 'translatorSrv', f]);
 
 })();

@@ -52,6 +52,7 @@
 
   "ENTITY.entities": "Entities",
   "ENTITY.new": "New entity",
+  "ENTITY.edit": "Edit entity",
   "ENTITY.list": "View entities list",
 
   "USER.users": "Users",
