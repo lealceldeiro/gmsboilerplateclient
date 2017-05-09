@@ -26,7 +26,8 @@
     "angular-animate": "1.5.8",
     "angular-messages": "1.5.8",
     "material-angular-paging": "*",
-    "angular-translate": "^2.15.1"
+    "angular-translate": "^2.15.1",
+    "angular-translate-interpolation-messageformat": "^2.15.1"
   },
   "resolutions": {
     "angular": "1.5.8"

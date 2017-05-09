@@ -7,7 +7,7 @@
     'use strict';
 
     var roleListCtrl = function (indexSrv, systemSrv, roleSrv, navigationSrv, paginationSrv, ROUTE, searchSrv, blockSrv,
-                                 sessionSrv, dialogSrv) {
+                                 sessionSrv, dialogSrv, translatorSrv, $timeout) {
         var vm = this;
         const keyP = 'ROLE_LIST';
 
@@ -35,7 +35,7 @@
 
         //fn
         function fnInit() {
-            indexSrv.siteTile = 'Roles';
+            translatorSrv.setText('ROLE.roles', indexSrv, 'siteTile');
             paginationSrv.resetPagination();
         }
 
@@ -120,7 +120,7 @@
                     }
                 );
             }
-            else{
+            else {
                 console.warn("There is no role for that index");
             }
         }
@@ -136,8 +136,21 @@
         function fnRemove(id) {
             if (typeof id !== 'undefined' && id !== null) {
                 vm.idToRemove = id;
-                var buttons = [{text:"Borrar", function: _doRemove, primary: true}];
-                dialogSrv.showDialog(dialogSrv.type.QUESTION, "Confirmación", "Seguro desea eliminar este rol?", buttons);
+
+                var aux = {};
+                translatorSrv.setText('string.role_lc', aux, 'thisEntity').then(
+                    function () {
+                        translatorSrv.setText('button.delete', aux, 'deleteButtonText');
+                        translatorSrv.setText('string.headline.confirmation', aux, 'headline');
+                        translatorSrv.setText('string.message.delete', aux, 'deleteTextMessage',
+                            {'element': aux['thisEntity'], 'GENDER': 'male'});
+
+                        $timeout(function () {
+                            var buttons = [{text:aux['deleteButtonText'], function: _doRemove, primary: true}];
+                            dialogSrv.showDialog(dialogSrv.type.QUESTION, aux['headline'], aux['deleteTextMessage'], buttons);
+                        })
+                    }
+                );
             }
         }
 
@@ -177,6 +190,6 @@
 
     angular.module('rrms')
         .controller('roleListCtrl', ['indexSrv', 'systemSrv', 'roleSrv', 'navigationSrv', 'paginationSrv', 'ROUTE', 'searchSrv',
-            'blockSrv', 'sessionSrv', 'dialogSrv', roleListCtrl]);
+            'blockSrv', 'sessionSrv', 'dialogSrv', 'translatorSrv', '$timeout', roleListCtrl]);
 
 })();

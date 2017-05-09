@@ -14,6 +14,8 @@
   "button.edit": "Edit",
   "button.delete": "Delete",
 
+  "string.role_lc": "role",
+
   "string.activate_deactivate": "Activate/Deactivate",
   "string.active": "Active",
   "string.label": "Label",
@@ -22,6 +24,10 @@
   "string.description": "Description",
   "string.description_required":"The description is required",
 
+  "string.headline.confirmation": "Confirmation",
+
+  "string.message.delete": "Are you sure you want to delete this {element}?",
+
   "ENTITY.entities": "Entities",
   "ENTITY.new": "New entity",
   "ENTITY.list": "View entities list",
@@ -29,7 +35,6 @@
   "USER.users": "Users",
   "USER.new": "New user",
   "USER.list": "View users list",
-
 
   "ROLE.roles": "Roles",
   "ROLE.new": "New role",

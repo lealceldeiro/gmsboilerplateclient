@@ -14,6 +14,8 @@
   "button.edit": "Editar",
   "button.delete": "Eliminar",
 
+  "string.role_lc": "rol",
+
   "string.activate_deactivate": "Activar/Desactivar",
   "string.active": "Activo",
   "string.label": "Etiqueta",
@@ -21,6 +23,10 @@
   "string.name_required": "El nombre es obligatorio",
   "string.description": "Descripción",
   "string.description_required": "La descripción es obligatoria",
+
+  "string.headline.confirmation": "Confirmación",
+
+  "string.message.delete": "¿Está seguro que desea borrar est{GENDER, select, male{e} female{a} other{e}} {element}?",
 
   "ENTITY.entities": "Entidades",
   "ENTITY.new": "Nueva entidad",
@@ -51,5 +57,4 @@
   "LOGIN.user_email_required": "El usuario o email es obligtorio",
   "LOGIN.password": "Contraseña",
   "LOGIN.password_required": "La contraseña es obligtoria"
-
 }

@@ -16,9 +16,10 @@
             }
         }
         $translateProvider
+            .useMessageFormatInterpolation()
             .determinePreferredLanguage()
             .fallbackLanguage(['en', 'es'])
-            .useSanitizeValueStrategy('sanitize');
+            .useSanitizeValueStrategy('escapeParameters');
 
     }]);
 

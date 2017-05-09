@@ -17,8 +17,8 @@
             return self.service;
 
             //fn
-            function fnSetText(i18nKey, objectWithText, textVarKey) {
-                $translate(i18nKey).then(
+            function fnSetText(i18nKey, objectWithText, textVarKey, interpolationObject) {
+                return $translate(i18nKey, interpolationObject).then(
                     function (text) {
                         objectWithText[textVarKey] = text;
                     },
