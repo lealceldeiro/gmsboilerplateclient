@@ -89,7 +89,7 @@
                         </div>
                     </md-input-container>
 
-                    <div data-ng-if="editUserForm.password.$valid"
+                    <div data-ng-if="vm.entity.password && editUserForm.password.$valid"
                             ng-password-strength="vm.entity.password" strength="vm.passStrength"
                          inner-class="progress-bar" inner-class-prefix="progress-bar-"
                         class="password-strength-ch"
