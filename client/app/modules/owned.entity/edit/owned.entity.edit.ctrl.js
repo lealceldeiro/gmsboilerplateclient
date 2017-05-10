@@ -17,7 +17,8 @@
 
             init: fnInit,
             cancel: fnCancel,
-            save: fnSave
+            save: fnSave,
+            checkUsername: fnCheckUsername
         };
 
         vm.wizard.init();
@@ -62,7 +63,7 @@
         function fnSave(form) {
             if (form) {
                 form.$setSubmitted();
-                if (form.$valid) {
+                if (form.$valid && !vm.wizard.userTaken) {
                     blockSrv.block();
                     var params = {
                         username: vm.wizard.entity.username,
@@ -86,6 +87,21 @@
 
         function fnCancel() {
             navigationSrv.goTo(ROUTE.OWNED_ENTITY);
+        }
+
+        function fnCheckUsername() {
+            vm.wizard.userTaken = false;
+            if (typeof vm.id === 'undefined' || vm.id === null) {
+                var fnKey = keyP + "fnCheckUsername";
+                ownedEntitySrv.getByUsername(vm.wizard.entity.username).then(
+                    function (data) {
+                        var e = systemSrv.eval(data, fnKey);
+                        if (e && systemSrv.getItem(fnKey)) {
+                            vm.wizard.userTaken = true;
+                        }
+                    }
+                )
+            }
         }
 
     };

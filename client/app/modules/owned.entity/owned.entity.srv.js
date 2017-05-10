@@ -15,6 +15,7 @@
 
             search: fnSearch,
             searchAll: fnSearchAll,
+            getByUsername: fnGetByUsername,
             show: fnShow,
             remove: fnRemove,
             save: fnSave,
@@ -82,6 +83,11 @@
             }
 
             var def = $http.get(url +"users/" + id + params);
+            return baseSrv.resolveDeferred(def);
+        }
+
+        function fnGetByUsername(username) {
+            var def = $http.get(url + "get/" + username);
             return baseSrv.resolveDeferred(def);
         }
     };
