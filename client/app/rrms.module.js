@@ -51,7 +51,8 @@
             'LocalStorageModule',                               //local storage module, used for instance for storing auth token
             'ngMaterial',
             'ngMessages',
-            'pascalprecht.translate'                            //angular-translate
+            'pascalprecht.translate',                           //angular-translate
+            'ngPasswordStrength'
 
         ]
     )

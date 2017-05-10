@@ -16,6 +16,7 @@ var f = function (systemSrv, $http, valueSrv, baseSrv, ownedEntitySrv) {
         searchAllFromEntities: fnSearchAllFromEntities,
         show: fnShow,
         getByUsername: fnGetByUsername,
+        getByEmail: fnGetByEmail,
         remove: fnRemove,
         save: fnSave,
         activate: fnActivate,
@@ -43,13 +44,13 @@ var f = function (systemSrv, $http, valueSrv, baseSrv, ownedEntitySrv) {
         var params = baseSrv.getParams(offset, max, criteria);
 
         if (angular.isDefined(eidS) && angular.isArray(eidS)) {
-            var es = "?";
+            var es = !params ? "?e=" : "&e=";
             angular.forEach(eidS, function (id) {
-                es += id + "&";
+                es += id + "&e=";
             })
         }
 
-        var def = $http.get(url + "associated" + es.substring(0, es.length - 1) + params);
+        var def = $http.get(url + "associated" + params + es.substring(0, es.length - 3));
         return baseSrv.resolveDeferred(def);
     }
 
@@ -65,6 +66,11 @@ var f = function (systemSrv, $http, valueSrv, baseSrv, ownedEntitySrv) {
 
     function fnGetByUsername(username) {
         var def = $http.get(url + "get/" + username);
+        return baseSrv.resolveDeferred(def);
+    }
+
+    function fnGetByEmail(email) {
+        var def = $http.get(url + "email/" + email);
         return baseSrv.resolveDeferred(def);
     }
 

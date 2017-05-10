@@ -47,11 +47,12 @@
                                 userSrv.getByUsername(systemSrv.getAuthUser()).then(
                                     function (data) {
                                         var e2 = systemSrv.eval(data, key);
-                                        if (e2) {
+                                        var user = systemSrv.getItem(key);
+                                        if (e2 && user) {
                                             var key2 = "fnLogin-getLoginEntity" + keyP;
 
                                             //get last entity
-                                            loginSrv.getLoginEntity(systemSrv.getItem(key).id).then(
+                                            loginSrv.getLoginEntity(user.id).then(
                                                 function (data) {
                                                     var e3 = systemSrv.eval(data, key2, false, true);
                                                     if (e3) {
@@ -79,7 +80,7 @@
                                                     }
                                                 }
                                             );
-                                            sessionSrv.setCurrentUser(systemSrv.getItem(key));
+                                            sessionSrv.setCurrentUser(user);
                                         }
                                         else {
                                             sessionSrv.logOut();

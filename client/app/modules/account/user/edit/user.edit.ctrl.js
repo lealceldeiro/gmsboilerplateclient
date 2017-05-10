@@ -45,7 +45,10 @@
 
             toggleEMode: fnToggleEMode,
             selectedEntity: null,
-            saveRolesAndSelectEntity: fnSaveRolesAndSelectEntity
+            saveRolesAndSelectEntity: fnSaveRolesAndSelectEntity,
+            seeValidUser: fnSeeValidUser,
+            checkUsername: fnCheckUsername,
+            checkEmail: fnCheckEmail
         };
 
         vm.wizard.init();
@@ -145,7 +148,7 @@
 
             if (form) {
                 form.$setSubmitted();
-                if (form.$valid && !vm.wizard.passwordMatch.notMatch) {
+                if (form.$valid && !vm.wizard.passwordMatch.notMatch && !vm.wizard.userTaken && !vm.wizard.emailTaken) {
                     if (typeof vm.id !== 'undefined' && vm.id !== null && !vm.wizard.entity.enabled) {
                         var u = sessionSrv.currentUser();
                         if (u) {
@@ -306,6 +309,40 @@
             else if (vm.wizard.entities.length > 1){
                 vm.wizard.selectedEntity = vm.priv.tempEntity;
                 fnSaveRolesAndSelectEntity(vm.priv.tempEntity); //save data for last entity clicked
+            }
+        }
+
+        function fnSeeValidUser() {
+            dialogSrv.showDialogValidUser();
+        }
+
+        function fnCheckUsername() {
+            vm.wizard.userTaken = false;
+            if (typeof vm.id === 'undefined' || vm.id === null) {
+                var fnKey = keyP + "fnCheckUsername";
+                userSrv.getByUsername(vm.wizard.entity.username).then(
+                    function (data) {
+                        var e = systemSrv.eval(data, fnKey);
+                        if (e && systemSrv.getItem(fnKey)) {
+                            vm.wizard.userTaken = true;
+                        }
+                    }
+                )
+            }
+        }
+
+        function fnCheckEmail() {
+            vm.wizard.emailTaken = false;
+            if (typeof vm.id === 'undefined' || vm.id === null) {
+                var fnKey = keyP + "fnCheckUsername";
+                userSrv.getByEmail(vm.wizard.entity.email).then(
+                    function (data) {
+                        var e = systemSrv.eval(data, fnKey);
+                        if (e && systemSrv.getItem(fnKey)) {
+                            vm.wizard.emailTaken = true;
+                        }
+                    }
+                )
             }
         }
 
