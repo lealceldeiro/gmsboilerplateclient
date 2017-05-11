@@ -6,12 +6,16 @@
 
     'use strict';
 
-    var sessionCtrl = function (sessionSrv, navigationSrv, ROUTE, systemSrv, configSrv, $timeout) {
+    var sessionCtrl = function (sessionSrv, navigationSrv, ROUTE, systemSrv, configSrv, $timeout, $translate) {
         var vm = this;
         var keyP = "__SESSIONCTRL__";
         var MAX_RETRY = 3, retries = 0;
 
         vm.wizard = {
+            lan: {
+                'spanish': 'es',
+                'english': 'en'
+            },
             isMultiEntityApp: false,
 
             init: fnInit,
@@ -19,7 +23,9 @@
             logout: fnLogout,
             go: goTo,
 
-            viewProfile: fnViewProfile
+            viewProfile: fnViewProfile,
+
+            changeLanguage: fnChangeLanguage
         };
 
         vm.wizard.init();
@@ -75,6 +81,9 @@
                 vm.wizard.oEntity = sessionSrv.loginEntity();
                 vm.wizard.permissions = sessionSrv.getPermissions();
 
+                var lan = sessionSrv.getLanguage() || $translate.preferredLanguage();
+                fnChangeLanguage(lan, true);
+
                 navigationSrv.goTo(navigationSrv.DEFAULT_PATH)
             }
             else{
@@ -115,9 +124,17 @@
             );
         }
 
+        function fnChangeLanguage(lan, doNotUpdateLocalStorage) {
+            $translate.use(lan);
+            if (!doNotUpdateLocalStorage) {
+                configSrv.changeLanguage(lan);
+            }
+        }
+
     };
 
     angular.module('rrms')
-        .controller('sessionCtrl', ['sessionSrv', 'navigationSrv', 'ROUTE', 'systemSrv', 'configSrv', '$timeout', sessionCtrl]);
+        .controller('sessionCtrl', ['sessionSrv', 'navigationSrv', 'ROUTE', 'systemSrv', 'configSrv', '$timeout',
+            '$translate', sessionCtrl]);
 
 })();

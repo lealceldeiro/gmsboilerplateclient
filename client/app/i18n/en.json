@@ -96,6 +96,10 @@
   "CONFIGURATION.parameters": "Parameters",
   "CONFIGURATION.is_multi_entity_app": "It is a multi-entity app",
 
+  "LANGUAGE.language": "Language",
+  "LANGUAGE.english": "English",
+  "LANGUAGE.spanish": "Spanish",
+
   "LOGIN.authentication": "Authentication",
   "LOGIN.user_email": "User or email address",
   "LOGIN.user_email_required": "Either the user or email address is required",

@@ -84,6 +84,7 @@
         }
 
         function fnRemove() {
+            vm.toRemoveProfile = false;
             var u = sessionSrv.currentUser();
             var aux = {};
             var isThis = u && u.id == vm.id;
@@ -102,6 +103,7 @@
                 );
             }
             else {
+                vm.toRemoveProfile = true;
                 translatorSrv.setText('USER.delete_account', aux, 'messageText');
                 $timeout(function () {
                     _showRequesForDeleting(dialogSrv.type.WARNING, aux['btnText'], aux['headline'], aux['messageText'])

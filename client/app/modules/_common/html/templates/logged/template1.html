@@ -97,6 +97,26 @@
                         </md-menu-content>
                     </md-menu>
 
+                    <!--Language-->
+                    <md-menu>
+                        <button class="md-primary" ng-click="$mdMenu.open()">
+                            {{'LANGUAGE.language' | translate}}
+                        </button>
+                        <md-menu-content>
+                            <md-menu-item>
+                                <md-button ng-click="sCtrl.changeLanguage(sCtrl.lan.english)">
+                                    {{'LANGUAGE.english' | translate}}
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-divider></md-menu-divider>
+                            <md-menu-item>
+                                <md-button ng-click="sCtrl.changeLanguage(sCtrl.lan.spanish)">
+                                    {{'LANGUAGE.spanish' | translate}}
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+
                 </md-menu-bar>
 
                 <span flex></span>

@@ -15,12 +15,15 @@ var sessionSrv = function (baseSrv, systemSrv, localStorageService, $rootScope) 
     const currentUKey =  lsPrefix + "CurrentUsr";
     const permissionsKey =  lsPrefix + "uPermissions";
     const oEntityKey =  lsPrefix + "oCEntity";
+    const lanKey =  lsPrefix + "lan";
 
     var sToken = null;
     var rToken = null;
     var currentUser = null;
     var permissions = null;
     var ownedEntity = null; //house, enterprise, business, or any other over which the user has control over
+
+    var lan = {};
 
     var logged;
 
@@ -43,7 +46,10 @@ var sessionSrv = function (baseSrv, systemSrv, localStorageService, $rootScope) 
         setPermissions: fnSetPermissions,
         getPermissions: fnGetPermissions,
 
-        clearSession: fnClearSession
+        clearSession: fnClearSession,
+
+        getLanguage: fnGetLanguage,
+        setLanguage: fnSetLanguage
     };
 
     return self.service;
@@ -172,6 +178,32 @@ var sessionSrv = function (baseSrv, systemSrv, localStorageService, $rootScope) 
             }
         }
         return permissions;
+    }
+
+
+
+    function fnGetLanguage() {
+        var u = fnGetCurrentUser();
+        if (u) {
+            if (!lan[u.id]) {
+                lan = localStorageService.get(lanKey);
+            }
+            else {
+                if (!localStorageService.get(lanKey)[u.id]) {
+                    localStorageService.set(lanKey, lan);
+                }
+            }
+            return lan ? lan[u.id] : null;
+        }
+    }
+
+    function fnSetLanguage(language) {
+        var u = fnGetCurrentUser();
+        if (u) {
+            lan = localStorageService.get(lanKey) || {};
+            lan[u.id] = language;
+            localStorageService.set(lanKey, lan);
+        }
     }
 
 };

@@ -23,11 +23,18 @@
                     <input data-ng-model="vm.entity.username" name="username" required
                            data-ng-model-options="{debounce: 500}"
                            data-ng-change="vm.checkUsername()"
+                           data-ng-pattern="/(?=^.{3,20}$)^[a-zA-Z][a-zA-Z0-9]*[._-]?[a-zA-Z0-9]+$/"
                     />
 
                     <div ng-messages="editEntityForm.username.$error" md-auto-hide="false">
                         <div ng-message="required">
                             {{'string.user_required' | translate}}
+                        </div>
+                        <div ng-message="pattern">
+                            {{'string.it_is_not' | translate}}
+                            <strong class="hand-pointer" data-ng-click="vm.seeValidUser()">
+                                {{'string.valid_user' | translate:'{"GENDER": "male"}'}}
+                            </strong>
                         </div>
                     </div>
                     <input type="hidden" name="userTaken" data-ng-if="vm.userTaken" ng-model="vm.ctrlUserTaken" required>

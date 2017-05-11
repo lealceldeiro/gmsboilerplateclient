@@ -6,7 +6,8 @@
 
     'use strict';
 
-    var f = function (indexSrv, ownedEntitySrv, navigationSrv, ROUTE, systemSrv, notificationSrv, blockSrv, translatorSrv) {
+    var f = function (indexSrv, ownedEntitySrv, navigationSrv, ROUTE, systemSrv, notificationSrv, blockSrv, translatorSrv,
+                      dialogSrv) {
         var vm = this;
         const keyP = 'OWNED_ENTITY_EDIT';
 
@@ -18,7 +19,9 @@
             init: fnInit,
             cancel: fnCancel,
             save: fnSave,
-            checkUsername: fnCheckUsername
+            checkUsername: fnCheckUsername,
+
+            seeValidUser: fnSeeValidUser
         };
 
         vm.wizard.init();
@@ -104,10 +107,15 @@
             }
         }
 
+
+        function fnSeeValidUser() {
+            dialogSrv.showDialogValidUser();
+        }
+
     };
 
     angular.module('rrms')
         .controller('ownedEntityEditCtrl', ['indexSrv', 'ownedEntitySrv', 'navigationSrv', 'ROUTE', 'systemSrv', 'notificationSrv',
-            'blockSrv', 'translatorSrv', f]);
+            'blockSrv', 'translatorSrv', 'dialogSrv', f]);
 
 })();

@@ -5,9 +5,9 @@
 (function () {
     'use strict';
 
-    angular.module('rrms').service('configSrv', ['baseSrv', '$http', 'systemSrv',
+    angular.module('rrms').service('configSrv', ['baseSrv', '$http', 'systemSrv', 'sessionSrv',
 
-        function (baseSrv, $http, systemSrv) {
+        function (baseSrv, $http, systemSrv, sessionSrv) {
             var self = this;
 
             var url = systemSrv.APIAbsoluteUrl;
@@ -16,7 +16,9 @@
                 config:{},
 
                 loadConfig: fnLoadConfig,
-                save: fnSave
+                save: fnSave,
+
+                changeLanguage: fnChangeLanguage
             };
 
             return self.service;
@@ -28,6 +30,10 @@
 
             function fnSave(params, uid) {
                 return baseSrv.resolveDeferred($http.post(url + 'config', params));
+            }
+
+            function fnChangeLanguage(lan) {
+                sessionSrv.setLanguage(lan);
             }
         }
     ])
