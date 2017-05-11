@@ -10,6 +10,11 @@
         var FORBIDDEN = 403;
 
         function request(req) {
+            var lan = sessionSrv.getLanguage();
+            if (lan) {
+                req.headers['Accept-Language'] = lan;
+                req.headers['Content-Language'] = lan;
+            }
             //AUTH
             var token = sessionSrv.securityToken();
             if (token) {
