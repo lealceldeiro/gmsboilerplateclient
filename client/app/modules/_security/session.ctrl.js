@@ -81,8 +81,25 @@
                 vm.wizard.oEntity = sessionSrv.loginEntity();
                 vm.wizard.permissions = sessionSrv.getPermissions();
 
-                var lan = sessionSrv.getLanguage() || $translate.preferredLanguage();
-                fnChangeLanguage(lan, true);
+                var lan = sessionSrv.getLanguage();
+                if(lan){
+                    fnChangeLanguage(lan, true);
+                } else {
+                    var fnKey = keyP + "fnInit-getConfigLanguage";
+                    configSrv.getConfigLanguage(vm.wizard.user.id).then(
+                        function (data) {
+                            var it = systemSrv.eval(data, fnKey);
+                            if (it) {
+                                it = systemSrv.getItem(fnKey);
+                                if (!it) {
+                                    it = $translate.preferredLanguage();
+                                }
+                            }
+                            else { it = $translate.preferredLanguage(); }
+                            fnChangeLanguage(it);
+                        }
+                    )
+                }
 
                 navigationSrv.goTo(navigationSrv.DEFAULT_PATH)
             }
@@ -124,10 +141,10 @@
             );
         }
 
-        function fnChangeLanguage(lan, doNotUpdateLocalStorage) {
+        function fnChangeLanguage(lan, doNotPersist) {
             $translate.use(lan);
-            if (!doNotUpdateLocalStorage) {
-                configSrv.changeLanguage(lan);
+            if (!doNotPersist) {
+                configSrv.changeLanguage(vm.wizard.user.id, lan);
             }
         }
 

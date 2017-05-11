@@ -185,11 +185,11 @@ var sessionSrv = function (baseSrv, systemSrv, localStorageService, $rootScope) 
     function fnGetLanguage() {
         var u = fnGetCurrentUser();
         if (u) {
-            if (!lan[u.id]) {
+            if (!lan || !lan[u.id]) {
                 lan = localStorageService.get(lanKey);
             }
             else {
-                if (!localStorageService.get(lanKey)[u.id]) {
+                if (!localStorageService.get(lanKey) || !localStorageService.get(lanKey)[u.id]) {
                     localStorageService.set(lanKey, lan);
                 }
             }
