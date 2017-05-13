@@ -33,7 +33,7 @@
                 if (uid) {
                     params['userId'] = uid;
                 }
-                return baseSrv.resolveDeferred($http.post(url + 'config', params));
+                return baseSrv.resolveDeferred($http.post(url, params));
             }
 
             function fnChangeLanguage(uid, lan) {

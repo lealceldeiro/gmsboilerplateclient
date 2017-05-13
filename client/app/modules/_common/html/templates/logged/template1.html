@@ -10,18 +10,18 @@
                     <span>&boxv;</span>
 
                     <!--owned entities-->
-                    <md-menu ng-if="sCtrl.isMultiEntityApp">
+                    <md-menu ng-show="sCtrl.isMultiEntityApp && sCtrl.can.manageOwnedEntity()">
                         <button class="md-primary" ng-click="$mdMenu.open()">
                         {{'ENTITY.entities' | translate}}
                         </button>
                         <md-menu-content>
-                            <md-menu-item>
+                            <md-menu-item ng-show="sCtrl.can.createOwnedEntity()">
                                 <md-button ng-click="sCtrl.go('/admin/owned-entities/new')">
                                     {{'ENTITY.new' | translate}}
                                 </md-button>
                             </md-menu-item>
-                            <md-menu-divider></md-menu-divider>
-                            <md-menu-item>
+                            <md-menu-divider ng-show="sCtrl.can.createOwnedEntity() && sCtrl.can.readOwnedEntity()"></md-menu-divider>
+                            <md-menu-item ng-show="sCtrl.can.readOwnedEntity()">
                                 <md-button ng-click="sCtrl.go('/admin/owned-entities')">
                                     {{'ENTITY.list' | translate}}
                                 </md-button>
@@ -30,18 +30,18 @@
                     </md-menu>
 
                     <!--User-->
-                    <md-menu>
+                    <md-menu ng-show="sCtrl.can.manageUser()">
                         <button class="md-raised md-primary" ng-click="$mdMenu.open()">
                             {{'USER.users' | translate}}
                         </button>
                         <md-menu-content>
-                            <md-menu-item>
+                            <md-menu-item ng-show="sCtrl.can.createOwnedEntity()">
                                 <md-button ng-click="sCtrl.go('/admin/users/new')">
                                     {{'USER.new' | translate}}
                                 </md-button>
                             </md-menu-item>
-                            <md-menu-divider></md-menu-divider>
-                            <md-menu-item>
+                            <md-menu-divider ng-show="sCtrl.can.createOwnedEntity() && sCtrl.can.readUser()"></md-menu-divider>
+                            <md-menu-item ng-show="sCtrl.can.readUser()">
                                 <md-button ng-click="sCtrl.go('/admin/users')">
                                     {{'USER.list' | translate}}
                                 </md-button>
@@ -50,18 +50,18 @@
                     </md-menu>
 
                     <!--Roles-->
-                    <md-menu>
+                    <md-menu ng-show="sCtrl.can.manageRole()">
                         <button class="md-primary" ng-click="$mdMenu.open()">
                             {{'ROLE.roles' | translate}}
                         </button>
                         <md-menu-content>
-                            <md-menu-item>
+                            <md-menu-item ng-show="sCtrl.can.createRole()">
                                 <md-button ng-click="sCtrl.go('/admin/roles/new')">
                                     {{'ROLE.new' | translate}}
                                 </md-button>
                             </md-menu-item>
-                            <md-menu-divider></md-menu-divider>
-                            <md-menu-item>
+                            <md-menu-divider ng-show="sCtrl.can.readRole() && sCtrl.can.createRole()"></md-menu-divider>
+                            <md-menu-item ng-show="sCtrl.can.readRole()">
                                 <md-button ng-click="sCtrl.go('/admin/roles')">
                                     {{'ROLE.list' | translate}}
                                 </md-button>
@@ -70,11 +70,11 @@
                     </md-menu>
 
                     <!--Permissions-->
-                    <md-menu>
+                    <md-menu ng-show="sCtrl.can.managePermission()">
                         <button class="md-primary" ng-click="$mdMenu.open()">
                             {{'PERMISSIONS.permissions' | translate}}
                         </button>
-                        <md-menu-content>
+                        <md-menu-content ng-show="sCtrl.can.readPermission()">
                             <md-menu-item>
                                 <md-button ng-click="sCtrl.go('/admin/permissions')">
                                     {{'PERMISSIONS.list' | translate}}
@@ -84,7 +84,7 @@
                     </md-menu>
 
                     <!--Configuration-->
-                    <md-menu>
+                    <md-menu ng-if="sCtrl.can.conf()">
                         <button class="md-primary" ng-click="$mdMenu.open()">
                             {{'CONFIGURATION.configuration' | translate}}
                         </button>

@@ -61,7 +61,9 @@
                     DELETE_OWNED_ENTITY:    __env.permissions.DELETE_OWNED_ENTITY   || "DELETE__OWNED_ENTITY",
 
                     MANAGE_PROFILE:         __env.permissions.MANAGE_PROFILE        || "MANAGE__PROFILE",
-                    READ_PROFILE:           __env.permissions.READ_PROFILE          || "READ__PROFILE"
+                    READ_PROFILE:           __env.permissions.READ_PROFILE          || "READ__PROFILE",
+
+                    MANAGE_CONFIGURATION:   __env.permissions.MANAGE_CONFIGURATION  || "MANAGE__CONFIGURATION"
                 },
                 //endregion
 
