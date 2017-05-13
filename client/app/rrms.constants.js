@@ -10,27 +10,27 @@
         .constant(
             'ROUTE', {
                 CONFIG_ERROR: '/configuration-error',
-                LOGIN: '/login',
-                MAIN: '/main',
+                LOGIN: '/admin/login',
+                MAIN: '/admin/main',
 
-                ROLES: '/roles',
-                ROLE_EDIT: '/roles/:id/edit', ROLE_EDIT_PL: ':id',
-                ROLE_NEW: '/roles/new',
-                ROLE_VIEW: '/roles/:id/view', ROLE_VIEW_PL: ':id',
+                ROLES: '/admin/roles',
+                ROLE_EDIT: '/admin/roles/:id/edit', ROLE_EDIT_PL: ':id',
+                ROLE_NEW: '/admin/roles/new',
+                ROLE_VIEW: '/admin/roles/:id/view', ROLE_VIEW_PL: ':id',
 
-                USERS: '/users',
-                USER_EDIT: '/users/:id/edit', USER_EDIT_PL: ':id',
-                USER_NEW: '/users/new',
-                USER_VIEW: '/users/:id/view', USER_VIEW_PL: ':id',
+                USERS: '/admin/users',
+                USER_EDIT: '/admin/users/:id/edit', USER_EDIT_PL: ':id',
+                USER_NEW: '/admin/users/new',
+                USER_VIEW: '/admin/users/:id/view', USER_VIEW_PL: ':id',
 
-                OWNED_ENTITY: '/owned-entities',
-                OWNED_ENTITY_EDIT: '/owned-entities/:id/edit', OWNED_ENTITY_EDIT_PL: ':id',
-                OWNED_ENTITY_NEW: '/owned-entities/new',
-                OWNED_ENTITY_VIEW: '/owned-entities/:id/view', OWNED_ENTITY_VIEW_PL: ':id',
+                OWNED_ENTITY: '/admin/owned-entities',
+                OWNED_ENTITY_EDIT: '/admin/owned-entities/:id/edit', OWNED_ENTITY_EDIT_PL: ':id',
+                OWNED_ENTITY_NEW: '/admin/owned-entities/new',
+                OWNED_ENTITY_VIEW: '/admin/owned-entities/:id/view', OWNED_ENTITY_VIEW_PL: ':id',
 
-                PERMISSIONS: '/permissions',
+                PERMISSIONS: '/admin/permissions',
 
-                CONFIG_PARAMS: '/config/params'
+                CONFIG_PARAMS: '/admin/config/params'
             }
         )
         .constant(

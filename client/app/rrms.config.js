@@ -6,54 +6,56 @@
 
     'use strict';
 
-    var runConfig = function ($rootScope, sessionSrv, navigationSrv, __env, errorSrv) {
-
+    var runConfig = function ($rootScope, sessionSrv, navigationSrv, __env, errorSrv, translatorSrv) {
         var prevRoute, params;
 
+
+        var freeRoutes = [
+            '/configuration-error',
+            '/admin/login'
+        ];
+
         $rootScope.$on('$routeChangeStart', function (event, next, data) {
-            if (!__env.supportHtml5 || !__env.varsFound) {
-                if (next && next.$$route && navigationSrv.CONFIG_ERROR_PATH !== next.$$route.originalPath) {
-                    event.preventDefault();
-                    if(!__env.supportHtml5){
-                        errorSrv.title = "Navegador no soportado";
-                        errorSrv.message = "Usted posse un navegador que no soporta nuestra tecnología. Por favor, actualice a un navegador más moderno."
-                    }
-                    else {
-                        errorSrv.title = "Error en la configuración del sistema";
-                        errorSrv.message = "Existe un error en la configuración del sistema y no se puede acceder al mismo. Contacte con el administrador."
-                    }
-                    sessionSrv.logOut();
-                    navigationSrv.goTo(navigationSrv.CONFIG_ERROR_PATH);
-                }
-            }
-        });
-
-        $rootScope.$on('$routeChangeSuccess', function (event, current, data) {
-            if (current && current.$$route && current.$$route.originalPath) {
-                var route = current.$$route.originalPath;
+            if (next && next.$$route && next.$$route.originalPath) {
+                var route = next.$$route.originalPath;
                 prevRoute = route;
-                params = current.params;
+                params = next.params;
 
-                /****************************AUTHENTICATION CHECK******************************************************/
-                //routes excluded from login check
-                if (route !== navigationSrv.LOGIN_PATH && route !== navigationSrv.CONFIG_ERROR_PATH) {
-                    //not using "ROUTE.LOGIN" AND 'ROUTE.CONFIG_ERROR" because they might not be defined at this point
-                    if (!sessionSrv.isLogged()) {
+                //security
+                var found = false, pointer = freeRoutes.length - 1;
+                while(!found && pointer >= 0) if(route.toString().indexOf(freeRoutes[pointer--]) !== -1) found = true;
+
+
+                if (!found) { //protected route
+                    if(!sessionSrv.isLogged()) {
+                        sessionSrv.logOut(); //clean session data
+                        event.preventDefault();
                         navigationSrv.goTo(navigationSrv.LOGIN_PATH);
                     }
                 }
-                //in case user is already logged, redirect to default path
-                else if (route === navigationSrv.LOGIN_PATH){
-                    prevRoute = null;
-                    if (sessionSrv.isLogged()) {
-                        navigationSrv.goTo(navigationSrv.DEFAULT_PATH);
+                //trying to access to login page after logged in?...redirect to main
+                else if(route.toString().indexOf(navigationSrv.LOGIN_PATH) !== -1 && sessionSrv.isLogged()) event.preventDefault();
+
+                //errors (config, browser...)
+                if (!__env.supportHtml5 || !__env.varsFound) {
+                    if (next.toString().indexOf(navigationSrv.CONFIG_ERROR_PATH) === -1) { //trying to access to a view when config is wrong
+                        if(!__env.supportHtml5){
+                            var titleKey = "config.error.browser_not_supported.title";
+                            var msgKey = "config.error.browser_not_supported.message";
+                        }
+                        else {
+                            errorSrv.title = "config.error.vars.title";
+                            errorSrv.message = "config.error.vars.message";
+                        }
+                        event.preventDefault();
+                        translatorSrv.setText(titleKey, errorSrv, "title");
+                        translatorSrv.setText(msgKey, errorSrv, "message");
+                        sessionSrv.logOut();
+                        navigationSrv.goTo(navigationSrv.CONFIG_ERROR_PATH);
                     }
                 }
-                //in case configuration file is found and user try to access directly to error page,
-                // redirect to default path
-                else if (route === navigationSrv.CONFIG_ERROR_PATH && __env && __env.varsFound){
-                    navigationSrv.goTo(navigationSrv.DEFAULT_PATH);
-                }
+                else if (route.toString().indexOf(navigationSrv.CONFIG_ERROR_PATH) !== -1) event.preventDefault();
+
             }
         });
 
@@ -65,13 +67,9 @@
                     && prevRoute.indexOf(':id') !== -1) {
                     navigationSrv.goTo(prevRoute, ':id', params['id']);
                 }
-                else {
-                    navigationSrv.goTo(prevRoute);
-                }
+                else { navigationSrv.goTo(prevRoute); }
             }
-            else {
-                navigationSrv.goTo(navigationSrv.DEFAULT_PATH);
-            }
+            else { navigationSrv.goTo(navigationSrv.DEFAULT_PATH); }
         });
 
     };
@@ -84,6 +82,6 @@
 
     angular.module('rrms')
         .config(['$mdThemingProvider',conf])
-        .run(['$rootScope', 'sessionSrv', 'navigationSrv', '__env', 'errorSrv', runConfig]);
+        .run(['$rootScope', 'sessionSrv', 'navigationSrv', '__env', 'errorSrv', 'translatorSrv', runConfig]);
 
 })();

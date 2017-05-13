@@ -16,13 +16,13 @@
                         </button>
                         <md-menu-content>
                             <md-menu-item>
-                                <md-button ng-click="sCtrl.go('/owned-entities/new')">
+                                <md-button ng-click="sCtrl.go('/admin/owned-entities/new')">
                                     {{'ENTITY.new' | translate}}
                                 </md-button>
                             </md-menu-item>
                             <md-menu-divider></md-menu-divider>
                             <md-menu-item>
-                                <md-button ng-click="sCtrl.go('/owned-entities')">
+                                <md-button ng-click="sCtrl.go('/admin/owned-entities')">
                                     {{'ENTITY.list' | translate}}
                                 </md-button>
                             </md-menu-item>
@@ -36,13 +36,13 @@
                         </button>
                         <md-menu-content>
                             <md-menu-item>
-                                <md-button ng-click="sCtrl.go('/users/new')">
+                                <md-button ng-click="sCtrl.go('/admin/users/new')">
                                     {{'USER.new' | translate}}
                                 </md-button>
                             </md-menu-item>
                             <md-menu-divider></md-menu-divider>
                             <md-menu-item>
-                                <md-button ng-click="sCtrl.go('/users')">
+                                <md-button ng-click="sCtrl.go('/admin/users')">
                                     {{'USER.list' | translate}}
                                 </md-button>
                             </md-menu-item>
@@ -56,13 +56,13 @@
                         </button>
                         <md-menu-content>
                             <md-menu-item>
-                                <md-button ng-click="sCtrl.go('/roles/new')">
+                                <md-button ng-click="sCtrl.go('/admin/roles/new')">
                                     {{'ROLE.new' | translate}}
                                 </md-button>
                             </md-menu-item>
                             <md-menu-divider></md-menu-divider>
                             <md-menu-item>
-                                <md-button ng-click="sCtrl.go('/roles')">
+                                <md-button ng-click="sCtrl.go('/admin/roles')">
                                     {{'ROLE.list' | translate}}
                                 </md-button>
                             </md-menu-item>
@@ -76,7 +76,7 @@
                         </button>
                         <md-menu-content>
                             <md-menu-item>
-                                <md-button ng-click="sCtrl.go('/permissions')">
+                                <md-button ng-click="sCtrl.go('/admin/permissions')">
                                     {{'PERMISSIONS.list' | translate}}
                                 </md-button>
                             </md-menu-item>
@@ -90,7 +90,7 @@
                         </button>
                         <md-menu-content>
                             <md-menu-item>
-                                <md-button ng-click="sCtrl.go('/config/params')">
+                                <md-button ng-click="sCtrl.go('/admin/config/params')">
                                     {{'CONFIGURATION.parameters' | translate}}
                                 </md-button>
                             </md-menu-item>
@@ -148,7 +148,7 @@
                                 <md-icon md-no-ink md-svg-src="client/app/modules/_common/img/social/ic_person_24px.svg" aria-label="Mi perfil"></md-icon>
                             </md-button>
 
-                            <md-button aria-label="{{'SESSION.select_entity' | translate}}" class="md-fab md-mini md-hue-1" ng-click="sCtrl.go('/main')"
+                            <md-button aria-label="{{'SESSION.select_entity' | translate}}" class="md-fab md-mini md-hue-1" ng-click="sCtrl.go('/admin/main')"
                                        ng-if="sCtrl.user.entities.length > 1">
                                 <md-tooltip md-direction="down">{{'SESSION.select_entity' | translate}} ("{{sCtrl.oEntity.name || sCtrl.oEntity.username}}")
                                 </md-tooltip>

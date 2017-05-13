@@ -7,6 +7,11 @@
   "unauthorized": "You either are not authorized to do this or your session expired :(",
   "user_and_password_incorrect": "The user or password provided are incorrect :(",
 
+  "config.error.browser_not_supported.title": "Browser not supported",
+  "config.error.browser_not_supported.message": "Your are using a web browser which does not support our technology. Please, update to a more modern web browser.",
+  "config.error.vars.title": "Error in system configuration",
+  "config.error.vars.message": "There is an error in the system configuration and it cannot be accessed. Contact the administrator",
+
   "SESSION.options": "Session options",
   "SESSION.my_profile": "My profile",
   "SESSION.select_entity": "Select entity",

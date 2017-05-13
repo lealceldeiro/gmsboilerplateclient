@@ -7,6 +7,11 @@
   "unauthorized": "No estás autorizado para hacer esto o tu sesión expiró :(",
   "user_and_password_incorrect": "El usuario o contraseña proporcionados no son correctos :(",
 
+  "config.error.browser_not_supported.title": "Navegador no soportado",
+  "config.error.browser_not_supported.message": "Usted está usando un navegador que no soporta nuestra tecnología. Por favor, actualice a un navegador más moderno.",
+  "config.error.vars.title": "Error en la configuración del sistema",
+  "config.error.vars.message": "Existe un error en la configuración del sistema y no se puede acceder al mismo. Contacte con el administrador.",
+
   "SESSION.options": "Opciones de sesión",
   "SESSION.my_profile": "Mi perfil",
   "SESSION.select_entity": "Seleccionar entidad",

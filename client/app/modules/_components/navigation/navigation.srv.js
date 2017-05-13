@@ -27,7 +27,7 @@ var navigationSrv = function ($location, $route, ROUTE, $window, stringSrv) {
     function fnGoTo(link, placeholders, params) {
         if (placeholders && params) {
             if (angular.isArray(placeholders) && angular.isArray(params)) {
-                if (placeholders.length != params.length) {
+                if (placeholders.length !== params.length) {
                     throw new Error('Placeholders and params must be of equal length');
                 }
                 angular.forEach(placeholders, function (obj, idx) {
