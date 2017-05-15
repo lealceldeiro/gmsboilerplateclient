@@ -9,55 +9,77 @@
     var runConfig = function ($rootScope, sessionSrv, navigationSrv, __env, errorSrv, translatorSrv) {
         var prevRoute, params;
 
-
-        var freeRoutes = [
-            '/configuration-error',
-            '/admin/login'
-        ];
-
         $rootScope.$on('$routeChangeStart', function (event, next, data) {
-            if (next && next.$$route && next.$$route.originalPath) {
-                var route = next.$$route.originalPath;
-                prevRoute = route;
-                params = next.params;
+            if (next && next['$$route']) {
+                var secured = next['$$route']['secured'];
+                var route = next['$$route']['originalPath'];
 
                 //security
-                var found = false, pointer = freeRoutes.length - 1;
-                while(!found && pointer >= 0) if(route.toString().indexOf(freeRoutes[pointer--]) !== -1) found = true;
-
-
-                if (!found) { //protected route
-                    if(!sessionSrv.isLogged()) {
-                        sessionSrv.logOut(); //clean session data
-                        event.preventDefault();
-                        navigationSrv.goTo(navigationSrv.LOGIN_PATH);
-                    }
-                }
-                //trying to access to login page after logged in?...redirect to main
-                else if(route.toString().indexOf(navigationSrv.LOGIN_PATH) !== -1 && sessionSrv.isLogged()) event.preventDefault();
-
-                //errors (config, browser...)
-                if (!__env.supportHtml5 || !__env.varsFound) {
-                    if (next.toString().indexOf(navigationSrv.CONFIG_ERROR_PATH) === -1) { //trying to access to a view when config is wrong
-                        if(!__env.supportHtml5){
-                            var titleKey = "config.error.browser_not_supported.title";
-                            var msgKey = "config.error.browser_not_supported.message";
+                if (secured) {
+                    if (sessionSrv.isLogged()) {
+                        var p = sessionSrv.getPermissions(),
+                            permit = true,
+                            requiresAll = secured['requiresAll'],
+                            requiresAny = secured['requiresAny'],
+                            x;
+                        //check for all mandatory permissions required
+                        if (requiresAll && angular.isArray(requiresAll) && p && angular.isArray(p)) {
+                            var temp = true;
+                            x = requiresAll.length - 1;
+                            while (x >= 0 && temp) if (p.indexOf(requiresAll[x--]) === -1) temp = false;
+                            permit = temp;
                         }
-                        else {
-                            errorSrv.title = "config.error.vars.title";
-                            errorSrv.message = "config.error.vars.message";
+                        //check for any of the permissions required (permissions which at least one is required, but not al of them)
+                        else if (requiresAny && angular.isArray(requiresAny) && p && angular.isArray(p)) {
+                            permit = false;
+                            x = requiresAny.length - 1;
+                            while (x >= 0 && permit) if (p.indexOf(requiresAny[x--]) !== -1) permit = true;
                         }
-                        event.preventDefault();
-                        translatorSrv.setText(titleKey, errorSrv, "title");
-                        translatorSrv.setText(msgKey, errorSrv, "message");
-                        sessionSrv.logOut();
-                        navigationSrv.goTo(navigationSrv.CONFIG_ERROR_PATH);
-                    }
-                }
-                else if (route.toString().indexOf(navigationSrv.CONFIG_ERROR_PATH) !== -1) event.preventDefault();
 
+                        if (!permit) {_doLogout(event, route)}
+                    }
+                    else {_doLogout(event, route);}
+                }
+
+                if (route) {
+                    prevRoute = route;
+                    params = next['params'];
+
+                    //trying to access to login page after logged in?...redirect to main
+                    if(route.toString().indexOf(navigationSrv.LOGIN_PATH) !== -1 && sessionSrv.isLogged()) event.preventDefault();
+
+                    //errors (config, browser...)
+                    if (!__env.supportHtml5 || !__env.varsFound) {
+                        if (next.toString().indexOf(navigationSrv.CONFIG_ERROR_PATH) === -1) { //trying to access to a view when config is wrong
+                            if(!__env.supportHtml5){
+                                var titleKey = "config.error.browser_not_supported.title";
+                                var msgKey = "config.error.browser_not_supported.message";
+                            }
+                            else {
+                                errorSrv.title = "config.error.vars.title";
+                                errorSrv.message = "config.error.vars.message";
+                            }
+                            event.preventDefault();
+                            translatorSrv.setText(titleKey, errorSrv, "title");
+                            translatorSrv.setText(msgKey, errorSrv, "message");
+                            sessionSrv.logOut();
+                            navigationSrv.goTo(navigationSrv.CONFIG_ERROR_PATH);
+                        }
+                    }
+                    else if (route.toString().indexOf(navigationSrv.CONFIG_ERROR_PATH) !== -1) event.preventDefault();
+
+                }
             }
+
         });
+
+        function _doLogout(event, route) {
+            sessionSrv.logOut(); //clean session data
+            event.preventDefault();
+            if (route !== navigationSrv.LOGIN_PATH) {
+                navigationSrv.goTo(navigationSrv.LOGIN_PATH);
+            }
+        }
 
         //triggered when a new token was retrieved since the old one expired, so we need to refresh the last requested
         //view, since it wasn't resolved due to the forbidden backend response

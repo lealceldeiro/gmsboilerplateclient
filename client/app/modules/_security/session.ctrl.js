@@ -142,7 +142,7 @@
         }
 
         function has(permission) {
-            return vm.wizard.permissions.indexOf(permission) !== -1;
+            return vm.wizard.permissions && vm.wizard.permissions.indexOf(permission) !== -1;
         }
 
     };
