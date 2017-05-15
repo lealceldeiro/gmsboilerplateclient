@@ -6,7 +6,7 @@
 
     'use strict';
 
-    angular.module('rrms')
+    angular.module('gmsBoilerplate')
         .service('toolBarSrv', ['$rootScope', 'BROADCAST', function ($rootScope, BROADCAST) {
             var self = this;
 

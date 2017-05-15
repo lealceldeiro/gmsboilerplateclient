@@ -5,7 +5,7 @@
 (function() {
     'use strict';
 
-    angular.module('rrms')
+    angular.module('gmsBoilerplate')
         .controller('fabSpeedDial', function() {
             this.isOpen = false;
             this.selectedMode = 'md-fling';

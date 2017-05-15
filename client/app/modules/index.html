@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-ng-app="rrms" data-ng-controller="indexCtrl as idxCtrl">
+<html lang="en" data-ng-app="gmsBoilerplate" data-ng-controller="indexCtrl as idxCtrl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -73,112 +73,115 @@
 <script type="application/javascript" src="client/bower_components/angular-material/angular-material.min.js"></script>
 
 <!--ngRoute-->
-<script src="client/bower_components/angular-route/angular-route.min.js"></script>
+<script type="application/javascript" src="client/bower_components/angular-route/angular-route.min.js"></script>
 <!--pagination-->
-<script src="client/bower_components/material-angular-paging/build/dist.min.js"></script>
+<script type="application/javascript" src="client/bower_components/material-angular-paging/build/dist.min.js"></script>
 <!--ngSanitize-->
-<script src="client/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script type="application/javascript" src="client/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 <!--LocalStorage-->
-<script src="client/bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+<script type="application/javascript" src="client/bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
 <!--password strengh meter-->
-<script src="client/bower_components/lodash/lodash.min.js"></script>
-<script src="client/bower_components/ng-password-strength/dist/scripts/ng-password-strength.min.js"></script>
+<script type="application/javascript" src="client/bower_components/lodash/lodash.min.js"></script>
+<script type="application/javascript" src="client/bower_components/ng-password-strength/dist/scripts/ng-password-strength.min.js"></script>
 
 <!--custom js-->
-<script src="client/_customjs/bootstrapper.js"></script>
+<script type="application/javascript" src="client/_customjs/bootstrapper.js"></script>
 
 <!--****app****-->
-<script src="client/app/rrms.module.js"></script>
-<script src="client/app/rrms.constants.js"></script>
-<script src="client/app/rrms.config.js"></script>
-<script src="client/app/rrms.config.lan.js"></script>
-<script src="client/app/rrms.routing.js"></script>
-<script src="client/app/rrms.interceptors.js"></script>
+<script type="application/javascript" src="client/app/rrms.module.js"></script>
+<script type="application/javascript" src="client/app/rrms.constants.js"></script>
+<script type="application/javascript" src="client/app/rrms.config.js"></script>
+<script type="application/javascript" src="client/app/rrms.config.lan.js"></script>
+<script type="application/javascript" src="client/app/rrms.routing.js"></script>
+<script type="application/javascript" src="client/app/rrms.interceptors.js"></script>
 
 
 <!--**modules**-->
-<script src="client/app/modules/index.srv.js"></script>
-<script src="client/app/modules/index.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/index.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/index.ctrl.js"></script>
 
 <!--error-->
-<script src="client/app/modules/_error/error.srv.js"></script>
-<script src="client/app/modules/_error/error.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/_error/error.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/_error/error.ctrl.js"></script>
 
 <!--main-->
-<script src="client/app/modules/main/main.srv.js"></script>
-<script src="client/app/modules/main/main.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/main/main.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/main/main.ctrl.js"></script>
 
 <!--security-->
-<script src="client/app/modules/_security/session.srv.js"></script>
-<script src="client/app/modules/_security/session.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/_security/session.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/_security/session.ctrl.js"></script>
 
 <!--account-->
-<script src="client/app/modules/account/_login/login.srv.js"></script>
-<script src="client/app/modules/account/_login/login.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/_security/_login/login.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/_security/_login/login.ctrl.js"></script>
 
-<script src="client/app/modules/account/role/role.srv.js"></script>
-<script src="client/app/modules/account/role/list/role.list.ctrl.js"></script>
-<script src="client/app/modules/account/role/edit/role.edit.ctrl.js"></script>
-<script src="client/app/modules/account/role/view/role.view.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/account/role/role.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/account/role/list/role.list.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/account/role/edit/role.edit.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/account/role/view/role.view.ctrl.js"></script>
 
-<script src="client/app/modules/account/user/user.srv.js"></script>
-<script src="client/app/modules/account/user/list/user.list.ctrl.js"></script>
-<script src="client/app/modules/account/user/edit/user.edit.ctrl.js"></script>
-<script src="client/app/modules/account/user/view/user.view.ctrl.js"></script>
-<script src="client/app/modules/account/permission/list/permission.list.ctrl.js"></script>
-<script src="client/app/modules/account/permission/permission.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/account/user/user.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/account/user/list/user.list.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/account/user/edit/user.edit.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/account/user/view/user.view.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/account/permission/list/permission.list.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/account/permission/permission.srv.js"></script>
 
 <!--owned entity-->
-<script src="client/app/modules/owned.entity/owned.entity.srv.js"></script>
-<script src="client/app/modules/owned.entity/list/owned.entity.list.ctrl.js"></script>
-<script src="client/app/modules/owned.entity/edit/owned.entity.edit.ctrl.js"></script>
-<script src="client/app/modules/owned.entity/view/owned.entity.view.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/owned.entity/owned.entity.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/owned.entity/list/owned.entity.list.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/owned.entity/edit/owned.entity.edit.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/owned.entity/view/owned.entity.view.ctrl.js"></script>
 
 <!--config-->
-<script src="client/app/modules/config/config.srv.js"></script>
-<script src="client/app/modules/config/params.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/config/config.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/admin/config/params.ctrl.js"></script>
+
+<!--home-->
+<script type="application/javascript" src="client/app/modules/home/home.ctrl.js"></script>
 
 
 <!--**_components**-->
-<script src="client/app/modules/_components/screenBlocker/blockS.srv.js"></script>
-<script src="client/app/modules/_components/screenBlocker/blockS.ctrl.js"></script>
-<script src="client/app/modules/_components/screenLoader/screen.loader.drtv.js"></script>
+<script type="application/javascript" src="client/app/modules/_components/screenBlocker/blockS.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/_components/screenBlocker/blockS.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/_components/screenLoader/screen.loader.drtv.js"></script>
 
-<script src="client/app/modules/_components/fabSpeedDial/fabSpeedDial.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/_components/fabSpeedDial/fabSpeedDial.ctrl.js"></script>
 
-<script src="client/app/modules/_components/chips/chip.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/_components/chips/chip.ctrl.js"></script>
 
-<script src="client/app/modules/_components/dialog/dialog.srv.js"></script>
-<script src="client/app/modules/_components/dialog/dialog.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/_components/dialog/dialog.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/_components/dialog/dialog.ctrl.js"></script>
 
-<script src="client/app/modules/_components/toolbar/toolBar.srv.js"></script>
-<script src="client/app/modules/_components/toolbar/toolBar.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/_components/toolbar/toolBar.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/_components/toolbar/toolBar.ctrl.js"></script>
 
-<script src="client/app/modules/_components/toast/toast.srv.js"></script>
-<script src="client/app/modules/_components/toast/toast.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/_components/toast/toast.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/_components/toast/toast.ctrl.js"></script>
 
 
 <!--**_common**-->
 <!--navigation-->
-<script src="client/app/modules/_components/navigation/navigation.srv.js"></script>
-<script src="client/app/modules/_components/navigation/pagination.srv.js"></script>
-<script src="client/app/modules/_components/navigation/pagination.ctrl.js"></script>
+<script type="application/javascript" src="client/app/modules/_components/navigation/navigation.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/_components/navigation/pagination.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/_components/navigation/pagination.ctrl.js"></script>
 <!--notification-->
-<script src="client/app/modules/_common/js/notification/notification.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/_common/js/notification/notification.srv.js"></script>
 <!--system-->
-<script src="client/app/modules/_common/js/system/system.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/_common/js/system/system.srv.js"></script>
 <!--filter-->
-<script src="client/app/modules/_common/js/filter/humanReadable.filter.js"></script>
-<script src="client/app/modules/_common/js/filter/trimmer.filter.js"></script>
-<script src="client/app/modules/_common/js/filter/caser.filter.js"></script>
+<script type="application/javascript" src="client/app/modules/_common/js/filter/humanReadable.filter.js"></script>
+<script type="application/javascript" src="client/app/modules/_common/js/filter/trimmer.filter.js"></script>
+<script type="application/javascript" src="client/app/modules/_common/js/filter/caser.filter.js"></script>
 <!--util-->
-<script src="client/app/modules/_common/js/util/string.srv.js"></script>
-<script src="client/app/modules/_common/js/util/value.srv.js"></script>
-<script src="client/app/modules/_common/js/util/base.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/_common/js/util/string.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/_common/js/util/value.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/_common/js/util/base.srv.js"></script>
 <!--collection-->
-<script src="client/app/modules/_common/js/collection/search.srv.js"></script>
-<script src="client/app/modules/_common/js/collection/data.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/_common/js/collection/search.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/_common/js/collection/data.srv.js"></script>
 <!--translation-->
-<script src="client/app/modules/_common/js/translation/translator.srv.js"></script>
+<script type="application/javascript" src="client/app/modules/_common/js/translation/translator.srv.js"></script>
 </body>
 </html>

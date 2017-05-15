@@ -5,7 +5,7 @@
 (function () {
     'use strict';
 
-    angular.module('rrms').controller('errorCtrl', ['errorSrv', 'indexSrv', function (errorSrv, indexSrv) {
+    angular.module('gmsBoilerplate').controller('errorCtrl', ['errorSrv', 'indexSrv', function (errorSrv, indexSrv) {
         var vm = this;
 
         vm.wizard = {

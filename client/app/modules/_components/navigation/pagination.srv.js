@@ -118,7 +118,7 @@ var paginationSrv = function ($rootScope, BROADCAST) {
 
 };
 
-angular.module('rrms')
+angular.module('gmsBoilerplate')
     .service('paginationSrv', ['$rootScope', 'BROADCAST', paginationSrv]);
 
 })();

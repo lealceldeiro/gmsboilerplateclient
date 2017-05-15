@@ -79,5 +79,5 @@ var notificationSrv = function (toastSrv, $translate) {
     }
 };
 
-angular.module('rrms')
+angular.module('gmsBoilerplate')
     .service('notificationSrv', ['toastSrv', '$translate', notificationSrv]);

@@ -29,7 +29,7 @@
 
         valueSrv.$inject = [];
 
-        angular.module('rrms')
+        angular.module('gmsBoilerplate')
             .service('valueSrv', valueSrv);
     }
 )();

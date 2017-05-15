@@ -5,7 +5,7 @@
 (function() {
     'use strict';
 
-    angular.module('rrms')
+    angular.module('gmsBoilerplate')
         .controller('chipCtrl', ['$mdConstant', function($mdConstant) {
             this.separatorKeys = [$mdConstant.KEY_CODE.ENTER, $mdConstant.KEY_CODE.COMMA, $mdConstant.KEY_CODE.SPACE];
             this.createMode = false;

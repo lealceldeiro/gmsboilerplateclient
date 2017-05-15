@@ -11,9 +11,9 @@ var navigationSrv = function ($location, $route, ROUTE, $window, stringSrv) {
 
 
     vm.service = {
-        DEFAULT_PATH: ROUTE.MAIN,
+        DEFAULT_PATH: ROUTE.HOME,
         LOGIN_PATH: ROUTE.LOGIN,
-        CONFIG_ERROR_PATH: ROUTE.CONFIG_ERROR,
+        CONFIG_ERROR_PATH: ROUTE.ADMIN_CONFIG_ERROR,
 
         goTo: fnGoTo,
         back: fnBack,
@@ -64,7 +64,7 @@ var navigationSrv = function ($location, $route, ROUTE, $window, stringSrv) {
 
 navigationSrv.$inject = ['$location', '$route', 'ROUTE', '$window', 'stringSrv'];
 
-angular.module('rrms')
+angular.module('gmsBoilerplate')
     .service('navigationSrv', navigationSrv);
 
 })();

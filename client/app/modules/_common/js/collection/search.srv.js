@@ -252,7 +252,7 @@ var searchSrv = function () {
 searchSrv.$inject = [];
 
 angular
-    .module('rrms')
+    .module('gmsBoilerplate')
     .service('searchSrv', searchSrv);
 
 })();

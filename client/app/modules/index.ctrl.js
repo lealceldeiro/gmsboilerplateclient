@@ -6,7 +6,7 @@
 
     'use strict';
 
-    var f = function ($scope, indexSrv, sessionSrv, $timeout, systemSrv, configSrv) {
+    var f = function ($scope, indexSrv, sessionSrv, $timeout, systemSrv, configSrv, translatorSrv) {
         var vm = this;
         var keyP = "__index__";
         var MAX_RETRY = 3, retries = 0;
@@ -31,7 +31,7 @@
         //fn
         function fnInit() {
             _loadConfig();
-            indexSrv.siteTile = 'Index';
+            translatorSrv.setText("string.index", indexSrv, 'siteTile');
             vm.wizard.logged = sessionSrv.isLogged();
         }
 
@@ -59,7 +59,8 @@
         }
     };
 
-    angular.module('rrms')
-        .controller('indexCtrl', ['$scope', 'indexSrv', 'sessionSrv', '$timeout', 'systemSrv', 'configSrv', f]);
+    angular.module('gmsBoilerplate')
+        .controller('indexCtrl', ['$scope', 'indexSrv', 'sessionSrv', '$timeout', 'systemSrv', 'configSrv', 'translatorSrv',
+            f]);
 
 })();

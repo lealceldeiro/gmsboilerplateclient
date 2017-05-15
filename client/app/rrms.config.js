@@ -76,7 +76,7 @@
         function _doLogout(event, route) {
             sessionSrv.logOut(); //clean session data
             event.preventDefault();
-            if (route !== navigationSrv.LOGIN_PATH) {
+            if (route !== navigationSrv.DEFAULT_PATH) {
                 navigationSrv.goTo(navigationSrv.LOGIN_PATH);
             }
         }
@@ -102,7 +102,7 @@
             .accentPalette('blue');
     };
 
-    angular.module('rrms')
+    angular.module('gmsBoilerplate')
         .config(['$mdThemingProvider',conf])
         .run(['$rootScope', 'sessionSrv', 'navigationSrv', '__env', 'errorSrv', 'translatorSrv', runConfig]);
 

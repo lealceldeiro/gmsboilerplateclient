@@ -278,7 +278,7 @@
             }
         };
 
-        angular.module('rrms')
+        angular.module('gmsBoilerplate')
             .service('systemSrv', ['__env', 'notificationSrv', systemSrv]);
     }
 )();

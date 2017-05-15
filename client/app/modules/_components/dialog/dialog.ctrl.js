@@ -5,7 +5,7 @@
 (function() {
     'use strict';
 
-    angular.module('rrms')
+    angular.module('gmsBoilerplate')
         .controller('dialogCtrl', ['$mdDialog', 'dialogSrv', '$scope', 'BROADCAST',
 
             function($mdDialog, dialogSrv, $scope, BROADCAST) {

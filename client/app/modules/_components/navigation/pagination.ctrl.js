@@ -74,7 +74,7 @@
 
     };
 
-    angular.module('rrms')
+    angular.module('gmsBoilerplate')
         .controller('paginationCtrl', ['paginationSrv', '$scope', paginationCtrl]);
 
 })();

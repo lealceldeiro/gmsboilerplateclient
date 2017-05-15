@@ -5,7 +5,7 @@
 (function() {
     'use strict';
 
-    angular.module('rrms')
+    angular.module('gmsBoilerplate')
         .controller('toolBarCtrl', ['$scope', 'BROADCAST', 'toolBarSrv',
 
             function($scope, BROADCAST, toolBarSrv) {

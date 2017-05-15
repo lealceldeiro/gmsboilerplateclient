@@ -6,31 +6,33 @@
 
     'use strict';
 
-    angular.module('rrms')
+    angular.module('gmsBoilerplate')
         .constant(
             'ROUTE', {
-                CONFIG_ERROR: '/configuration-error',
-                LOGIN: '/admin/login',
-                MAIN: '/admin/main',
+                ADMIN_CONFIG_ERROR: '/configuration-error',
+                LOGIN: '/login',
+                MAIN: '/main',
 
-                ROLES: '/admin/roles',
-                ROLE_EDIT: '/admin/roles/:id/edit', ROLE_EDIT_PL: ':id',
-                ROLE_NEW: '/admin/roles/new',
-                ROLE_VIEW: '/admin/roles/:id/view', ROLE_VIEW_PL: ':id',
+                ADMIN_ROLES: '/admin/roles',
+                ADMIN_ROLE_EDIT: '/admin/roles/:id/edit', ADMIN_ROLE_EDIT_PL: ':id',
+                ADMIN_ROLE_NEW: '/admin/roles/new',
+                ADMIN_ROLE_VIEW: '/admin/roles/:id/view', ADMIN_ROLE_VIEW_PL: ':id',
 
-                USERS: '/admin/users',
-                USER_EDIT: '/admin/users/:id/edit', USER_EDIT_PL: ':id',
-                USER_NEW: '/admin/users/new',
-                USER_VIEW: '/admin/users/:id/view', USER_VIEW_PL: ':id',
+                ADMIN_USERS: '/admin/users',
+                ADMIN_USER_EDIT: '/admin/users/:id/edit', ADMIN_USER_EDIT_PL: ':id',
+                ADMIN_USER_NEW: '/admin/users/new',
+                ADMIN_USER_VIEW: '/admin/users/:id/view', ADMIN_USER_VIEW_PL: ':id',
 
-                OWNED_ENTITY: '/admin/owned-entities',
-                OWNED_ENTITY_EDIT: '/admin/owned-entities/:id/edit', OWNED_ENTITY_EDIT_PL: ':id',
-                OWNED_ENTITY_NEW: '/admin/owned-entities/new',
-                OWNED_ENTITY_VIEW: '/admin/owned-entities/:id/view', OWNED_ENTITY_VIEW_PL: ':id',
+                ADMIN_OWNED_ENTITY: '/admin/owned-entities',
+                ADMIN_OWNED_ENTITY_EDIT: '/admin/owned-entities/:id/edit', ADMIN_OWNED_ENTITY_EDIT_PL: ':id',
+                ADMIN_OWNED_ENTITY_NEW: '/admin/owned-entities/new',
+                ADMIN_OWNED_ENTITY_VIEW: '/admin/owned-entities/:id/view', ADMIN_OWNED_ENTITY_VIEW_PL: ':id',
 
-                PERMISSIONS: '/admin/permissions',
+                ADMIN_PERMISSIONS: '/admin/permissions',
 
-                CONFIG_PARAMS: '/admin/config/params'
+                ADMIN_CONFIG_PARAMS: '/admin/config/params',
+
+                HOME: '/home'
             }
         )
         .constant(

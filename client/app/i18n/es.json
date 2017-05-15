@@ -33,6 +33,7 @@
   "string.user_lc": "usuario",
   "string.entity_lc": "entidad",
 
+  "string.index": "Index",
   "string.selected": "seleccionada",
   "string.activate_deactivate": "Activar/Desactivar",
   "string.active": "Activo",

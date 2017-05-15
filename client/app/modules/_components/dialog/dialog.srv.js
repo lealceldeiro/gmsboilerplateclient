@@ -6,7 +6,7 @@
 
     'use strict';
 
-    angular.module('rrms')
+    angular.module('gmsBoilerplate')
         .service('dialogSrv', ['$rootScope', 'BROADCAST', '$timeout', 'translatorSrv',
 
             function ($rootScope, BROADCAST, $timeout, translatorSrv) {

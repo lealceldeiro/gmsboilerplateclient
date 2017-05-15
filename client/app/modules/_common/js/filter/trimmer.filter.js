@@ -16,6 +16,6 @@ var f = function () {
     }
 };
 
-angular.module('rrms')
+angular.module('gmsBoilerplate')
     .filter('trimmer', f);
 })();

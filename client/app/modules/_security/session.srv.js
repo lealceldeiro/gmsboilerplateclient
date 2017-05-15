@@ -208,7 +208,7 @@ var sessionSrv = function (baseSrv, systemSrv, localStorageService, $rootScope) 
 
 };
 
-angular.module('rrms')
+angular.module('gmsBoilerplate')
     .service('sessionSrv', ['baseSrv', 'systemSrv', 'localStorageService', '$rootScope', sessionSrv]);
 
 })();

@@ -76,7 +76,7 @@
             }
         };
 
-        angular.module('rrms')
+        angular.module('gmsBoilerplate')
             .service('blockSrv', ['$timeout', f]);
     }
 )();

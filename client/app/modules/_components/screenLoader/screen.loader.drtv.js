@@ -15,6 +15,6 @@ var f = function () {
     }
 };
 
-angular.module('rrms')
+angular.module('gmsBoilerplate')
     .directive('rrmsScreenLoader', f);
 })();

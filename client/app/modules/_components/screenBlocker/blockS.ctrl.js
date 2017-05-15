@@ -25,7 +25,7 @@
             return vm.wizard;
         };
 
-        angular.module('rrms')
+        angular.module('gmsBoilerplate')
             .controller('blockCtrl', ['$scope', 'blockSrv', f]);
     }
 )();

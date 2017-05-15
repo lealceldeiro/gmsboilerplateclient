@@ -44,7 +44,7 @@
 
         f.$inject = ['valueSrv'];
 
-        angular.module('rrms')
+        angular.module('gmsBoilerplate')
             .service('baseSrv', f);
     }
 )();

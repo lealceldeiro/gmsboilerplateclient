@@ -8,7 +8,7 @@
 
     var isDlgOpen;
 
-    angular.module('rrms')
+    angular.module('gmsBoilerplate')
         .controller('toastCtrl', ['$scope', '$mdToast', 'toastSrv', 'BROADCAST',
 
             function($scope, $mdToast, toastSrv, BROADCAST) {

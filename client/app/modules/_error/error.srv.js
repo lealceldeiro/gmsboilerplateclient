@@ -3,7 +3,7 @@
  */
 (function () {
     'use strict';
-    angular.module('rrms').service('errorSrv', [function () {
+    angular.module('gmsBoilerplate').service('errorSrv', [function () {
         var self = this;
 
         self.service = {

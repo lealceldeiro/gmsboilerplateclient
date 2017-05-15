@@ -17,7 +17,7 @@
         return vm.service;
     };
 
-    angular.module('rrms')
+    angular.module('gmsBoilerplate')
         .service('indexSrv', indexSrv);
 
 }());

@@ -18,6 +18,6 @@ var humanReadable = function () {
 
 humanReadable.$inject = [];
 
-angular.module('rrms')
+angular.module('gmsBoilerplate')
     .filter('humanReadable', humanReadable);
 })();

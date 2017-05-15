@@ -43,7 +43,7 @@
     };
 
     angular.module
-    ('rrms',
+    ('gmsBoilerplate',
         [
             'ngRoute',                                          //routing
             'ngSanitize',                                       //ngSanitize module (for ui-select)

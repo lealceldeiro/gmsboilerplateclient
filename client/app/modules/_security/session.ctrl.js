@@ -93,10 +93,9 @@
                         }
                     )
                 }
-
-                navigationSrv.goTo(navigationSrv.DEFAULT_PATH)
+                navigationSrv.goTo(ROUTE.MAIN)
             }
-            else{
+            else {
                 navigationSrv.goTo(navigationSrv.LOGIN_PATH);
             }
         }
@@ -111,7 +110,7 @@
         }
 
         function fnViewProfile() {
-            navigationSrv.goTo(ROUTE.USER_VIEW, ROUTE.USER_VIEW_PL, sessionSrv.currentUser().id);
+            navigationSrv.goTo(ROUTE.ADMIN_USER_VIEW, ROUTE.ADMIN_USER_VIEW_PL, sessionSrv.currentUser().id);
         }
 
         function _loadConfig() {
@@ -165,7 +164,7 @@
 
     };
 
-    angular.module('rrms')
+    angular.module('gmsBoilerplate')
         .controller('sessionCtrl', ['sessionSrv', 'navigationSrv', 'ROUTE', 'systemSrv', 'configSrv', '$timeout',
             '$translate', sessionCtrl]);
 

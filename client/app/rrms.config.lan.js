@@ -5,7 +5,7 @@
 (function () {
     'use strict';
 
-    angular.module('rrms').
+    angular.module('gmsBoilerplate').
     config(['$translateProvider', 'lan', function ($translateProvider, lan) {
 
         for(var k in lan) {

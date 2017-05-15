@@ -65,6 +65,6 @@ var f = function () {
 };
 
 angular
-    .module('rrms')
+    .module('gmsBoilerplate')
     .service('dataSrv', f);
 })();

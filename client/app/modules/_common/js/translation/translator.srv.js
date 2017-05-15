@@ -5,7 +5,7 @@
 (function () {
     'use strict';
 
-    angular.module('rrms').service('translatorSrv', ['$translate',
+    angular.module('gmsBoilerplate').service('translatorSrv', ['$translate',
 
         function ($translate) {
             var self = this;
