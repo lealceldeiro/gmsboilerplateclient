@@ -6,7 +6,8 @@
 
     'use strict';
 
-    var loginCtrl = function (indexSrv, sessionSrv, navigationSrv, systemSrv, loginSrv, ROUTE, blockSrv, userSrv, $rootScope, notificationSrv) {
+    var loginCtrl = function (indexSrv, sessionSrv, navigationSrv, systemSrv, loginSrv, ROUTE, blockSrv, userSrv, $rootScope,
+                              notificationSrv, translatorSrv) {
         var vm = this;
         const keyP = 'LOGIN__';
 
@@ -18,7 +19,9 @@
             password: null,
 
             init: fnInit,
-            login: fnLogin
+            login: fnLogin,
+
+            checkKeyDown: fnCheckKeyDown
         };
 
         vm.wizard.init();
@@ -27,7 +30,7 @@
 
         //fn
         function fnInit() {
-            indexSrv.siteTile = 'Login'
+            translatorSrv.setText('button.login', indexSrv, 'siteTitle');
         }
 
         function fnLogin(form) {
@@ -102,11 +105,17 @@
                 }
             }
         }
+
+        function fnCheckKeyDown(event, form) {
+            if (event.which === 13) {
+                fnLogin(form);
+            }
+        }
     };
 
 
     angular.module('rrms')
         .controller('loginCtrl', ['indexSrv', 'sessionSrv', 'navigationSrv', 'systemSrv', 'loginSrv',
-            'ROUTE', 'blockSrv', 'userSrv', '$rootScope', 'notificationSrv', loginCtrl]);
+            'ROUTE', 'blockSrv', 'userSrv', '$rootScope', 'notificationSrv', 'translatorSrv', loginCtrl]);
 
 })();

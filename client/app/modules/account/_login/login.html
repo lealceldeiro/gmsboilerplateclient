@@ -21,7 +21,8 @@
             <md-input-container class="md-icon-float md-block">
                 <label>{{ 'LOGIN.user_email' | translate}}</label>
                 <md-icon md-svg-src="client/app/modules/_common/img/social/ic_person_24px.svg"></md-icon>
-                <input ng-model="vm.emailOrUsername" type="text" required name="emailOrUsername"/>
+                <input ng-model="vm.emailOrUsername" type="text" required name="emailOrUsername"
+                       ng-keypress="vm.checkKeyDown($event, loginForm)"/>
 
                 <div ng-messages="loginForm.emailOrUsername.$error" md-auto-hide="false">
                     <div ng-message="required">
@@ -34,7 +35,8 @@
             <md-input-container class="md-icon-float md-block">
                 <label>{{ 'LOGIN.password' | translate}}</label>
                 <md-icon md-svg-src="client/app/modules/_common/img/action/ic_lock_24px.svg"></md-icon>
-                <input ng-model="vm.password" type="password" required name="password"/>
+                <input ng-model="vm.password" type="password" required name="password"
+                       ng-keypress="vm.checkKeyDown($event, loginForm)"/>
                 <div ng-messages="loginForm.password.$error" md-auto-hide="false">
                     <div ng-message="required">
                         {{ 'LOGIN.password_required' | translate}}
