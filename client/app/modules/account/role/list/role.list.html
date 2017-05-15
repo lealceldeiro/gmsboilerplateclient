@@ -2,13 +2,13 @@
     <div flex-gt-sm="99" flex>
         <!--change role view-->
         <md-button aria-label="{{'ROLE.view_my_roles_on_entity' | translate}}" class="md-icon-button"
-                   ng-show="vm.roles.allLoaded"
+                   ng-show="sCtrl.can.readRole() && vm.roles.allLoaded"
                    ng-click="vm.search(true)">
             <md-icon md-svg-src="client/app/modules/_common/img/action/ic_flip_to_back_24px.svg"></md-icon>
             <md-tooltip>{{'ROLE.view_my_roles_on_entity' | translate}}</md-tooltip>
         </md-button>
         <md-button aria-label="{{'ROLE.view_all' | translate}}" class="md-icon-button"
-                   ng-hide="vm.roles.allLoaded"
+                   ng-hide="!sCtrl.can.readRole() || vm.roles.allLoaded"
                    ng-click="vm.searchAll(true)">
             <md-icon md-svg-src="client/app/modules/_common/img/action/ic_flip_to_front_24px.svg"></md-icon>
             <md-tooltip>{{'ROLE.view_all' | translate}}</md-tooltip>
@@ -16,7 +16,8 @@
 
         <!--add new role-->
         <md-button aria-label="{{'ROLE.new' | translate}}" class="md-icon-button"
-                   ng-click="vm.new()">
+                   ng-click="vm.new()"
+                   ng-show="sCtrl.can.createRole()">
             <md-icon md-svg-src="client/app/modules/_common/img/content/ic_add_24px.svg"></md-icon>
             <md-tooltip>{{'ROLE.new' | translate}}</md-tooltip>
         </md-button>
@@ -30,7 +31,8 @@
                         <p style="font-style: italic;" data-ng-bind="item.description"></p>
                         <p data-ng-bind="item.enabled | humanReadable:'(':')'"></p>
                         <md-button class="md-secondary md-icon-button" aria-label="{{'button.edit' | translate}}"
-                                   ng-click="vm.edit(item.id)">
+                                   ng-click="vm.edit(item.id)"
+                                   ng-show="sCtrl.can.updateRole()">
                             <md-icon md-svg-src="client/app/modules/_common/img/content/ic_create_24px.svg"></md-icon>
                             <md-tooltip>{{'button.edit' | translate}}</md-tooltip>
                         </md-button>
@@ -40,11 +42,13 @@
                                 aria-label="{{'string.activate_deactivate' | translate}}"
                                 ng-model="item.enabled"
                                 ng-click="vm.activateDeactivate(item)"
+                                ng-show="sCtrl.can.updateRole()"
                         >
                         </md-checkbox>
 
                         <md-button class="md-secondary md-icon-button" aria-label="{{'button.delete' | translate}}"
-                                   ng-click="vm.remove(item.id)">
+                                   ng-click="vm.remove(item.id)"
+                                   ng-show="sCtrl.can.deleteRole()">
                             <md-icon md-svg-src="client/app/modules/_common/img/action/ic_delete_24px.svg"></md-icon>
                             <md-tooltip>{{'button.delete' | translate}}</md-tooltip>
                         </md-button>

@@ -112,7 +112,9 @@
                     vm.wizard.canToogleSingleEntityMode = configSrv.config.multiEntity && vm.wizard.entities.length > 1;
                     //user is associated to only one entity
                     if (vm.wizard.entities.length === 1) {
-                        _loadAssignedRoles(vm.id, vm.wizard.entities[0]['id']);
+                        if (angular.isDefined(vm.id)) {
+                            _loadAssignedRoles(vm.id, vm.wizard.entities[0]['id']);
+                        }
                         vm.priv.tempEntity = vm.wizard.entities[0];
                     }
                     else { //save data for the login entity

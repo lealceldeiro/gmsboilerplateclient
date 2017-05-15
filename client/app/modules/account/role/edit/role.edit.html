@@ -59,7 +59,7 @@
                 </div>
 
                 <br/>
-                <div data-ng-show="vm.permissions.all.length">
+                <div data-ng-show="vm.permissions.all.length" ng-show="sCtrl.can.readPermission()">
                     <md-button md-no-ink class="md-accent" ng-click="vm.showRoleListDialog()" >
                         {{'PERMISSIONS.view_all_available' | translate}}&nbsp;({{vm.permissions.all.length}})
                     </md-button>
