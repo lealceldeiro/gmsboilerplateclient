@@ -35,12 +35,12 @@
                             {{'USER.users' | translate}}
                         </button>
                         <md-menu-content>
-                            <md-menu-item ng-show="sCtrl.can.createOwnedEntity()">
+                            <md-menu-item ng-show="sCtrl.can.createUser()">
                                 <md-button ng-click="sCtrl.go('/admin/users/new')">
                                     {{'USER.new' | translate}}
                                 </md-button>
                             </md-menu-item>
-                            <md-menu-divider ng-show="sCtrl.can.createOwnedEntity() && sCtrl.can.readUser()"></md-menu-divider>
+                            <md-menu-divider ng-show="sCtrl.can.createUser() && sCtrl.can.readUser()"></md-menu-divider>
                             <md-menu-item ng-show="sCtrl.can.readUser()">
                                 <md-button ng-click="sCtrl.go('/admin/users')">
                                     {{'USER.list' | translate}}

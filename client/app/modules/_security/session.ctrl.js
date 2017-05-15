@@ -36,13 +36,13 @@
             conf: function () { return (has(up.MANAGE_CONFIGURATION)) },
 
             manageOwnedEntity: function () { return has(up.MANAGE_OWNED_ENTITY) || vm.wizard.show.createOwnedEntity() || vm.wizard.show.readOwnedEntity() },
-            readOwnedEntity:   function () { return has(up.READ_OWNED_ENTITY) },
+            readOwnedEntity:   function () { return has([up.READ_OWNED_ENTITY, up.READ_ALL_OWNED_ENTITY], true) },
             createOwnedEntity: function () { return has(up.CREATE_OWNED_ENTITY) },
             updateOwnedEntity: function () { return has(up.UPDATE_OWNED_ENTITY) },
             deleteOwnedEntity:  function () { return has(up.DELETE_OWNED_ENTITY) },
 
             manageUser: function () { return has(up.MANAGE_USER) || vm.wizard.show.createUser() || vm.wizard.show.readUser() },
-            readUser:   function () { return has(up.READ_USER) },
+            readUser:   function () { return has([up.READ_USER, up.READ_ALL_USER], true) },
             createUser: function () { return has(up.CREATE_USER) },
             updateUser: function () { return has(up.UPDATE_USER) },
             deleteUser:  function () { return has(up.DELETE_USER) },
@@ -141,8 +141,26 @@
             }
         }
 
-        function has(permission) {
-            return vm.wizard.permissions && vm.wizard.permissions.indexOf(permission) !== -1;
+        function has(permissions, or) {
+            if (vm.wizard.permissions) {
+                if (angular.isArray(permissions)) {
+                    var x = permissions.length - 1;
+                    while (x >= 0) {
+                        if (or) {
+                            if (vm.wizard.permissions.indexOf(permissions[x--]) !== -1) {
+                                return true
+                            }
+                        }
+                        else {
+                            if (vm.wizard.permissions.indexOf(permissions[x--]) === -1) {
+                                return false
+                            }
+                        }
+                    }
+                    return !or
+                }
+                else return vm.wizard.permissions.indexOf(permissions) !== -1;
+            }
         }
 
     };
