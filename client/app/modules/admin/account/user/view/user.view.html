@@ -52,6 +52,11 @@
                 </div>
                 <div flex="95">
                     <md-chips ng-model="vm.roles.all" readonly="true">
+                        <md-chip-template>
+                                <span>
+                                  <strong>{{$chip.label}}</strong>
+                                </span>
+                        </md-chip-template>
                     </md-chips>
                 </div>
             </div>
@@ -94,6 +99,11 @@
                     </div>
                     <div flex="95">
                         <md-chips ng-model="vm.roles.all" readonly="true">
+                            <md-chip-template>
+                                <span>
+                                  <strong>{{$chip.label}}</strong>
+                                </span>
+                            </md-chip-template>
                         </md-chips>
                     </div>
                 </div>

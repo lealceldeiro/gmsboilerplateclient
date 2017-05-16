@@ -19,10 +19,11 @@
             roles: {
                 itemsPerPage: 5,
                 total: 0,
-                offset: 0
+                offset: 0,
+                allData: []
             },
 
-            rolesToShow: [],
+            rolesWithEntities: [],
 
             init: fnInit,
             cancel: fnCancel,
@@ -77,7 +78,7 @@
                         _loadRoles(id, vm.wizard.entities[0]['id']);
                     }
                     else {
-                        fnSelectEntity(vm.wizard.entities[0]);
+                        fnSelectEntity(searchSrv.find(vm.wizard.entities, 'id', sessionSrv.loginEntity().id) || vm.wizard.entities[0]);
                     }
                 }
             });
@@ -97,7 +98,7 @@
                         translatorSrv.setText('string.message.delete', aux, 'messageText',
                             {element: aux['thisEntity'], GENDER: 'male'});
                         $timeout(function () {
-                            _showRequesForDeleting(dialogSrv.type.QUESTION, aux['btnText'], aux['headline'], aux['messageText'])
+                            _showRequestForDeleting(dialogSrv.type.QUESTION, aux['btnText'], aux['headline'], aux['messageText'])
                         });
                     }
                 );
@@ -106,12 +107,12 @@
                 vm.toRemoveProfile = true;
                 translatorSrv.setText('USER.delete_account', aux, 'messageText');
                 $timeout(function () {
-                    _showRequesForDeleting(dialogSrv.type.WARNING, aux['btnText'], aux['headline'], aux['messageText'])
+                    _showRequestForDeleting(dialogSrv.type.WARNING, aux['btnText'], aux['headline'], aux['messageText'])
                 });
             }
         }
 
-        function _showRequesForDeleting(qType, removeBtnText, headline, message){
+        function _showRequestForDeleting(qType, removeBtnText, headline, message){
             var buttons = [{text: removeBtnText, function: _doRemove, primary: true}];
             dialogSrv.showDialog(qType, headline, message, buttons);
         }
@@ -144,7 +145,7 @@
 
         function _loadRoles(id, eid, doNotBlockUI) {
             if (!doNotBlockUI) { blockSrv.setIsLoading(vm.wizard.roles, true); }
-            vm.wizard.roles.all = [];
+            vm.wizard.roles.all = []; //all roles assigned to this user in this entity (eid)
             vm.wizard.roles.total = 0;
             var fnKey2 = keyP + "_loadRoles";
 
@@ -152,9 +153,11 @@
                 function (data) {
                     var e = systemSrv.eval(data, fnKey2, false, true);
                     if (e) {
-                        var items = systemSrv.getItems(fnKey2);
-                        for(var i = 0, l = items.length; i < l; i++){
-                            vm.wizard.roles.all.push(items[i].label);
+                        vm.wizard.roles.all = systemSrv.getItems(fnKey2);
+                        for (var x = vm.wizard.roles.all.length - 1; x >= 0; x--){
+                            if(searchSrv.indexOf(vm.wizard.roles.allData, 'id', vm.wizard.roles.all[x]['id']) === -1) {
+                                vm.wizard.roles.allData.push(vm.wizard.roles.all[x]);
+                            }
                         }
                         vm.wizard.roles.total = systemSrv.getTotal(fnKey2);
                     }
@@ -167,23 +170,23 @@
         function fnSelectEntity(eParam) {
             if (vm.wizard.selectedEntity) {
                 //save previously selected or removed roles
-                var prevEntity = searchSrv.find(vm.wizard.rolesToShow, 'entity', vm.wizard.selectedEntity.id);
+                var prevEntity = searchSrv.find(vm.wizard.rolesWithEntities, 'entity', vm.wizard.selectedEntity.id);
                 var tempRoles = [];
-                angular.forEach(vm.wizard.roles.selected, function (r) {
+                angular.forEach(vm.wizard.roles.all, function (r) {
                     tempRoles.push(r.id)
                 });
                 if (prevEntity) {
                     prevEntity.roles = tempRoles;
                 }
                 else {
-                    vm.wizard.rolesToShow.push({entity: vm.wizard.selectedEntity.id, roles: tempRoles})
+                    vm.wizard.rolesWithEntities.push({entity: vm.wizard.selectedEntity.id, roles: tempRoles})
                 }
             }
             if (eParam) {
                 vm.wizard.selectedEntity = Object.assign(eParam);
-                var currentEntity = searchSrv.find(vm.wizard.rolesToShow, 'entity', eParam.id);
+                var currentEntity = searchSrv.find(vm.wizard.rolesWithEntities, 'entity', eParam.id);
                 if (currentEntity) {
-                    vm.wizard.roles.selected = searchSrv.findCollection(vm.wizard.roles.all, 'id', currentEntity.roles);
+                    vm.wizard.roles.all = searchSrv.findCollection(vm.wizard.roles.allData, 'id', currentEntity.roles);
                 } else {
                     return _loadRoles(vm.id, vm.wizard.selectedEntity.id, false);
                 }
