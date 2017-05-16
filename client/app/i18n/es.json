@@ -98,6 +98,8 @@
   "PERMISSIONS.list": "Ver listado de permisos",
   "PERMISSIONS.view_all_available": "Ver todos los permisos disponibles",
   "PERMISSIONS.select_permissions": "Selecciona los permisos",
+  "PERMISSIONS.select_permissions_required": "Los permisos son obligatorios",
+  "PERMISSIONS.remove_this": "Quitar este permiso",
 
   "CONFIGURATION.configuration": "Configuración",
   "CONFIGURATION.parameters": "Parámetros",

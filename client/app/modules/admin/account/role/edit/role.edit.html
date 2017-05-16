@@ -30,37 +30,26 @@
 
 
                 <!--permissions-->
-                <div layout="row" data-ng-controller="chipCtrl as chipCtrl" data-ng-if="vm.permissions.all.length">
-                    <div flex="3" layout="center center">
+                <div layout="column" data-ng-if="vm.permissions.all.length">
+                    <md-input-container class="md-icon-float md-block">
+                        <label>{{'PERMISSIONS.permissions' | translate}}</label>
                         <md-icon md-svg-src="client/app/modules/_common/img/action/ic_verified_user_24px.svg"></md-icon>
-                    </div>
-                    <span flex></span>
-                    <div flex="95">
-                        <md-chips ng-model="vm.permissions.selected" md-autocomplete-snap
-                                  md-transform-chip="chipCtrl.transformChip($chip)"
-                                  md-require-match="true"
-                                  md-separator-keys="chipCtrl.separatorKeys">
-                            <md-autocomplete
-                                    md-min-length="0"
-                                    md-selected-item="chipCtrl.selectedChip"
-                                    md-search-text="vm.pSearchText"
-                                    md-items="item in vm.permissions.all"
-                                    md-item-text="item.label"
-                                    placeholder="{{'PERMISSIONS.select_permissions' | translate}}">
-                                <span md-highlight-text="vm.pSearchText">{{item.label | caser}}</span>
-                            </md-autocomplete>
-                            <md-chip-template>
-                            <span>
-                              <strong>{{$chip.label | caser}}</strong>
-                            </span>
-                            </md-chip-template>
-                        </md-chips>
-                    </div>
+                        <md-select ng-model="vm.permissions.selected" multiple name="permissions" required>
+                            <md-optgroup ng-repeat="cat in vm.permissionsCaterories" label="{{cat}}">
+                                <md-option ng-value="item" ng-repeat="item in vm.permissions.all | filter: {category: cat}">{{item.label}}</md-option>
+                            </md-optgroup>
+                        </md-select>
+                        <div ng-messages="editRoleForm.permissions.$error" md-auto-hide="false">
+                            <div ng-message="required">
+                                {{'PERMISSIONS.select_permissions_required' | translate}}
+                            </div>
+                        </div>
+                    </md-input-container>
                 </div>
 
                 <br/>
                 <div data-ng-show="vm.permissions.all.length" ng-show="sCtrl.can.readPermission()">
-                    <md-button md-no-ink class="md-accent" ng-click="vm.showRoleListDialog()" >
+                    <md-button md-no-ink class="md-accent" ng-click="vm.loadPermissionsList(true)" >
                         {{'PERMISSIONS.view_all_available' | translate}}&nbsp;({{vm.permissions.all.length}})
                     </md-button>
                 </div>

@@ -7,10 +7,9 @@
     'use strict';
 
     var roleEditCtrl = function (indexSrv, roleSrv, navigationSrv, ROUTE, systemSrv, notificationSrv, blockSrv,
-                                 permissionSrv, dialogSrv, $filter, translatorSrv, $timeout) {
+                                 permissionSrv, dialogSrv, $filter, translatorSrv, $timeout, searchSrv, $scope) {
         var vm = this;
         const keyP = 'ADMIN_ROLE_EDIT';
-        var permissionsTabTitles = null;
         var permissionsTabContents = null;
 
         vm.wizard = {
@@ -31,10 +30,7 @@
             init: fnInit,
             cancel: fnCancel,
             save: fnSave,
-
-            searchPermissions: fnSearchPermissions,
-
-            showRoleListDialog: fnShowRoleListDialog
+            loadPermissionsList: fnLoadPermissionsList
         };
 
         vm.wizard.init();
@@ -44,14 +40,15 @@
         //fn
         function fnInit() {
             if (navigationSrv.currentPath() === ROUTE.ADMIN_ROLE_NEW) {
+                fnLoadPermissionsList();
                 translatorSrv.setText('ROLE.new', indexSrv, 'siteTile');
-                _loadPermissions();
             }
             else {
                 vm.wizard.role = null;
                 var p = navigationSrv.currentParams();
                 if (p && null !== p.id && typeof p.id !== 'undefined' && p.id !== 'undefined'&& p.id !== 'null') {
                     vm.id = p.id;
+                    fnLoadPermissionsList(false, true);
                     fnLoadData(p.id);
                     translatorSrv.setText('ROLE.edit', indexSrv, 'siteTile');
                 }
@@ -75,7 +72,6 @@
                     blockSrv.setIsLoading(vm.wizard.roleData);
                 }
             );
-            _loadPermissionsInitial(id);
         }
 
         function fnSave(form) {
@@ -112,85 +108,72 @@
             navigationSrv.goTo(ROUTE.ADMIN_ROLES);
         }
 
-        function _loadPermissions(criteria) {
-            if (!criteria) {
-                criteria = vm.wizard['PerSearchTerm'];
-            }
-            vm.wizard.permissions.all = [];
-
-            var fnKey = keyP + "_loadPermissions";
-
-            permissionSrv.search(0, 0, criteria).then(
-                function (data) {
-                    var e = systemSrv.eval(data, fnKey, false, true);
-                    if (e) {
-                        vm.wizard.permissions.all = systemSrv.getItems(fnKey);
-                    }
-                }
-            )
-        }
-
-        function _loadPermissionsInitial(id, criteria) {
-            vm.wizard.permissions.all = [];
+        function _loadUserPermissions(criteria) {
             var fnKey = keyP + "_loadPermissionsInitial";
 
-            roleSrv.permissionsByUser(id, 0).then(
+            roleSrv.permissionsByUser(vm.id, 0).then(
                 function (data) {
                     var fnKey2 = fnKey + "2";
                     var e = systemSrv.eval(data, fnKey2, false, true);
                     if (e) {
-                        vm.wizard.permissions.selected = systemSrv.getItems(fnKey2);
-
-                        permissionSrv.search(0, 0, criteria).then( //zero for avoiding issue with ui-select filtering
-                            function (data) {
-                                e = systemSrv.eval(data, fnKey, false, true);
-                                if (e) {
-                                    vm.wizard.permissions.all = systemSrv.getItems(fnKey);
-                                }
+                        var userP = systemSrv.getItems(fnKey2),
+                            idx,
+                            auxP = [];
+                        for(var vp = userP.length - 1; vp >= 0; vp--){
+                            idx = searchSrv.indexOf(vm.wizard.permissions.all, 'id', userP[vp]['id']);
+                            if (idx !== -1) {
+                                auxP.push(vm.wizard.permissions.all[idx]);
                             }
-                        )
+                            else {
+                                auxP.push(userP[vp])
+                            }
+                        }
                     }
+                    vm.wizard.permissions.selected = auxP;
+                    $timeout(function () { $scope.$apply(); })
                 }
             );
         }
 
 
-        function fnSearchPermissions(criteria) {
-            _loadPermissions(criteria);
-        }
-
-        function fnShowRoleListDialog() {
-            if (!permissionsTabTitles) {
+        function fnLoadPermissionsList(show, loadAssignedToUsers) {
+            if (!vm.wizard.permissionsCaterories) {
                 var fnKey = keyP + "_loadPermissions-fnShowRoleListDialog";
-
+                vm.wizard.permissions.all = [];
                 permissionSrv.search(0, 0).then(
                     function (data) {
                         var e = systemSrv.eval(data, fnKey, false, true);
                         if (e) {
-                            permissionsTabTitles = [];
+                            vm.wizard.permissionsCaterories = [];
                             permissionsTabContents = [];
-                            var aux = systemSrv.getItems(fnKey);
-                            var name, idx, label;
+                            var allPermissions = systemSrv.getItems(fnKey);
+                            var name, idx, label, iPermission;
 
-                            for(var i = 0, l = aux.length; i < l; i++){
-                                name = aux[i].name.substring(aux[i].name.indexOf("__") + 2, aux[i].name.length);
+                            for(var i = 0, l = allPermissions.length; i < l; i++){
+                                iPermission = allPermissions[i];
+                                name = iPermission.name.substring(iPermission.name.indexOf("__") + 2, iPermission.name.length);
                                 if (name.length > 1) {
-                                    idx = permissionsTabTitles.indexOf(name);
-                                    label = $filter('caser')(aux[i].label);
+                                    idx = vm.wizard.permissionsCaterories.indexOf(name);
+                                    label = $filter('caser')(iPermission.label);
                                     if (idx === -1) {
-                                        permissionsTabTitles.push(name);
-                                        permissionsTabContents[permissionsTabTitles.length - 1] = label;
+                                        vm.wizard.permissionsCaterories.push(name);
+                                        permissionsTabContents[vm.wizard.permissionsCaterories.length - 1] = label;
                                     }
                                     else{
                                         permissionsTabContents[idx] += "<br/>" + "<br/>" + label;
                                     }
                                 }
+                                iPermission['category'] = name;
+                                vm.wizard.permissions.all.push(iPermission);
                             }
-                            __show();
+                            if(show) __show();
+                        }
+                        if (loadAssignedToUsers) {
+                            _loadUserPermissions()
                         }
                     }
                 )
-            } else{ __show(); }
+            } else if(show){ __show(); }
         }
 
         function __show() {
@@ -198,7 +181,7 @@
             translatorSrv.setText('PERMISSIONS.permissions', aux, 'permissionsText');
             $timeout(function () {
                 dialogSrv.showTabDialog(dialogSrv.type.INFO, aux['permissionsText'] + " (" + vm.wizard.permissions.all.length + ")",
-                    permissionsTabTitles, permissionsTabContents);
+                    vm.wizard.permissionsCaterories, permissionsTabContents);
             });
         }
 
@@ -206,6 +189,6 @@
 
     angular.module('gmsBoilerplate')
         .controller('roleEditCtrl', ['indexSrv', 'roleSrv', 'navigationSrv', 'ROUTE', 'systemSrv', 'notificationSrv', 'blockSrv',
-            'permissionSrv', 'dialogSrv', '$filter', 'translatorSrv', '$timeout', roleEditCtrl]);
+            'permissionSrv', 'dialogSrv', '$filter', 'translatorSrv', '$timeout', 'searchSrv', '$scope', roleEditCtrl]);
 
 })();

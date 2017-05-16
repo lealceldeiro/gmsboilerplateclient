@@ -249,8 +249,6 @@ var searchSrv = function () {
 
 };
 
-searchSrv.$inject = [];
-
 angular
     .module('gmsBoilerplate')
     .service('searchSrv', searchSrv);
