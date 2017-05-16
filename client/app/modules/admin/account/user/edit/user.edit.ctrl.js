@@ -281,7 +281,12 @@
                     function (data) {
                         var e = systemSrv.eval(data, fnKey, false, true);
                         if (e) {
-                            vm.wizard.roles.selected = systemSrv.getItems(fnKey);
+                            var rolesAux = systemSrv.getItems(fnKey),
+                                rolesAuxIDs = [];
+                            angular.forEach(rolesAux, function (r) {
+                                rolesAuxIDs.push(r['id']);
+                            });
+                            vm.wizard.roles.selected = searchSrv.findCollection(vm.wizard.roles.all, 'id', rolesAuxIDs);
                         }
                         vm.priv.tryLoadRoles = 0;
                         return data;

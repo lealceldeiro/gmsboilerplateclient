@@ -140,34 +140,17 @@
             </div>
 
             <!--Roles when single Entity-->
-            <div class="m-left-m-10px" flex="100" layout="row" data-ng-controller="chipCtrl as chipCtrl"
-                 data-ng-if="vm.roles.all.length && vm.entities.length === 1 || vm.singleEntityMode">
-                <div flex="5" layout="center start">
+            <div layout="row" flex="100" data-ng-if="vm.roles.all.length && vm.entities.length === 1 || vm.singleEntityMode">
+                <md-input-container class="md-icon-float md-block" flex="100" >
+                    <label>{{'ROLE.roles' | translate}}</label>
                     <md-icon md-svg-src="client/app/modules/_common/img/social/ic_group_24px.svg"></md-icon>
-                </div>
-                <div flex="95">
-                    <md-chips ng-model="vm.roles.selected" md-autocomplete-snap
-                              md-transform-chip="chipCtrl.transformChip($chip)"
-                              md-require-match="true"
-                              md-separator-keys="chipCtrl.separatorKeys">
-                        <md-autocomplete
-                                md-min-length="0"
-                                md-selected-item="chipCtrl.selectedChip"
-                                md-search-text="vm.pSearchText"
-                                md-items="item in vm.roles.all"
-                                md-item-text="item.label"
-                                placeholder="{{'ROLE.select_roles' | translate}}">
-                            <span md-highlight-text="vm.pSearchText">{{item.label}}</span>
-                        </md-autocomplete>
-                        <md-chip-template>
-                                <span>
-                                  <strong>{{$chip.label}}</strong>
-                                </span>
-                        </md-chip-template>
-                    </md-chips>
-                </div>
+                    <md-select ng-model="vm.roles.selected" multiple>
+                        <md-optgroup>
+                            <md-option ng-value="item" ng-repeat="item in vm.roles.all">{{item.label}}</md-option>
+                        </md-optgroup>
+                    </md-select>
+                </md-input-container>
             </div>
-
         </div>
 
         <!--vm.entities.length > 1: select roles for many entities at the time-->
@@ -193,34 +176,17 @@
                 </md-virtual-repeat-container>
             </div>
             <!--Roles-->
-            <div flex="50">
-                <div class="m-left-m-10px" flex="100" layout="row" data-ng-controller="chipCtrl as chipCtrl"
-                     data-ng-if="vm.roles.all.length && vm.entities.length > 1">
-                    <div flex="5" layout="center start">
-                        <md-icon md-svg-src="client/app/modules/_common/img/social/ic_group_24px.svg"></md-icon>
-                    </div>
-                    <div flex="95">
-                        <md-chips ng-model="vm.roles.selected" md-autocomplete-snap
-                                  md-transform-chip="chipCtrl.transformChip($chip)"
-                                  md-require-match="true"
-                                  md-separator-keys="chipCtrl.separatorKeys">
-                            <md-autocomplete
-                                    md-min-length="0"
-                                    md-selected-item="chipCtrl.selectedChip"
-                                    md-search-text="vm.pSearchText"
-                                    md-items="item in vm.roles.all"
-                                    md-item-text="item.label"
-                                    placeholder="{{'ROLE.select_roles' | translate}}">
-                                <span md-highlight-text="vm.pSearchText">{{item.label}}</span>
-                            </md-autocomplete>
-                            <md-chip-template>
-                                <span>
-                                  <strong>{{$chip.label}}</strong>
-                                </span>
-                            </md-chip-template>
-                        </md-chips>
-                    </div>
-                </div>
+            <div flex="50" layout="row" data-ng-if="vm.roles.all.length && vm.entities.length > 1">
+
+                <md-input-container class="md-icon-float md-block" flex="100" >
+                    <label>{{'ROLE.roles' | translate}}</label>
+                    <md-icon md-svg-src="client/app/modules/_common/img/social/ic_group_24px.svg"></md-icon>
+                    <md-select ng-model="vm.roles.selected" multiple>
+                        <md-optgroup>
+                            <md-option ng-value="item" ng-repeat="item in vm.roles.all">{{item.label}}</md-option>
+                        </md-optgroup>
+                    </md-select>
+                </md-input-container>
             </div>
         </div>
 

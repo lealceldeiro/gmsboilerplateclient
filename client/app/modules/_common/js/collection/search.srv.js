@@ -67,7 +67,7 @@ var searchSrv = function () {
     }
 
     /**
-     * Finds an elements in a collection of objects. It must be provided a key-value pair or an object to match
+     * Finds a collection of elements in a collection of objects. It must be provided a key-value pair or an object to match
      * against every object in the collection.
      * @param collection Collection of object where the object will be searched in.
      * @param key [Optional] Object's key to search for.
