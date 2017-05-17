@@ -65,19 +65,19 @@ var f = function (systemSrv, $http, valueSrv, baseSrv, ownedEntitySrv) {
     }
 
     function fnGetByUsername(username) {
-        var def = $http.get(url + "get/" + username);
+        var def = $http.get(url + "get?username=" + username);
         return baseSrv.resolveDeferred(def);
     }
 
     function fnGetByEmail(email) {
-        var def = $http.get(url + "email/" + email);
+        var def = $http.get(url + "get?email=" + email);
         return baseSrv.resolveDeferred(def);
     }
 
     function fnSave(params, id) {
         var mUrl = url;
 
-        if (typeof id !== 'undefined' && id != null && !isNaN(id)) {//update?
+        if (typeof id !== 'undefined' && id !== null && !isNaN(id)) {//update?
             mUrl = url + id ;
             var def = $http.post(mUrl, params);
         }
