@@ -310,7 +310,9 @@
                     vm.wizard.roles.selected = searchSrv.findCollection(vm.wizard.roles.all, 'id', prevEntity.roles);
                 }
                 else {
-                    _loadAssignedRoles(vm.id, sessionSrv.loginEntity().id);
+                    if (angular.isDefined(vm.id)) {
+                        _loadAssignedRoles(vm.id, sessionSrv.loginEntity().id);
+                    }
                 }
             }
             else if (vm.wizard.entities.length > 1){
@@ -375,7 +377,9 @@
                 if (currentEntity) {
                     vm.wizard.roles.selected = searchSrv.findCollection(vm.wizard.roles.all, 'id', currentEntity.roles);
                 } else {
-                    return _loadAssignedRoles(vm.id, vm.wizard.selectedEntity.id);
+                    if (angular.isDefined(vm.id)) {
+                        return _loadAssignedRoles(vm.id, vm.wizard.selectedEntity.id);
+                    }
                 }
             }
         }
