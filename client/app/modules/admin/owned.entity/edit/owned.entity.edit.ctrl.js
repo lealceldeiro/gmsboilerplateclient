@@ -89,7 +89,7 @@
         }
 
         function fnCancel() {
-            navigationSrv.goTo(ROUTE.ADMIN_OWNED_ENTITY);
+            navigationSrv.back({':id': vm.id});
         }
 
         function fnCheckUsername() {

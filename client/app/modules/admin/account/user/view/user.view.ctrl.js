@@ -145,7 +145,7 @@
         }
 
         function fnCancel() {
-            navigationSrv.back();``
+            navigationSrv.back({':id': vm.id});
         }
 
         function fnEdit() {

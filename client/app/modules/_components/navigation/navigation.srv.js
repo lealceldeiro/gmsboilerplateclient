@@ -6,7 +6,7 @@
 
 'use strict';
 
-var navigationSrv = function ($location, $route, ROUTE, $window, stringSrv) {
+var navigationSrv = function ($location, $route, ROUTE, $window, stringSrv, $rootScope, BROADCAST) {
     var vm = this;
 
 
@@ -56,13 +56,13 @@ var navigationSrv = function ($location, $route, ROUTE, $window, stringSrv) {
         return $route && $route.current ? $route.current.params : null;
     }
 
-    function fnBack() {
-        $window.history.back();
+    function fnBack(params) {
+        $rootScope.$broadcast(BROADCAST.navigation.GO_BACK, params)
     }
 
 };
 
-navigationSrv.$inject = ['$location', '$route', 'ROUTE', '$window', 'stringSrv'];
+navigationSrv.$inject = ['$location', '$route', 'ROUTE', '$window', 'stringSrv', '$rootScope', 'BROADCAST'];
 
 angular.module('gmsBoilerplate')
     .service('navigationSrv', navigationSrv);

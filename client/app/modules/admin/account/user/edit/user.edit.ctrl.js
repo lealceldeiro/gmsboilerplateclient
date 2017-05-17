@@ -237,7 +237,7 @@
         }
 
         function fnCancel() {
-            navigationSrv.goTo(ROUTE.ADMIN_USERS);
+            navigationSrv.back({':id': vm.id});
         }
 
         function fnCheckPasswordMatch() {

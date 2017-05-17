@@ -105,7 +105,7 @@
         }
 
         function fnCancel() {
-            navigationSrv.goTo(ROUTE.ADMIN_ROLES);
+            navigationSrv.back({':id': vm.id});
         }
 
         function _loadUserPermissions(criteria) {

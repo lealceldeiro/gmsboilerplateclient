@@ -44,6 +44,9 @@
                     UNAUTHORIZED_BACKWARD: 'UNAUTHORIZED_BACKWARD'
 
                 },
+                navigation: {
+                    GO_BACK: 'NAVIGATION_GO_BACK'
+                },
                 modal: {
                     SHOW_DIALOG_TAB: 'SHOW_DIALOG_TAB',
                     SHOW_DIALOG: 'SHOW_DIALOG'

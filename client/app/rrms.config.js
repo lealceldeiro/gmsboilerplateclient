@@ -7,7 +7,7 @@
     'use strict';
 
     var runConfig = function ($rootScope, sessionSrv, navigationSrv, __env, errorSrv, translatorSrv) {
-        var prevRoute, params;
+        var prevRoute, currentRoute, params;
 
         $rootScope.$on('$routeChangeStart', function (event, next, data) {
             if (next && next['$$route']) {
@@ -42,7 +42,6 @@
                 }
 
                 if (route) {
-                    prevRoute = route;
                     params = next['params'];
 
                     //trying to access to login page after logged in?...redirect to main
@@ -81,6 +80,15 @@
             }
         }
 
+        $rootScope.$on('$routeChangeSuccess', function (event, prev, data) {
+            if (prev && prev['$$route']) {
+                if (currentRoute) {
+                    prevRoute = currentRoute;
+                }
+                currentRoute = prev['$$route']['originalPath'];
+            }
+        });
+
         //triggered when a new token was retrieved since the old one expired, so we need to refresh the last requested
         //view, since it wasn't resolved due to the forbidden backend response
         $rootScope.$on('UNAUTHORIZED_BACKWARD', function () {
@@ -92,6 +100,22 @@
                 else { navigationSrv.goTo(prevRoute); }
             }
             else { navigationSrv.goTo(navigationSrv.DEFAULT_PATH); }
+        });
+
+        $rootScope.$on('NAVIGATION_GO_BACK', function (event, data) {
+            if (prevRoute) {
+                var placeholder = [],
+                values = [];
+                if(data) {
+                    for(var k in data){
+                        if (data.hasOwnProperty(k) && (data[k] || data[k] === 0)) {
+                            placeholder.push(k);
+                            values.push(data[k]);
+                        }
+                    }
+                }
+                navigationSrv.goTo(prevRoute, placeholder, values);
+            }
         });
 
     };
