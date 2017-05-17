@@ -22,6 +22,7 @@
                 ADMIN_USER_EDIT: '/admin/users/:id/edit', ADMIN_USER_EDIT_PL: ':id',
                 ADMIN_USER_NEW: '/admin/users/new',
                 ADMIN_USER_VIEW: '/admin/users/:id/view', ADMIN_USER_VIEW_PL: ':id',
+                USER_PROFILE: '/profile',
 
                 ADMIN_OWNED_ENTITY: '/admin/owned-entities',
                 ADMIN_OWNED_ENTITY_EDIT: '/admin/owned-entities/:id/edit', ADMIN_OWNED_ENTITY_EDIT_PL: ':id',

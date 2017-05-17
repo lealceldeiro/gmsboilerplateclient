@@ -75,6 +75,7 @@
   "USER.new": "New user",
   "USER.edit": "Edit user",
   "USER.view": "View user",
+  "USER.profile": "My profile",
   "USER.list": "View users list",
   "USER.delete_account": "Are you sure you want to delete your own account?",
   "USER.view_user_on_entity": "View only users who are associate to the current entity",

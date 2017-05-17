@@ -87,7 +87,7 @@
         }
 
         function fnGetByUsername(username) {
-            var def = $http.get(url + "get/" + username);
+            var def = $http.get(url + "get?username=" + username);
             return baseSrv.resolveDeferred(def);
         }
     };

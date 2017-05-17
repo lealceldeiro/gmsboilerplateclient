@@ -46,7 +46,14 @@
                 fnLoadData(p.id);
                 translatorSrv.setText('USER.view', indexSrv, 'siteTile');
             }
-            else{
+            else if(navigationSrv.currentPath() === ROUTE.USER_PROFILE) {
+                vm.wizard.isProfile = true;
+                vm.id = sessionSrv.currentUser().id;
+                fnLoadData(vm.id);
+                translatorSrv.setText('USER.profile', indexSrv, 'siteTile');
+            }
+
+            else {
                 notificationSrv.showNotification(notificationSrv.type.WARNING, notificationSrv.utilText.select_element_required);
                 navigationSrv.goTo(ROUTE.ADMIN_USERS);
             }
@@ -66,22 +73,24 @@
                 }
             );
 
-            var fnKey2 = keyP + "fnLoadData-entitiesByUser";
-            userSrv.entitiesByUser(id, 0, 0).then(function (data) {
-                vm.wizard.entities = [];
-                var e = systemSrv.eval(data, fnKey2, false, true);
-                if (e) {
-                    vm.wizard.entities = systemSrv.getItems(fnKey2);
+            if (!vm.wizard.isProfile) {
+                var fnKey2 = keyP + "fnLoadData-entitiesByUser";
+                userSrv.entitiesByUser(id, 0, 0).then(function (data) {
+                    vm.wizard.entities = [];
+                    var e = systemSrv.eval(data, fnKey2, false, true);
+                    if (e) {
+                        vm.wizard.entities = systemSrv.getItems(fnKey2);
 
-                    //user is associated to only one entity
-                    if (vm.wizard.entities.length === 1) {
-                        _loadRoles(id, vm.wizard.entities[0]['id']);
+                        //user is associated to only one entity
+                        if (vm.wizard.entities.length === 1) {
+                            _loadRoles(id, vm.wizard.entities[0]['id']);
+                        }
+                        else {
+                            fnSelectEntity(searchSrv.find(vm.wizard.entities, 'id', sessionSrv.loginEntity().id) || vm.wizard.entities[0]);
+                        }
                     }
-                    else {
-                        fnSelectEntity(searchSrv.find(vm.wizard.entities, 'id', sessionSrv.loginEntity().id) || vm.wizard.entities[0]);
-                    }
-                }
-            });
+                });
+            }
         }
 
         function fnRemove() {
@@ -136,7 +145,7 @@
         }
 
         function fnCancel() {
-            navigationSrv.goTo(ROUTE.ADMIN_USERS);
+            navigationSrv.back();``
         }
 
         function fnEdit() {

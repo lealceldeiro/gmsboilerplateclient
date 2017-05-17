@@ -94,7 +94,7 @@
 
         function fnCheckUsername() {
             vm.wizard.userTaken = false;
-            if (typeof vm.id === 'undefined' || vm.id === null) {
+            if (typeof vm.id === 'undefined' || vm.id === null && typeof vm.wizard.entity.username !== 'undefined' && vm.wizard.entity.username !== null) {
                 var fnKey = keyP + "fnCheckUsername";
                 ownedEntitySrv.getByUsername(vm.wizard.entity.username).then(
                     function (data) {

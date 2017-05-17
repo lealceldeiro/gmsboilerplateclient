@@ -46,7 +46,7 @@
 
             <!--Roles when single Entity-->
             <div class="m-left-m-10px" flex="100" layout="row" data-ng-controller="chipCtrl as chipCtrl"
-                 data-ng-if="vm.roles.all.length && vm.entities.length === 1">
+                 data-ng-if="!vm.isProfile && vm.roles.all.length && vm.entities.length === 1">
                 <div flex="5" layout="center start">
                     <md-icon md-svg-src="client/app/modules/_common/img/social/ic_group_24px.svg"></md-icon>
                 </div>
@@ -68,7 +68,7 @@
         </div>
 
         <!--vm.entities.length > 1: select roles for many entities at the time-->
-        <div data-ng-if="vm.entities.length > 1" layout="row" layout-padding layout-wrap
+        <div data-ng-if="!vm.isProfile && vm.entities.length > 1" layout="row" layout-padding layout-wrap
              class="p-t-0">
             <!--OwnedEntity-->
             <div flex="50">
@@ -121,10 +121,10 @@
     <md-button class="md-primary md-raised" ng-click="vm.cancel()">
         {{'button.back' | translate}}
     </md-button>
-    <md-button class="md-accent md-raised" ng-click="vm.edit()">
+    <md-button class="md-accent md-raised" ng-click="vm.edit()" ng-show="sCtrl.can.updateUser()">
         {{'button.edit' | translate}}
     </md-button>
-    <md-button class="md-warn md-raised" ng-click="vm.remove()">
+    <md-button class="md-warn md-raised" ng-click="vm.remove()" ng-show="sCtrl.can.deleteUser()">
         {{'button.delete' | translate}}
     </md-button>
 

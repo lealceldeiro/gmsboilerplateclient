@@ -75,6 +75,7 @@
   "USER.new": "Nuevo usuario",
   "USER.edit": "Editar usuario",
   "USER.view": "Ver usuario",
+  "USER.profile": "Mi perfil",
   "USER.list": "Ver listado de usuarios",
   "USER.delete_account": "¿Confirmas que deseas borrar tu cuenta?",
   "USER.view_user_on_entity": "Ver solo usuarios asociados a la entidad actual",

@@ -116,6 +116,15 @@
                     }
                 }
             )
+            .when(ROUTE.USER_PROFILE,{
+                    templateUrl: 'client/app/modules/admin/account/user/view/user.view.html',
+                    controller: 'userViewCtrl',
+                    controllerAs: 'vm',
+                    secured: {
+                        requiresAll: [__env.permissions.READ_PROFILE]
+                    }
+                }
+            )
             //endregion
 
             //region owned-entity

@@ -110,7 +110,7 @@
         }
 
         function fnViewProfile() {
-            navigationSrv.goTo(ROUTE.ADMIN_USER_VIEW, ROUTE.ADMIN_USER_VIEW_PL, sessionSrv.currentUser().id);
+            navigationSrv.goTo(ROUTE.USER_PROFILE);
         }
 
         function _loadConfig() {
